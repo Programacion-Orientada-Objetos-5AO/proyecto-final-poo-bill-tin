@@ -1,14 +1,16 @@
 package com.billetin.model;
 
-public class Ingreso {
+public class Gasto {
     private double monto;
     private String fecha;
     private String categoria;
+    private boolean fijo;
 
-    public Ingreso(double monto, String fecha, String categoria) {
+    public Gasto(double monto, String fecha, String categoria, boolean fijo) {
         this.monto = monto;
         this.fecha = fecha;
         this.categoria = categoria;
+        this.fijo = fijo;
     }
 
     public double getMonto() {
@@ -23,6 +25,10 @@ public class Ingreso {
         return categoria;
     }
 
+    public boolean isFijo() {
+        return fijo;
+    }
+
     public void setMonto(double monto) {
         this.monto = monto;
     }
@@ -33,5 +39,9 @@ public class Ingreso {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public void setFijo(boolean fijo) {
+        this.fijo = fijo;
     }
 }
