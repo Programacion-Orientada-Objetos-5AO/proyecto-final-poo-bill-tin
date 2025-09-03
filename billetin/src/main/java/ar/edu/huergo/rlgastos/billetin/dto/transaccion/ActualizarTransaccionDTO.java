@@ -1,7 +1,8 @@
 
 package ar.edu.huergo.rlgastos.billetin.dto.transaccion;
 
+import java.time.LocalDate;
 
-public record ActualizarTransaccionDTO(Double monto, String descripcion) {
+public record ActualizarTransaccionDTO(Double monto, String descripcion, LocalDate fecha) {
    
 }
