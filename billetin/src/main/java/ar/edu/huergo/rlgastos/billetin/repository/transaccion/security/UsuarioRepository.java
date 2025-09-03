@@ -1,6 +1,6 @@
-package ar.edu.huergo.rlgastos.billetin.repository;
+package ar.edu.huergo.rlgastos.billetin.repository.transaccion.security;
 
-import ar.edu.huergo.rlgastos.billetin.entity.Usuario;
+import ar.edu.huergo.rlgastos.billetin.entity.security.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
