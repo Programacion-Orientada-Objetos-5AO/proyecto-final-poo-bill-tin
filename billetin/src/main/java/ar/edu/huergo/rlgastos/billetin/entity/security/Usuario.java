@@ -11,6 +11,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import ar.edu.huergo.rlgastos.billetin.entity.Transaccion;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -59,7 +61,9 @@ public class Usuario implements UserDetails {
     )
     private Set<Rol> roles;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // NUEVA RELACIÓN CON TRANSACCIONES
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id") // FK en tabla transaccion
     private List<Transaccion> transacciones;
 
     // Implementación de UserDetails
