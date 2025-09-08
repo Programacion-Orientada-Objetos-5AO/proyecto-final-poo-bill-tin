@@ -54,7 +54,7 @@ public class JwtUtil {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList()));
                 
-        log.info("🔑 Generando token para usuario: {}", userDetails.getUsername()); // ✅ Corregido
+        log.info("Generando token para usuario: {}", userDetails.getUsername());
         
         return createToken(claims, userDetails.getUsername());
     }
@@ -66,8 +66,8 @@ public class JwtUtil {
         return Jwts.builder()
                 .setClaims(claims)                                          // Datos adicionales
                 .setSubject(subject)                                        // Username
-                .setIssuedAt(new Date(System.currentTimeMillis()))          // Fecha de creación ✅ Corregido
-                .setExpiration(new Date(System.currentTimeMillis() + expiration)) // Fecha de expiración ✅ Corregido
+                .setIssuedAt(new Date(System.currentTimeMillis()))          // Fecha de creación
+                .setExpiration(new Date(System.currentTimeMillis() + expiration)) // Fecha de expiración
                 .signWith(getSigningKey(), SignatureAlgorithm.HS512)        // Firmar con clave secreta
                 .compact();
     }
@@ -105,7 +105,7 @@ public class JwtUtil {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            log.error("❌ Error al extraer claims del token: {}", e.getMessage()); // ✅ Corregido
+            log.error("Error al extraer claims del token: {}", e.getMessage());
             throw e;
         }
     }
@@ -117,8 +117,8 @@ public class JwtUtil {
         try {
             return extractExpiration(token).before(new Date());
         } catch (Exception e) {
-            log.warn("⚠️ Error al verificar expiración del token: {}", e.getMessage()); // ✅ Corregido
-            return true; // Si hay error, consideramos el token como expirado
+            log.warn("Error al verificar expiración del token: {}", e.getMessage());
+            return true; 
         }
     }
 
@@ -135,14 +135,14 @@ public class JwtUtil {
             boolean isValid = (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
             
             if (isValid) {
-                log.debug("✅ Token válido para usuario: {}", username); // ✅ Corregido
+                log.debug("Token válido para usuario: {}", username);
             } else {
-                log.warn("❌ Token inválido para usuario: {}", username); // ✅ Corregido
+                log.warn("Token inválido para usuario: {}", username);
             }
             
             return isValid;
         } catch (Exception e) {
-            log.error("❌ Error al validar token: {}", e.getMessage()); // ✅ Corregido
+            log.error("Error al validar token: {}", e.getMessage());
             return false;
         }
     }
