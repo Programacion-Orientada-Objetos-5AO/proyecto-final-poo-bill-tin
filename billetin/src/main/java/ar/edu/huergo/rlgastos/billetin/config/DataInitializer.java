@@ -1,73 +1,45 @@
 package ar.edu.huergo.rlgastos.billetin.config;
 
-import ar.edu.huergo.rlgastos.billetin.entity.security.Rol;
-import ar.edu.huergo.rlgastos.billetin.entity.security.Usuario;
-import ar.edu.huergo.rlgastos.billetin.repository.security.transaccion.RolRepository;
-import ar.edu.huergo.rlgastos.billetin.repository.security.transaccion.UsuarioRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
-
 import java.util.Set;
 
-@Component
-@RequiredArgsConstructor
-public class DataInitializer implements CommandLineRunner {
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-    private final RolRepository rolRepository;
-    private final UsuarioRepository usuarioRepository;
-    private final PasswordEncoder passwordEncoder;
+import ar.edu.huergo.rlgastos.billetin.entity.security.Rol;
+import ar.edu.huergo.rlgastos.billetin.entity.security.Usuario;
+import ar.edu.huergo.rlgastos.billetin.repository.security.RolRepository;
+import ar.edu.huergo.rlgastos.billetin.repository.security.UsuarioRepository;
+import ar.edu.huergo.rlgastos.billetin.util.PasswordValidator;
 
-    @Override
-    public void run(String... args) throws Exception {
-        // 1. Crear roles si no existen
-        crearRoles();
-        
-        // 2. Crear usuario admin si no existe
-        crearUsuarioAdmin();
-        
-        System.out.println("✅ Datos iniciales creados!");
-        System.out.println("👤 Usuario admin creado - Username: admin, Password: admin123");
-    }
+@Configuration
+public class DataInitializer {
 
-    private void crearRoles() {
-        // Crear rol USER si no existe
-        if (rolRepository.findByNombre("USER").isEmpty()) {
-            Rol rolUser = new Rol();
-            rolUser.setNombre("USER");
-            rolUser.setDescripcion("Usuario básico del sistema");
-            rolRepository.save(rolUser);
-            System.out.println("🔧 Rol USER creado");
-        }
+    @Bean
+    CommandLineRunner initData(RolRepository rolRepository, UsuarioRepository usuarioRepository, PasswordEncoder encoder) {
+        return args -> {
+            Rol admin = rolRepository.findByNombre("ADMIN").orElseGet(() -> rolRepository.save(new Rol("ADMIN")));
+            Rol cliente = rolRepository.findByNombre("CLIENTE").orElseGet(() -> rolRepository.save(new Rol("CLIENTE")));
 
-        // Crear rol ADMIN si no existe
-        if (rolRepository.findByNombre("ADMIN").isEmpty()) {
-            Rol rolAdmin = new Rol();
-            rolAdmin.setNombre("ADMIN");
-            rolAdmin.setDescripcion("Administrador del sistema");
-            rolRepository.save(rolAdmin);
-            System.out.println("🔧 Rol ADMIN creado");
-        }
-    }
+            if (usuarioRepository.findByUsername("admin@derlgastos.billetin.edu.ar").isEmpty()) {
+                String adminPassword = "Adminsdeproyectobilletin@2026";
+                PasswordValidator.validate(adminPassword);
+                Usuario u = new Usuario("admin@derlgastos.billetin.edu.ar", encoder.encode(adminPassword));
+                u.setRoles(Set.of(admin));
+                usuarioRepository.save(u);
+            }
 
-    private void crearUsuarioAdmin() {
-        // Crear usuario admin si no existe
-        if (!usuarioRepository.existsByUsername("admin")) {
-            Usuario admin = new Usuario();
-            admin.setUsername("admin");
-            admin.setEmail("admin@billetin.com");
-            admin.setPassword(passwordEncoder.encode("admin123"));
-            admin.setNombre("Administrador");
-            admin.setApellido("Sistema");
-            admin.setEnabled(true);
-
-            // Asignar rol ADMIN
-            Rol rolAdmin = rolRepository.findByNombre("ADMIN").get();
-            admin.setRoles(Set.of(rolAdmin));
-
-            usuarioRepository.save(admin);
-            System.out.println("👤 Usuario admin creado");
-        }
+            if (usuarioRepository.findByUsername("cliente@delrgastos.billetin.edu.ar").isEmpty()) {
+                String clientePassword = "Quieromicontraseñasegura@2026";
+                PasswordValidator.validate(clientePassword);
+                Usuario u = new Usuario("cliente@delrgastos.billetin.edu.ar", encoder.encode(clientePassword));
+                u.setRoles(Set.of(cliente));
+                usuarioRepository.save(u);
+            }
+        };
     }
 }
+
+
+
