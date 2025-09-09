@@ -33,15 +33,14 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
-            // Acceso libre para login y registro
             .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
             .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar").permitAll()
             .requestMatchers(HttpMethod.GET, "/api/transacciones/**")
-                .hasAnyRole("ADMIN", "CLIENTE")
-            
-
-            .requestMatchers("/api/transacciones/**")
-                .hasRole("ADMIN")
+            .hasAnyRole("ADMIN", "CLIENTE").requestMatchers("/api/transacciones/**")
+            .hasRole("ADMIN").requestMatchers(HttpMethod.POST, "/api/transacciones/**")
+            .hasRole("ADMIN").requestMatchers(HttpMethod.PUT, "/api/transacciones/**")
+            .hasRole("ADMIN").requestMatchers(HttpMethod.DELETE, "/api/transacciones/**")
+            .hasRole("ADMIN")
             .anyRequest().authenticated()
         )
         .exceptionHandling(exceptions -> exceptions
