@@ -31,7 +31,7 @@ public class DataInitializer {
             }
 
             if (usuarioRepository.findByUsername("cliente@delrgastos.billetin.edu.ar").isEmpty()) {
-                String clientePassword = "Quieromicontraseñasegura@2026";
+                String clientePassword = "Quieromicontrasenasegura@2026";
                 PasswordValidator.validate(clientePassword);
                 Usuario u = new Usuario("cliente@delrgastos.billetin.edu.ar", encoder.encode(clientePassword));
                 u.setRoles(Set.of(cliente));
