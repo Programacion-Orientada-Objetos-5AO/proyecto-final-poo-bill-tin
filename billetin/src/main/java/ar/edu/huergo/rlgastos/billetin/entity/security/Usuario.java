@@ -11,8 +11,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import ar.edu.huergo.rlgastos.billetin.entity.Transaccion;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -34,11 +32,11 @@ public class Usuario implements UserDetails {
     private String username;
 
     @NotBlank(message = "El email es obligatorio")
-    @Email(message = "Debe ser un email válido") 
+    @Email(message = "Debe ser un email válido")
     @Column(unique = true)
     private String email;
 
-    @NotBlank(message = "La contraseña es obligatoria") 
+    @NotBlank(message = "La contraseña es obligatoria")
     @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
     private String password;
 
