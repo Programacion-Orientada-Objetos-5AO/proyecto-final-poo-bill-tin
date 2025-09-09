@@ -28,32 +28,30 @@ import ar.edu.huergo.rlgastos.billetin.repository.security.UsuarioRepository;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http,
-            JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
-        // Configuración central de Spring Security con JWT:
-        // - Deshabilitamos CSRF porque no usamos cookies/sesiones en un API stateless.
-        // - Forzamos manejo de sesión sin estado (los datos de auth vienen en el JWT).
-        // - Permitimos libre acceso solo al login, el resto requiere autenticación y roles.
-        // - Registramos nuestro filtro JWT antes del filtro de usuario/contraseña.
+        SecurityFilterChain securityFilterChain(HttpSecurity http,
+        JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http.csrf(csrf -> csrf.disable())
-                .sessionManagement(
-                        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/platos/**")
-                        .hasAnyRole("ADMIN", "CLIENTE").requestMatchers("/api/ingredientes/**")
-                        .hasRole("ADMIN").requestMatchers(HttpMethod.POST, "/api/platos/**")
-                        .hasRole("ADMIN").requestMatchers(HttpMethod.PUT, "/api/platos/**")
-                        .hasRole("ADMIN").requestMatchers(HttpMethod.DELETE, "/api/platos/**")
-                        .hasRole("ADMIN").anyRequest().authenticated())
-                .exceptionHandling(
-                        exceptions -> exceptions.accessDeniedHandler(accessDeniedHandler())
-                                .authenticationEntryPoint(authenticationEntryPoint()))
-                .addFilterBefore(jwtAuthenticationFilter,
-                        UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(auth -> auth
+            // Acceso libre para login y registro
+            .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+            .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/transacciones/**")
+                .hasAnyRole("ADMIN", "CLIENTE")
+            
+
+            .requestMatchers("/api/transacciones/**")
+                .hasRole("ADMIN")
+            .anyRequest().authenticated()
+        )
+        .exceptionHandling(exceptions -> exceptions
+            .accessDeniedHandler(accessDeniedHandler())
+            .authenticationEntryPoint(authenticationEntryPoint())
+        )
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+    return http.build();
+}
 
     @Bean
     PasswordEncoder passwordEncoder() {
