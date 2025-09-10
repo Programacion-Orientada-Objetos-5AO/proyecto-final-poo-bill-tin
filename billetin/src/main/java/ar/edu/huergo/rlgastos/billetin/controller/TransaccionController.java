@@ -27,7 +27,7 @@ import ar.edu.huergo.rlgastos.billetin.service.TransaccionService;
 
 
 @RestController 
-@RequestMapping("/Transacciones") 
+@RequestMapping("/api/transacciones") 
 public class TransaccionController {
     @Autowired
     private TransaccionService transaccionService;
