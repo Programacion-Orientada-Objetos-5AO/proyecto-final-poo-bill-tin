@@ -1,5 +1,4 @@
-package ar.edu.huergo.rlgastos.billetin.service;
-
+package ar.edu.huergo.rlgastos.billetin.service.transaccion;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,7 +47,7 @@ class TransaccionServiceTest {
         transaccionEjemplo = new Transaccion();
         transaccionEjemplo.setId(1L);
         transaccionEjemplo.setNombreUsuario("Juan Perez");
-        transaccionEjemplo.setTipo(TipoTransaccion.GASTO);
+        transaccionEjemplo.setTipo(TipoTransaccion.Egreso);
         transaccionEjemplo.setMonto(1500.0);
         transaccionEjemplo.setDescripcion("Compra de supermercado");
         transaccionEjemplo.setFecha(LocalDate.of(2024, 1, 15));

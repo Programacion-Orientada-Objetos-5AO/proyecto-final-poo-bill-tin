@@ -21,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -57,4 +58,9 @@ public class Usuario {
             this.username = username;
             this.password = password;
         }
+
+    private String nombre;
+    private String apellido;
+    private String email;
+    private boolean enabled;
 }

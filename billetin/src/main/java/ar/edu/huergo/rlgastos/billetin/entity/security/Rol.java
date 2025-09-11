@@ -27,5 +27,6 @@ public class Rol {
     public Rol(String nombre) {
         this.nombre = nombre;
     }
+    private String descripcion;
 }
 
