@@ -58,9 +58,4 @@ public class Usuario {
             this.username = username;
             this.password = password;
         }
-
-    private String nombre;
-    private String apellido;
-    private String email;
-    private boolean enabled;
 }
