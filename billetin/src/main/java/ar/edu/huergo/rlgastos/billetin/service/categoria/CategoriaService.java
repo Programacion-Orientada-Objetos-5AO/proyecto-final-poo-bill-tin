@@ -8,6 +8,7 @@ import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import ar.edu.huergo.rlgastos.billetin.dto.categoria.ActualizarCategoriaDTO;
+
 import ar.edu.huergo.rlgastos.billetin.entity.categoria.Categoria;
 import ar.edu.huergo.rlgastos.billetin.repository.categoria.CategoriaRepository;
 
@@ -18,25 +19,25 @@ public class CategoriaService {
     private CategoriaRepository categoriaRepository;
 
     public List<Categoria> getCategorias() {
-        return categoriaRepository.findAll();
+       return ((List<Categoria>) this.categoriaRepository.findAll());
     }
 
     public Optional<Categoria> getCategoria(Long id) {
-        return categoriaRepository.findById(id);
+        return this.categoriaRepository.findById(id);
     }
 
     public void crearCategoria(Categoria categoria) {
-        categoriaRepository.save(categoria);
+        this.categoriaRepository.save(categoria);
     }
 
     public void actualizarCategoria(Long id, ActualizarCategoriaDTO dto) throws NotFoundException {
         Categoria categoria = categoriaRepository.findById(id).orElseThrow(NotFoundException::new);
         categoria.setNombre(dto.nombre());
         categoria.setTipo(dto.tipo());
-        categoriaRepository.save(categoria);
+        this.categoriaRepository.save(categoria);
     }
 
     public void eliminarCategoria(Long id) {
-        categoriaRepository.deleteById(id);
+        this.categoriaRepository.deleteById(id);
     }
 }

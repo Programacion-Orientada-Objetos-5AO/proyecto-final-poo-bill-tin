@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import ar.edu.huergo.rlgastos.billetin.dto.categoria.CrearCategoriaDTO;
 import ar.edu.huergo.rlgastos.billetin.dto.categoria.MostrarCategoriaDTO;
+import ar.edu.huergo.rlgastos.billetin.dto.transaccion.MostrarTransaccionDTO;
 import ar.edu.huergo.rlgastos.billetin.dto.categoria.ActualizarCategoriaDTO;
+import ar.edu.huergo.rlgastos.billetin.entity.Transaccion;
 import ar.edu.huergo.rlgastos.billetin.entity.categoria.Categoria;
 import ar.edu.huergo.rlgastos.billetin.mapper.categoria.CategoriaMapper;
 import ar.edu.huergo.rlgastos.billetin.service.categoria.CategoriaService;
@@ -29,14 +31,18 @@ public class CategoriaController {
     @GetMapping
     public ResponseEntity<List<MostrarCategoriaDTO>> getCategorias() {
         List<Categoria> categorias = categoriaService.getCategorias();
-        return ResponseEntity.ok(categoriaMapper.toDTOList(categorias));
+        return ResponseEntity.ok(categoriaMapper.toMostrarDtoList(categorias));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<MostrarCategoriaDTO> getCategoria(@PathVariable Long id) {
-        Optional<Categoria> categoriaOpt = categoriaService.getCategoria(id);
-        if (categoriaOpt.isEmpty()) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(categoriaMapper.toDTO(categoriaOpt.get()));
+        Optional<Categoria> categoriaOpt = this.categoriaService.getCategoria(id);
+        if (categoriaOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Categoria categoria = categoriaOpt.get();
+        MostrarCategoriaDTO dto = this.categoriaMapper.toMostrarDTO(categoria);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
