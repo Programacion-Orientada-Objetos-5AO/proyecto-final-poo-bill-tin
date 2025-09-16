@@ -41,7 +41,7 @@ public class TransaccionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MostrarTransaccionDTO> getTransacciones(@PathVariable Long id) {
+    public ResponseEntity<MostrarTransaccionDTO> getTransaccion(@PathVariable Long id) {
         Optional<Transaccion> transaccionOpt = this.transaccionService.getTransacciones(id);
         if (transaccionOpt.isEmpty()) {
             return ResponseEntity.notFound().build();

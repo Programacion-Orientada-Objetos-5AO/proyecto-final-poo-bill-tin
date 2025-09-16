@@ -13,3 +13,4 @@ public record CrearTransaccionDTO(Long id, String nombreUsuario,TipoTransaccion 
 
     
 
+//falta validar aca 

@@ -10,3 +10,5 @@ import ar.edu.huergo.rlgastos.billetin.entity.TipoTransaccion;
 public record MostrarTransaccionDTO (Double monto, TipoTransaccion tipo, LocalDate fecha){
    
 }
+
+

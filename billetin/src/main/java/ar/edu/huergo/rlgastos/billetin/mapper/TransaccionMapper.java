@@ -32,6 +32,8 @@ public class TransaccionMapper {
         );
     }
 
+    //Faltadtoaactualizar
+
     public List<MostrarTransaccionDTO> toMostrarDtoList(List<Transaccion> transaccion) {
         return transaccion.stream()
                 .map(this::toMostrarDTO)
