@@ -27,7 +27,7 @@ public class CategoriaMapper {
         );
     }
 
-    public void updateEntityFromDTO(ActualizarCategoriaDTO dto, Categoria categoria) {
+    public void ActualizarEntityFromDTO(ActualizarCategoriaDTO dto, Categoria categoria) {
         categoria.setNombre(dto.nombre());
         categoria.setTipo(dto.tipo());
     }
@@ -36,10 +36,5 @@ public class CategoriaMapper {
         return categorias.stream()
                 .map(this::toMostrarDTO)
                 .toList();
-    }
-
-    public Object toDTO(List<Categoria> categorias) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toDTO'");
     }
 }

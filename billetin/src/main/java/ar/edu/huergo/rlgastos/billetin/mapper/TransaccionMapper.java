@@ -32,7 +32,12 @@ public class TransaccionMapper {
         );
     }
 
-    //Faltadtoaactualizar
+    public void actualizarEntity(Transaccion transaccion, ActualizarTransaccionDTO dto) {
+    transaccion.setDescripcion(dto.descripcion());
+    transaccion.setMonto(dto.monto());
+    transaccion.setFecha(dto.fecha());
+    }
+
 
     public List<MostrarTransaccionDTO> toMostrarDtoList(List<Transaccion> transaccion) {
         return transaccion.stream()
