@@ -7,16 +7,22 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.huergo.rlgastos.billetin.dto.categoria.ActualizarCategoriaDTO;
 import ar.edu.huergo.rlgastos.billetin.dto.categoria.CrearCategoriaDTO;
 import ar.edu.huergo.rlgastos.billetin.dto.categoria.MostrarCategoriaDTO;
-import ar.edu.huergo.rlgastos.billetin.dto.transaccion.MostrarTransaccionDTO;
-import ar.edu.huergo.rlgastos.billetin.dto.categoria.ActualizarCategoriaDTO;
-import ar.edu.huergo.rlgastos.billetin.entity.Transaccion;
 import ar.edu.huergo.rlgastos.billetin.entity.categoria.Categoria;
 import ar.edu.huergo.rlgastos.billetin.mapper.categoria.CategoriaMapper;
 import ar.edu.huergo.rlgastos.billetin.service.categoria.CategoriaService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/categorias")
@@ -46,7 +52,7 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<String> crearCategoria(@RequestBody CrearCategoriaDTO dto) {
+    public ResponseEntity<String> crearCategoria(@Valid@RequestBody CrearCategoriaDTO dto) {
         Categoria categoria = categoriaMapper.toEntity(dto);
         categoriaService.crearCategoria(categoria);
         return ResponseEntity.created(null).body("Categoría creada correctamente");
