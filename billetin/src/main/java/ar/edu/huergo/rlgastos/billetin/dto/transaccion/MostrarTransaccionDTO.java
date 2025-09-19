@@ -7,8 +7,15 @@ import java.time.LocalDate;
 import ar.edu.huergo.rlgastos.billetin.entity.TipoTransaccion;
 
 
-public record MostrarTransaccionDTO (Double monto, TipoTransaccion tipo, LocalDate fecha){
-   
+public record MostrarTransaccionDTO(
+        Long id,
+        Double monto,
+        TipoTransaccion tipo,
+        LocalDate fecha,
+        String usuarioNombre,
+        String categoriaNombre
+){
+    
 }
 
 

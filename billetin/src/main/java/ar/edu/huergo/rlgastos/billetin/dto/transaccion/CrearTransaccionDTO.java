@@ -7,10 +7,9 @@ import java.time.LocalDate;
 import ar.edu.huergo.rlgastos.billetin.entity.TipoTransaccion;
 
 
-public record CrearTransaccionDTO(Long id, String nombreUsuario,TipoTransaccion tipo,Double monto,String descripcion,LocalDate fecha) {
+public record CrearTransaccionDTO(Long id,String nombreUsuario,TipoTransaccion tipo, Double monto,String descripcion,LocalDate fecha,Long idUsuario,Long idCategoria) {
 }
+
    
 
     
-
-//falta validar aca 
