@@ -12,12 +12,13 @@ import ar.edu.huergo.rlgastos.billetin.entity.security.Usuario;
 @Component
 public class UsuarioMapper {
     public UsuarioDTO toDTO(Usuario usuario) {
-        if (usuario == null) {
-            return null;
-        }
-        return new UsuarioDTO(usuario.getUsername(), usuario.getRoles().stream()
-                .map(Rol::getNombre)
-                .toList());
+        if (usuario == null) return null;
+        return new UsuarioDTO(
+            usuario.getNombre(),
+            usuario.getUsername(),
+            usuario.getMembresia(),
+            usuario.getRoles().stream().map(Rol::getNombre).toList()
+        );
     }
 
     public List<UsuarioDTO> toDTOList(List<Usuario> usuarios) {
@@ -27,11 +28,11 @@ public class UsuarioMapper {
     }
 
     public Usuario toEntity(RegistrarDTO registrarDTO) {
-        if (registrarDTO == null) {
-            return null;
-        }
+        if (registrarDTO == null) return null;
         Usuario usuario = new Usuario();
+        usuario.setNombre(registrarDTO.nombre());
         usuario.setUsername(registrarDTO.username());
+        usuario.setMembresia(registrarDTO.membresia());
         return usuario;
     }
 }

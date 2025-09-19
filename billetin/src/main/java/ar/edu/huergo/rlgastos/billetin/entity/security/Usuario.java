@@ -33,6 +33,12 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @NotBlank(message = "El nombre no puede estar vacío")
+    @Size(min = 2, max = 100, message = "El nombre debe tener entre 2 y 100 caracteres")
+    private String nombre;
+
+
     @Email(message = "El username debe ser un correo electrónico válido")
     @NotBlank(message = "El username no puede estar vacío")
     private String username;
@@ -45,6 +51,9 @@ public class Usuario {
     )
     @Column(nullable = false)
     private String password;
+
+    @NotBlank(message = "La membresía es obligatoria")
+    private String membresia;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -59,3 +68,4 @@ public class Usuario {
             this.password = password;
         }
 }
+

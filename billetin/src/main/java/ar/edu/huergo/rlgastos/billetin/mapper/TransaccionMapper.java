@@ -1,6 +1,5 @@
 package ar.edu.huergo.rlgastos.billetin.mapper;
 
-
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -9,40 +8,72 @@ import ar.edu.huergo.rlgastos.billetin.dto.transaccion.ActualizarTransaccionDTO;
 import ar.edu.huergo.rlgastos.billetin.dto.transaccion.CrearTransaccionDTO;
 import ar.edu.huergo.rlgastos.billetin.dto.transaccion.MostrarTransaccionDTO;
 import ar.edu.huergo.rlgastos.billetin.entity.Transaccion;
-
+import ar.edu.huergo.rlgastos.billetin.entity.security.Usuario;
+import ar.edu.huergo.rlgastos.billetin.entity.categoria.Categoria;
+import ar.edu.huergo.rlgastos.billetin.repository.security.UsuarioRepository;
+import ar.edu.huergo.rlgastos.billetin.repository.categoria.CategoriaRepository;
 
 @Component
 public class TransaccionMapper {
 
-    public Transaccion toEntity(CrearTransaccionDTO transaccionDto) {
+    private final  UsuarioRepository usuarioRepository;
+    private final CategoriaRepository categoriaRepository;
+
+    public TransaccionMapper(UsuarioRepository usuarioRepository, CategoriaRepository categoriaRepository) {
+        this.usuarioRepository = usuarioRepository;
+        this.categoriaRepository = categoriaRepository;
+    }
+
+    public Transaccion toEntity(CrearTransaccionDTO dto) {
         Transaccion transaccion = new Transaccion();
-        transaccion.setNombreUsuario(transaccionDto.nombreUsuario());
-        transaccion.setMonto(transaccionDto.monto());
-        transaccion.setDescripcion(transaccionDto.descripcion());
-        transaccion.setTipo(transaccionDto.tipo());
-        transaccion.setFecha(transaccionDto.fecha());
+        transaccion.setMonto(dto.monto());
+        transaccion.setDescripcion(dto.descripcion());
+        transaccion.setTipo(dto.tipo());
+        transaccion.setFecha(dto.fecha());
+
+        Usuario usuario = usuarioRepository.findById(dto.idUsuario())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        Categoria categoria = categoriaRepository.findById(dto.idCategoria())
+                .orElseThrow(() -> new RuntimeException("Categoria no encontrada"));
+
+        transaccion.setUsuario(usuario);
+        transaccion.setCategoria(categoria);
+
         return transaccion;
     }
 
     public MostrarTransaccionDTO toMostrarDTO(Transaccion transaccion) {
         return new MostrarTransaccionDTO(
+                transaccion.getId(),
                 transaccion.getMonto(),
                 transaccion.getTipo(),
-                transaccion.getFecha()
+                transaccion.getFecha(),
+                transaccion.getUsuario().getNombre(),
+                transaccion.getCategoria().getNombre()
         );
     }
 
     public void actualizarEntity(Transaccion transaccion, ActualizarTransaccionDTO dto) {
-    transaccion.setDescripcion(dto.descripcion());
-    transaccion.setMonto(dto.monto());
-    transaccion.setFecha(dto.fecha());
+        transaccion.setDescripcion(dto.descripcion());
+        transaccion.setMonto(dto.monto());
+        transaccion.setFecha(dto.fecha());
+
+        if (dto.idUsuario() != null) {
+            Usuario usuario = usuarioRepository.findById(dto.idUsuario())
+                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+            transaccion.setUsuario(usuario);
+        }
+
+        if (dto.idCategoria() != null) {
+            Categoria categoria = categoriaRepository.findById(dto.idCategoria())
+                    .orElseThrow(() -> new RuntimeException("Categoria no encontrada"));
+            transaccion.setCategoria(categoria);
+        }
     }
 
-
-    public List<MostrarTransaccionDTO> toMostrarDtoList(List<Transaccion> transaccion) {
-        return transaccion.stream()
+    public List<MostrarTransaccionDTO> toMostrarDtoList(List<Transaccion> transacciones) {
+        return transacciones.stream()
                 .map(this::toMostrarDTO)
                 .toList();
-    }   
+    }
 }
-

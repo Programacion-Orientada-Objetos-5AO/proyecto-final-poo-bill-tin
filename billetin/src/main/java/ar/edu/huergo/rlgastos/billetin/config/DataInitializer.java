@@ -26,21 +26,29 @@ public class DataInitializer {
         return new CommandLineRunner() {
             @Override
             public void run(String[] args) throws Exception {
-                Rol admin =  rolRepository.findByNombre("ADMIN").orElseGet(() -> rolRepository.save(new Rol("ADMIN")));
+                Rol admin = rolRepository.findByNombre("ADMIN").orElseGet(() -> rolRepository.save(new Rol("ADMIN")));
                 Rol cliente = rolRepository.findByNombre("CLIENTE").orElseGet(() -> rolRepository.save(new Rol("CLIENTE")));
                 
                 if (usuarioRepository.findByUsername("admin@derlgastos.billetin.edu.ar").isEmpty()) {
                     String adminPassword = "Adminsdeproyectobilletin@2026";
                     PasswordValidator.validate(adminPassword);
-                    Usuario u = new Usuario("admin@derlgastos.billetin.edu.ar", encoder.encode(adminPassword));
+                    Usuario u = new Usuario();
+                    u.setNombre("Administrador del sistema");
+                    u.setUsername("admin@derlgastos.billetin.edu.ar");
+                    u.setPassword(encoder.encode(adminPassword));
+                    u.setMembresia("premium");
                     u.setRoles(Set.of(admin));
                     usuarioRepository.save(u);
                 }
-                
+
                 if (usuarioRepository.findByUsername("cliente@delrgastos.billetin.edu.ar").isEmpty()) {
                     String clientePassword = "Quieromicontrasenasegura@2026";
                     PasswordValidator.validate(clientePassword);
-                    Usuario u = new Usuario("cliente@delrgastos.billetin.edu.ar", encoder.encode(clientePassword));
+                    Usuario u = new Usuario();
+                    u.setNombre("Cliente de prueba");
+                    u.setUsername("cliente@delrgastos.billetin.edu.ar");
+                    u.setPassword(encoder.encode(clientePassword));
+                    u.setMembresia("gratuita");
                     u.setRoles(Set.of(cliente));
                     usuarioRepository.save(u);
                 }
