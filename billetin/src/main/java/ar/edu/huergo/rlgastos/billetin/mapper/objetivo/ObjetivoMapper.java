@@ -1,14 +1,14 @@
+
+
 package ar.edu.huergo.rlgastos.billetin.mapper.objetivo;
 
 import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import ar.edu.huergo.rlgastos.billetin.dto.objetivo.ActualizarObjetivoDTO;
 import ar.edu.huergo.rlgastos.billetin.dto.objetivo.CrearObjetivoDTO;
 import ar.edu.huergo.rlgastos.billetin.dto.objetivo.MostrarObjetivoDTO;
-import ar.edu.huergo.rlgastos.billetin.entity.Objetivo;
-import ar.edu.huergo.rlgastos.billetin.entity.security.Usuario;
+import ar.edu.huergo.rlgastos.billetin.entity.objetivo.Objetivo;
+
 
 @Component
 public class ObjetivoMapper {
@@ -20,24 +20,16 @@ public class ObjetivoMapper {
         objetivo.setFechaInicio(dto.fechaInicio());
         objetivo.setFechaFin(dto.fechaFin());
         objetivo.setEstado(dto.estado());
-        
-        // Crear usuario con el ID para la relación
-        Usuario usuario = new Usuario();
-        usuario.setId(dto.idUsuario());
-        objetivo.setUsuario(usuario);
-        
         return objetivo;
     }
 
     public MostrarObjetivoDTO toMostrarDTO(Objetivo objetivo) {
         return new MostrarObjetivoDTO(
-                objetivo.getIdObjetivo(),
-                objetivo.getNombre(),
-                objetivo.getMontoMeta(),
-                objetivo.getFechaInicio(),
-                objetivo.getFechaFin(),
-                objetivo.getEstado(),
-                objetivo.getUsuario().getUsername()
+            objetivo.getNombre(),
+            objetivo.getMontoMeta(),
+            objetivo.getFechaInicio(),
+            objetivo.getFechaFin(),
+            objetivo.getEstado()
         );
     }
 
@@ -50,8 +42,6 @@ public class ObjetivoMapper {
     }
 
     public List<MostrarObjetivoDTO> toMostrarDtoList(List<Objetivo> objetivos) {
-        return objetivos.stream()
-                .map(this::toMostrarDTO)
-                .toList();
+        return objetivos.stream().map(this::toMostrarDTO).toList();
     }
 }
