@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crear Categoría - Billetin</title>
+  <link rel="stylesheet" href="estilos.css">
+  <script>
+    function toggleTopeField() {
+      const asignarTope = document.getElementById("asignarTope").value;
+      const campoTope = document.getElementById("campoTope");
+
+      if (asignarTope === "si") {
+        campoTope.style.display = "block";
+      } else {
+        campoTope.style.display = "none";
+      }
+    }
+  </script>
+</head>
+<body>
+  <main>
+    <h1>Crear Nueva Categoría</h1>
+
+    <form method="post" action="/categorias">
+      <label for="nombre">Nombre de la categoría:</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="tipo">Tipo:</label>
+      <select id="tipo" name="tipo" required>
+        <option value="ingreso">Ingreso</option>
+        <option value="gasto">Gasto</option>
+      </select>
+
+      <label for="asignarTope">¿Asignar tope?</label>
+      <select id="asignarTope" name="asignarTope" onchange="toggleTopeField()" required>
+        <option value="no">No</option>
+        <option value="si">Sí</option>
+      </select>
+
+      <div id="campoTope" style="display: none;">
+        <label for="tope">Tope (en pesos):</label>
+        <input type="number" id="tope" name="tope" min="0" step="0.01">
+      </div>
+
+      <button type="submit">Guardar Categoría</button>
+    </form>
+
+    <a href="index.html">← Volver al inicio</a>
+  </main>
+</body>
+</html>
