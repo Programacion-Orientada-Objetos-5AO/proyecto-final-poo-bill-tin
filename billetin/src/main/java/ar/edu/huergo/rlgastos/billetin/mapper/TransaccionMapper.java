@@ -8,10 +8,10 @@ import ar.edu.huergo.rlgastos.billetin.dto.transaccion.ActualizarTransaccionDTO;
 import ar.edu.huergo.rlgastos.billetin.dto.transaccion.CrearTransaccionDTO;
 import ar.edu.huergo.rlgastos.billetin.dto.transaccion.MostrarTransaccionDTO;
 import ar.edu.huergo.rlgastos.billetin.entity.Transaccion;
-import ar.edu.huergo.rlgastos.billetin.entity.security.Usuario;
 import ar.edu.huergo.rlgastos.billetin.entity.categoria.Categoria;
-import ar.edu.huergo.rlgastos.billetin.repository.security.UsuarioRepository;
+import ar.edu.huergo.rlgastos.billetin.entity.security.Usuario;
 import ar.edu.huergo.rlgastos.billetin.repository.categoria.CategoriaRepository;
+import ar.edu.huergo.rlgastos.billetin.repository.security.UsuarioRepository;
 
 @Component
 public class TransaccionMapper {
@@ -37,6 +37,7 @@ public class TransaccionMapper {
                 .orElseThrow(() -> new RuntimeException("Categoria no encontrada"));
 
         transaccion.setUsuario(usuario);
+        transaccion.setNombreUsuario(usuario.getNombre());
         transaccion.setCategoria(categoria);
 
         return transaccion;

@@ -55,7 +55,7 @@ class TransaccionServiceTest {
         actualizarTransaccionDTO = new ActualizarTransaccionDTO(
             2000.0,
             "Compra actualizada",
-            LocalDate.of(2024, 2, 20)
+            LocalDate.of(2024, 2, 20), null, null
         );
     }
 
@@ -222,7 +222,7 @@ class TransaccionServiceTest {
     void deberiaManejarValoresNullEnDTODeActualizacion() throws NotFoundException {
         // Given
         Long id = 1L;
-        ActualizarTransaccionDTO dtoConNulls = new ActualizarTransaccionDTO(null, null, null);
+        ActualizarTransaccionDTO dtoConNulls = new ActualizarTransaccionDTO(null, null, null, id, id);
         
         when(transaccionRepository.findById(id)).thenReturn(Optional.of(transaccionEjemplo));
         when(transaccionRepository.save(any(Transaccion.class))).thenReturn(transaccionEjemplo);
@@ -267,9 +267,9 @@ class TransaccionServiceTest {
         // Given
         Long id = 1L;
         ActualizarTransaccionDTO dtoMontoMinimo = new ActualizarTransaccionDTO(
-            500.0, // Monto mínimo según validación
+            500.0, 
             "Transacción mínima",
-            LocalDate.now()
+            LocalDate.now(), id, id
         );
         
         when(transaccionRepository.findById(id)).thenReturn(Optional.of(transaccionEjemplo));

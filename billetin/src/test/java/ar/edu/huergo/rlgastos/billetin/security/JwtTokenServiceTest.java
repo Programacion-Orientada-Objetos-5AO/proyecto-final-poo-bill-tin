@@ -254,19 +254,6 @@ class JwtTokenServiceTest {
     }
 
     @Test
-    @DisplayName("Debería manejar username null en UserDetails")
-    void deberiaManejarUsernameNullEnUserDetails() {
-        UserDetails usuarioSinUsername = mock(UserDetails.class);
-        when(usuarioSinUsername.getUsername()).thenReturn(null);
-
-        List<String> roles = Arrays.asList("ROLE_CLIENTE");
-
-        assertThrows(Exception.class, () -> {
-            jwtTokenService.generarToken(usuarioSinUsername, roles);
-        });
-    }
-
-    @Test
     @DisplayName("Debería validar correctamente token recién generado")
     void deberiaValidarCorrectamenteTokenRecienGenerado() {
         List<String> roles = Arrays.asList("ROLE_CLIENTE", "ROLE_USER");

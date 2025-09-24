@@ -52,7 +52,7 @@ public class TransaccionController {
     }
 
     @PostMapping
-    public ResponseEntity<String> crearTransacciones(@RequestBody CrearTransaccionDTO transaccionDto) {
+    public ResponseEntity<String> crearTransaccion(@RequestBody CrearTransaccionDTO transaccionDto) {
         Transaccion transaccion = this.transaccionMapper.toEntity(transaccionDto);
         this.transaccionService.crearTransacciones(transaccion);
         return ResponseEntity.created(null).body("Has hecho una transaccion correctamente");
@@ -60,7 +60,7 @@ public class TransaccionController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<String> actualizarTransacciones(@PathVariable Long id, @RequestBody ActualizarTransaccionDTO transaccionDto) throws NotFoundException{
+    public ResponseEntity<String> actualizarTransaccion(@PathVariable Long id, @RequestBody ActualizarTransaccionDTO transaccionDto) throws NotFoundException{
         this.transaccionService.actualizarTransacciones(id, transaccionDto);
         return ResponseEntity.ok("Datos de la transaccion actualizados correctamente");
        

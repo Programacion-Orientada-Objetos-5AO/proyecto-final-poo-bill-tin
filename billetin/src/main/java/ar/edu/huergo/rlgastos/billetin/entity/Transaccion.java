@@ -56,10 +56,10 @@ public class Transaccion {
     private LocalDate fecha;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_categoria", nullable = false)
+    @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 }

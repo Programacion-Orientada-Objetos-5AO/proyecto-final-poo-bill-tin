@@ -1,16 +1,30 @@
+<<<<<<< HEAD
+=======
+   
+>>>>>>> 898dde42ce9c8b08e9d6f8d6cd36003825b6adbe
 package ar.edu.huergo.rlgastos.billetin.dto.objetivo;
 
 import java.time.LocalDate;
 
+<<<<<<< HEAD
 import ar.edu.huergo.rlgastos.billetin.entity.EstadoObjetivo;
+=======
+import ar.edu.huergo.rlgastos.billetin.entity.objetivo.EstadoObjetivo;
+>>>>>>> 898dde42ce9c8b08e9d6f8d6cd36003825b6adbe
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record CrearObjetivoDTO(
+<<<<<<< HEAD
         @NotBlank(message = "El nombre del objetivo es obligatorio")
         @Size(min = 2, max = 100, message = "El nombre del objetivo debe tener entre 2 y 100 caracteres")
+=======
+
+        @NotBlank(message = "El nombre del objetivo es obligatorio")
+        @Size(min = 2, max = 100, message = "El nombre debe tener entre 2 y 100 caracteres")
+>>>>>>> 898dde42ce9c8b08e9d6f8d6cd36003825b6adbe
         String nombre,
 
         @NotNull(message = "El monto meta es obligatorio")
@@ -23,6 +37,7 @@ public record CrearObjetivoDTO(
         @NotNull(message = "La fecha de fin es obligatoria")
         LocalDate fechaFin,
 
+<<<<<<< HEAD
         @NotNull(message = "El estado del objetivo es obligatorio")
         EstadoObjetivo estado,
 
@@ -30,3 +45,9 @@ public record CrearObjetivoDTO(
         Long idUsuario
 ) {
 }
+=======
+        @NotNull(message = "El estado es obligatorio")
+        EstadoObjetivo estado
+
+) {}
+>>>>>>> 898dde42ce9c8b08e9d6f8d6cd36003825b6adbe
