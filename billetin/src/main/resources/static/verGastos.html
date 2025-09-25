@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gastos - Billetin</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <main>
+    <h1>GASTOS</h1>
+
+    <label for="categoria">Categoría:</label>
+    <select id="categoria" name="categoria" onchange="filtrarGastos()">
+      <option value="todos">Todos</option>
+      <option value="Alquiler">Alquiler</option>
+      <option value="Comida">Comida</option>
+      <option value="Transporte">Transporte</option>
+      <!-- Podés agregar más -->
+    </select>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Detalle</th>
+          <th>Monto</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-gastos">
+        <!-- Los gastos se mostrarán acá -->
+      </tbody>
+    </table>
+
+    <a href="index.html">← Volver al inicio</a>
+  </main>
+
+  <script>
+    const gastos = [
+      { fecha: '2025-08-31', detalle: 'Alquiler', monto: 55000, categoria: 'Alquiler' },
+      { fecha: '2025-09-01', detalle: 'Supermercado', monto: 12000, categoria: 'Comida' },
+      { fecha: '2025-09-03', detalle: 'Subte', monto: 800, categoria: 'Transporte' }
+    ];
+
+    function filtrarGastos() {
+      const categoriaSeleccionada = document.getElementById('categoria').value;
+      const cuerpoTabla = document.getElementById('tabla-gastos');
+      cuerpoTabla.innerHTML = '';
+
+      const filtrados = categoriaSeleccionada === 'todos'
+        ? gastos
+        : gastos.filter(g => g.categoria === categoriaSeleccionada);
+
+      filtrados.forEach(gasto => {
+        const fila = `<tr>
+                        <td>${gasto.fecha}</td>
+                        <td>${gasto.detalle}</td>
+                        <td>$${gasto.monto.toLocaleString()}</td>
+                      </tr>`;
+        cuerpoTabla.innerHTML += fila;
+      });
+    }
+
+    // Cargar todos al iniciar
+    window.onload = filtrarGastos;
+  </script>
+</body>
+</html>
