@@ -5,9 +5,9 @@
   <title>Gastos - Billetin</title>
   <link rel="stylesheet" href="estilos.css">
 </head>
-<body>
+<body class="vergastos">
   <main>
-    <h1>GASTOS</h1>
+    <h1>Gastos</h1>
 
     <label for="categoria">Categoría:</label>
     <select id="categoria" name="categoria" onchange="filtrarGastos()">
@@ -15,7 +15,6 @@
       <option value="Alquiler">Alquiler</option>
       <option value="Comida">Comida</option>
       <option value="Transporte">Transporte</option>
-      <!-- Podés agregar más -->
     </select>
 
     <table>
@@ -60,7 +59,6 @@
       });
     }
 
-    // Cargar todos al iniciar
     window.onload = filtrarGastos;
   </script>
 </body>
