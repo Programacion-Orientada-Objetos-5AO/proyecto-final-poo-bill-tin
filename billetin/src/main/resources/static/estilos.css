@@ -1,3 +1,13 @@
+/* === PALETA BASE ===
+Verde:     #4CAF50
+Rojo:      #F44336
+Azul:      #2196F3
+Amarillo:  #FFCA28
+Plateado:  #B0BEC5
+Gris claro: #F5F5F5
+Gris oscuro: #212121
+*/
+
 /* Fuente y fondo general */
 body {
   font-family: Arial, sans-serif;
@@ -50,7 +60,7 @@ select {
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-sizing: border-box; /* Para que el padding no desborde */
+  box-sizing: border-box;
 }
 
 /* Select específico */
@@ -91,10 +101,8 @@ a:hover {
   text-decoration: underline;
 }
 
-/* ESTILOS ESPECÍFICOS PARA LA PÁGINA DE GASTOS */
-
-/* Centrado del body para gastos */
-body:has(main) {
+/* === ESTILOS PARA GASTOS === */
+body.gastos {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -102,8 +110,7 @@ body:has(main) {
   padding-top: 50px;
 }
 
-/* Contenedor principal para gastos */
-main {
+body.gastos main {
   width: 300px;
   max-width: 90%;
   background-color: #ffffff;
@@ -112,33 +119,49 @@ main {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Título para gastos */
-main h1 {
-  color: #e74c3c !important; /* Rojo para gastos */
-  margin-bottom: 20px !important;
+body.gastos h1 {
+  color: #e74c3c;
   text-align: center;
 }
 
-/* Formulario dentro de main */
-main form {
-  background: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
+body.gastos form {
+  background: none;
+  box-shadow: none;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-/* Botón para gastos */
-main button {
-  background-color: #e74c3c !important; /* Rojo para gastos */
+body.gastos button {
+  background-color: #e74c3c;
 }
 
-main button:hover {
-  background-color: #c0392b !important;
+body.gastos button:hover {
+  background-color: #c0392b;
 }
 
-/* Efectos focus para campos */
+/* === ESTILOS PARA CATEGORÍAS === */
+body.categorias main h1 {
+  color: #FFCA28;
+  text-align: center;
+}
+
+body.categorias form {
+  border-left: 6px solid #FFCA28;
+}
+
+body.categorias button {
+  background-color: #FFCA28;
+  color: #000;
+  font-weight: bold;
+}
+
+body.categorias button:hover {
+  background-color: #e0b020;
+}
+
+/* Efectos focus */
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
@@ -148,27 +171,7 @@ select:focus {
   box-shadow: 0 0 3px rgba(52, 152, 219, 0.3);
 }
 
-/* Responsivo */
-@media (max-width: 480px) {
-  body {
-    padding: 20px;
-  }
-  
-  .contenedor-formulario,
-  main {
-    width: 100%;
-    padding: 15px;
-  }
-  
-  input[type="text"],
-  input[type="number"],
-  input[type="date"],
-  select,
-  button {
-    padding: 10px;
-    font-size: 14px;
-  }
-}
+/* Tablas */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -183,4 +186,26 @@ th, td {
 
 th {
   background-color: #f3f3f3;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  body {
+    padding: 20px;
+  }
+
+  .contenedor-formulario,
+  main {
+    width: 100%;
+    padding: 15px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  select,
+  button {
+    padding: 10px;
+    font-size: 14px;
+  }
 }
