@@ -67,7 +67,7 @@ class TransaccionServiceTest {
         when(transaccionRepository.findAll()).thenReturn(transaccionesEsperadas);
 
         // When
-        List<Transaccion> resultado = transaccionService.getTransacciones();
+        List<Transaccion> resultado = transaccionService.getTransaccion();
 
         // Then
         assertNotNull(resultado);
@@ -87,7 +87,7 @@ class TransaccionServiceTest {
         when(transaccionRepository.findById(id)).thenReturn(Optional.of(transaccionEjemplo));
 
         // When
-        Optional<Transaccion> resultado = transaccionService.getTransacciones(id);
+        Optional<Transaccion> resultado = transaccionService.getTransaccion(id);
 
         // Then
         assertTrue(resultado.isPresent());
@@ -107,7 +107,7 @@ class TransaccionServiceTest {
         when(transaccionRepository.findById(id)).thenReturn(Optional.empty());
 
         // When
-        Optional<Transaccion> resultado = transaccionService.getTransacciones(id);
+        Optional<Transaccion> resultado = transaccionService.getTransaccion(id);
 
         // Then
         assertTrue(resultado.isEmpty());
@@ -121,7 +121,7 @@ class TransaccionServiceTest {
         when(transaccionRepository.save(transaccionEjemplo)).thenReturn(transaccionEjemplo);
 
         // When
-        transaccionService.crearTransacciones(transaccionEjemplo);
+        transaccionService.crearTransaccion(transaccionEjemplo);
 
         // Then
         verify(transaccionRepository, times(1)).save(transaccionEjemplo);
@@ -136,7 +136,7 @@ class TransaccionServiceTest {
         when(transaccionRepository.save(any(Transaccion.class))).thenReturn(transaccionEjemplo);
 
         // When
-        transaccionService.actualizarTransacciones(id, actualizarTransaccionDTO);
+        transaccionService.actualizarTransaccion(id, actualizarTransaccionDTO);
 
         // Then
         verify(transaccionRepository, times(1)).findById(id);
@@ -157,7 +157,7 @@ class TransaccionServiceTest {
 
         // When & Then
         assertThrows(NotFoundException.class, 
-                () -> transaccionService.actualizarTransacciones(id, actualizarTransaccionDTO));
+                () -> transaccionService.actualizarTransaccion(id, actualizarTransaccionDTO));
 
         verify(transaccionRepository, times(1)).findById(id);
         verify(transaccionRepository, never()).save(any(Transaccion.class));
@@ -183,7 +183,7 @@ class TransaccionServiceTest {
         when(transaccionRepository.findAll()).thenReturn(Arrays.asList());
 
         // When
-        List<Transaccion> resultado = transaccionService.getTransacciones();
+        List<Transaccion> resultado = transaccionService.getTransaccion();
 
         // Then
         assertNotNull(resultado);
@@ -204,7 +204,7 @@ class TransaccionServiceTest {
         when(transaccionRepository.save(any(Transaccion.class))).thenReturn(transaccionEjemplo);
 
         // When
-        transaccionService.actualizarTransacciones(id, actualizarTransaccionDTO);
+        transaccionService.actualizarTransaccion(id, actualizarTransaccionDTO);
 
         // Then
         // Verificar que los campos no incluidos en el DTO no cambiaron
@@ -228,7 +228,7 @@ class TransaccionServiceTest {
         when(transaccionRepository.save(any(Transaccion.class))).thenReturn(transaccionEjemplo);
 
         // When
-        transaccionService.actualizarTransacciones(id, dtoConNulls);
+        transaccionService.actualizarTransaccion(id, dtoConNulls);
 
         // Then
         verify(transaccionRepository, times(1)).findById(id);
@@ -255,7 +255,7 @@ class TransaccionServiceTest {
         when(transaccionRepository.save(transaccionCompleta)).thenReturn(transaccionCompleta);
 
         // When
-        transaccionService.crearTransacciones(transaccionCompleta);
+        transaccionService.crearTransaccion(transaccionCompleta);
 
         // Then
         verify(transaccionRepository, times(1)).save(transaccionCompleta);
@@ -276,7 +276,7 @@ class TransaccionServiceTest {
         when(transaccionRepository.save(any(Transaccion.class))).thenReturn(transaccionEjemplo);
 
         // When
-        transaccionService.actualizarTransacciones(id, dtoMontoMinimo);
+        transaccionService.actualizarTransaccion(id, dtoMontoMinimo);
 
         // Then
         assertEquals(500.0, transaccionEjemplo.getMonto());

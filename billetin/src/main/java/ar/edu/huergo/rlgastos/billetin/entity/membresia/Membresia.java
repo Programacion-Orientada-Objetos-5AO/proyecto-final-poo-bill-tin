@@ -1,7 +1,10 @@
-package ar.edu.huergo.rlgastos.billetin.entity.moneda;
+package ar.edu.huergo.rlgastos.billetin.entity.membresia;
 
-import java.time.LocalDate;
+import java.util.Date;
+
+
 import jakarta.persistence.Entity;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,16 +17,20 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 
-public class Moneda {
+public class Membresia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idMoneda;
+    private Long idMembresia;
 
-
-    private String codigo;
 
     private String nombre;
+
+    private Double precio;
+
+    private String Beneficios;
+
+    private Date duracion;
 
 
 }

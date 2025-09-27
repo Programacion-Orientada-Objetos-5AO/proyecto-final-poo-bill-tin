@@ -16,19 +16,19 @@ public class TransaccionService {
     @Autowired      
     private TransaccionRepository transaccionRepository;
 
-    public List<Transaccion> getTransacciones() {
+    public List<Transaccion> getTransaccion() { 
         return ((List<Transaccion>) this.transaccionRepository.findAll());
     }
 
-    public Optional<Transaccion> getTransacciones(Long id){
+    public Optional<Transaccion> getTransaccion(Long id){
         return this.transaccionRepository.findById(id);
     }
 
-    public void crearTransacciones(Transaccion transaccion) {
+    public void crearTransaccion(Transaccion transaccion) {
         this.transaccionRepository.save(transaccion);
     }
 
-    public void actualizarTransacciones(Long id, ActualizarTransaccionDTO TransaccionDTO) throws NotFoundException {
+    public void actualizarTransaccion(Long id, ActualizarTransaccionDTO TransaccionDTO) throws NotFoundException {
         Transaccion transaccion = this.transaccionRepository.findById(id).orElseThrow(() -> new NotFoundException());
         transaccion.setMonto(TransaccionDTO.monto());
         transaccion.setDescripcion(TransaccionDTO.descripcion());

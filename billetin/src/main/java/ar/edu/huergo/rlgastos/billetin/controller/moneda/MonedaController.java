@@ -23,6 +23,7 @@ import ar.edu.huergo.rlgastos.billetin.service.moneda.MonedaService;
 import lombok.RequiredArgsConstructor;
 
 
+
 @RestController
 @RequestMapping("/api/monedas")
 @RequiredArgsConstructor
@@ -33,13 +34,13 @@ public class MonedaController {
 
     @GetMapping
     public ResponseEntity<List<MostrarMonedaDTO>> getmonedas() {
-        List<Moneda> monedas = monedaService.getmonedas();
+        List<Moneda> monedas = monedaService.getMonedas();
         return ResponseEntity.ok(monedaMapper.toMostrarDtoList(monedas));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<MostrarmonedaDTO> getmoneda(@PathVariable Long id) {
-        Optional<moneda> monedaOpt = monedaService.getmoneda(id);
+        Optional<Moneda> monedaOpt = monedaService.getmoneda(id);
         if (monedaOpt.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -48,7 +49,7 @@ public class MonedaController {
 
     @PostMapping
     public ResponseEntity<String> crearmoneda(@RequestBody CrearmonedaDTO dto) {
-        moneda moneda = monedaMapper.toEntity(dto);
+        Moneda moneda = monedaMapper.toEntity(dto);
         monedaService.crearmoneda(moneda);
         return ResponseEntity.ok("moneda creado correctamente");
     }
