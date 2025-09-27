@@ -9,16 +9,11 @@
     function toggleTopeField() {
       const asignarTope = document.getElementById("asignarTope").value;
       const campoTope = document.getElementById("campoTope");
-
-      if (asignarTope === "si") {
-        campoTope.style.display = "block";
-      } else {
-        campoTope.style.display = "none";
-      }
+      campoTope.style.display = (asignarTope === "si") ? "block" : "none";
     }
   </script>
 </head>
-<body>
+<body class="categorias">
   <main>
     <h1>Crear Nueva Categoría</h1>
 
