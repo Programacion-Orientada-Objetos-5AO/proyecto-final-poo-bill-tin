@@ -1,13 +1,16 @@
 package ar.edu.huergo.rlgastos.billetin.entity.membresia;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-
+import ar.edu.huergo.rlgastos.billetin.entity.security.Usuario;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +26,6 @@ public class Membresia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMembresia;
 
-
     private String nombre;
 
     private Double precio;
@@ -32,5 +34,6 @@ public class Membresia {
 
     private Date duracion;
 
-
+    @OneToMany(mappedBy = "membresia")
+    private List<Usuario> usuarios = new ArrayList<>();
 }

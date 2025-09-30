@@ -7,5 +7,6 @@ public record ActualizarTransaccionDTO(
         String descripcion,
         LocalDate fecha,
         Long idUsuario,
-        Long idCategoria
+        Long idCategoria,
+        Long idMoneda
 ) {}

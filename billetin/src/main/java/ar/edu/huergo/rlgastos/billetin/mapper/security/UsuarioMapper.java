@@ -16,7 +16,6 @@ public class UsuarioMapper {
         return new UsuarioDTO(
             usuario.getNombre(),
             usuario.getUsername(),
-            usuario.getMembresia(),
             usuario.getRoles().stream().map(Rol::getNombre).toList()
         );
     }
@@ -32,7 +31,6 @@ public class UsuarioMapper {
         Usuario usuario = new Usuario();
         usuario.setNombre(registrarDTO.nombre());
         usuario.setUsername(registrarDTO.username());
-        usuario.setMembresia(registrarDTO.membresia());
         return usuario;
     }
 }

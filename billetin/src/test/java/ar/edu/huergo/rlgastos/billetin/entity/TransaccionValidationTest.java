@@ -29,7 +29,6 @@ class TransaccionValidationTest {
         // Given
         Transaccion transaccion = new Transaccion();
         transaccion.setNombreUsuario("Juan Pérez");
-        transaccion.setTipo(TipoTransaccion.Ingreso);
         transaccion.setMonto(1500.0);
         transaccion.setDescripcion("Salario mensual");
         transaccion.setFecha(LocalDate.now());
@@ -47,7 +46,6 @@ class TransaccionValidationTest {
         // Given
         Transaccion transaccion = new Transaccion();
         transaccion.setNombreUsuario(null);
-        transaccion.setTipo(TipoTransaccion.Ingreso);
         transaccion.setMonto(1500.0);
         transaccion.setDescripcion("Descripción válida");
         transaccion.setFecha(LocalDate.now());
@@ -67,7 +65,6 @@ class TransaccionValidationTest {
         // Given
         Transaccion transaccion = new Transaccion();
         transaccion.setNombreUsuario("");
-        transaccion.setTipo(TipoTransaccion.Ingreso);
         transaccion.setMonto(1500.0);
         transaccion.setDescripcion("Descripción válida");
         transaccion.setFecha(LocalDate.now());
@@ -86,7 +83,6 @@ class TransaccionValidationTest {
         // Given
         Transaccion transaccion = new Transaccion();
         transaccion.setNombreUsuario("   ");
-        transaccion.setTipo(TipoTransaccion.Ingreso);
         transaccion.setMonto(1500.0);
         transaccion.setDescripcion("Descripción válida");
         transaccion.setFecha(LocalDate.now());
@@ -106,7 +102,6 @@ class TransaccionValidationTest {
         // Given
         Transaccion transaccion = new Transaccion();
         transaccion.setNombreUsuario(nombreCorto);
-        transaccion.setTipo(TipoTransaccion.Ingreso);
         transaccion.setMonto(1500.0);
         transaccion.setDescripcion("Descripción válida");
         transaccion.setFecha(LocalDate.now());
@@ -128,7 +123,6 @@ class TransaccionValidationTest {
         String nombreLargo = "A".repeat(101); // 101 caracteres
         Transaccion transaccion = new Transaccion();
         transaccion.setNombreUsuario(nombreLargo);
-        transaccion.setTipo(TipoTransaccion.Ingreso);
         transaccion.setMonto(1500.0);
         transaccion.setDescripcion("Descripción válida");
         transaccion.setFecha(LocalDate.now());
@@ -152,14 +146,12 @@ class TransaccionValidationTest {
 
         Transaccion transaccion1 = new Transaccion();
         transaccion1.setNombreUsuario(nombreMinimo);
-        transaccion1.setTipo(TipoTransaccion.Ingreso);
         transaccion1.setMonto(1500.0);
         transaccion1.setDescripcion("Descripción válida");
         transaccion1.setFecha(LocalDate.now());
 
         Transaccion transaccion2 = new Transaccion();
         transaccion2.setNombreUsuario(nombreMaximo);
-        transaccion2.setTipo(TipoTransaccion.Egreso);
         transaccion2.setMonto(1500.0);
         transaccion2.setDescripcion("Descripción válida");
         transaccion2.setFecha(LocalDate.now());
@@ -173,25 +165,7 @@ class TransaccionValidationTest {
         assertTrue(violaciones2.isEmpty());
     }
 
-    @Test
-    void deberiaFallarValidacionConTipoTransaccionNull() {
-        // Given
-        Transaccion transaccion = new Transaccion();
-        transaccion.setNombreUsuario("Juan Pérez");
-        transaccion.setTipo(null);
-        transaccion.setMonto(1500.0);
-        transaccion.setDescripcion("Descripción válida");
-        transaccion.setFecha(LocalDate.now());
 
-        // When
-        Set<ConstraintViolation<Transaccion>> violaciones = validator.validate(transaccion);
-
-        // Then
-        assertFalse(violaciones.isEmpty());
-        assertTrue(violaciones.stream()
-                .anyMatch(v -> v.getPropertyPath().toString().equals("tipo")));
-        assertTrue(violaciones.stream().anyMatch(v -> v.getMessage().contains("obligatorio")));
-    }
 
     @ParameterizedTest
     @ValueSource(doubles = {0.0, 100.0, 499.99})
@@ -199,7 +173,6 @@ class TransaccionValidationTest {
         // Given
         Transaccion transaccion = new Transaccion();
         transaccion.setNombreUsuario("Juan Pérez");
-        transaccion.setTipo(TipoTransaccion.Ingreso);
         transaccion.setMonto(montoInvalido);
         transaccion.setDescripcion("Descripción válida");
         transaccion.setFecha(LocalDate.now());
@@ -221,7 +194,6 @@ class TransaccionValidationTest {
         // Given
         Transaccion transaccion = new Transaccion();
         transaccion.setNombreUsuario("Juan Pérez");
-        transaccion.setTipo(TipoTransaccion.Egreso);
         transaccion.setMonto(montoValido);
         transaccion.setDescripcion("Descripción válida");
         transaccion.setFecha(LocalDate.now());
@@ -239,7 +211,6 @@ class TransaccionValidationTest {
         String descripcionLarga = "A".repeat(101); // 101 caracteres
         Transaccion transaccion = new Transaccion();
         transaccion.setNombreUsuario("Juan Pérez");
-        transaccion.setTipo(TipoTransaccion.Ingreso);
         transaccion.setMonto(1500.0);
         transaccion.setDescripcion(descripcionLarga);
         transaccion.setFecha(LocalDate.now());
@@ -260,7 +231,7 @@ class TransaccionValidationTest {
         // Given
         Transaccion transaccion1 = new Transaccion();
         transaccion1.setNombreUsuario("Juan Pérez");
-        transaccion1.setTipo(TipoTransaccion.Ingreso);
+
         transaccion1.setMonto(1500.0);
         transaccion1.setDescripcion(null);
         transaccion1.setFecha(LocalDate.now());

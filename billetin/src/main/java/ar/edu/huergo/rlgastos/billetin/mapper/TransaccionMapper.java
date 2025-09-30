@@ -10,35 +10,42 @@ import ar.edu.huergo.rlgastos.billetin.dto.transaccion.MostrarTransaccionDTO;
 import ar.edu.huergo.rlgastos.billetin.entity.Transaccion;
 import ar.edu.huergo.rlgastos.billetin.entity.categoria.Categoria;
 import ar.edu.huergo.rlgastos.billetin.entity.security.Usuario;
+import ar.edu.huergo.rlgastos.billetin.entity.moneda.Moneda;
 import ar.edu.huergo.rlgastos.billetin.repository.categoria.CategoriaRepository;
+import ar.edu.huergo.rlgastos.billetin.repository.moneda.MonedaRepository;
 import ar.edu.huergo.rlgastos.billetin.repository.security.UsuarioRepository;
 
 @Component
 public class TransaccionMapper {
 
+    private final MonedaRepository monedaRepository;
+
     private final  UsuarioRepository usuarioRepository;
     private final CategoriaRepository categoriaRepository;
 
-    public TransaccionMapper(UsuarioRepository usuarioRepository, CategoriaRepository categoriaRepository) {
+    public TransaccionMapper(UsuarioRepository usuarioRepository, CategoriaRepository categoriaRepository, MonedaRepository monedaRepository) {
         this.usuarioRepository = usuarioRepository;
         this.categoriaRepository = categoriaRepository;
+        this.monedaRepository = monedaRepository;
     }
 
     public Transaccion toEntity(CrearTransaccionDTO dto) {
         Transaccion transaccion = new Transaccion();
         transaccion.setMonto(dto.monto());
         transaccion.setDescripcion(dto.descripcion());
-        transaccion.setTipo(dto.tipo());
         transaccion.setFecha(dto.fecha());
 
         Usuario usuario = usuarioRepository.findById(dto.idUsuario())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         Categoria categoria = categoriaRepository.findById(dto.idCategoria())
                 .orElseThrow(() -> new RuntimeException("Categoria no encontrada"));
+        Moneda moneda = monedaRepository.findById(dto.idMoneda())
+                .orElseThrow(() -> new RuntimeException("Moneda no encontrada"));
 
         transaccion.setUsuario(usuario);
         transaccion.setNombreUsuario(usuario.getNombre());
         transaccion.setCategoria(categoria);
+        transaccion.setMoneda(moneda);
 
         return transaccion;
     }
@@ -47,10 +54,10 @@ public class TransaccionMapper {
         return new MostrarTransaccionDTO(
                 transaccion.getId(),
                 transaccion.getMonto(),
-                transaccion.getTipo(),
                 transaccion.getFecha(),
                 transaccion.getUsuario().getNombre(),
-                transaccion.getCategoria().getNombre()
+                transaccion.getCategoria().getNombre(),
+                transaccion.getMoneda().getNombre()
         );
     }
 
@@ -69,6 +76,11 @@ public class TransaccionMapper {
             Categoria categoria = categoriaRepository.findById(dto.idCategoria())
                     .orElseThrow(() -> new RuntimeException("Categoria no encontrada"));
             transaccion.setCategoria(categoria);
+        }
+        if (dto.idMoneda() != null) {
+            Moneda moneda = monedaRepository.findById(dto.idMoneda())
+                    .orElseThrow(() -> new RuntimeException("Moneda no encontrada"));
+            transaccion.setMoneda(moneda);
         }
     }
 

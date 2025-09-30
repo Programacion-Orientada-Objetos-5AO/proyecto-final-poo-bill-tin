@@ -4,10 +4,9 @@ package ar.edu.huergo.rlgastos.billetin.entity;
 import java.time.LocalDate;
 
 import ar.edu.huergo.rlgastos.billetin.entity.categoria.Categoria;
+import ar.edu.huergo.rlgastos.billetin.entity.moneda.Moneda;
 import ar.edu.huergo.rlgastos.billetin.entity.security.Usuario;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,13 +36,6 @@ public class Transaccion {
     @NotBlank(message = "El nombre es obligatorio")
     @Size(min = 2, max = 100, message = "El nombre del usuario debe tener entre 2 y 100 caracteres")
     private String nombreUsuario;
-
-
-    @NotNull(message = "El tipo de transacción es obligatorio")
-    @Enumerated(EnumType.STRING)
-    private TipoTransaccion tipo;
-
-
    
     @DecimalMin(value = "500.0", message = "El monto debe ser mayor o igual a 500 pesos")
     private Double monto;
@@ -62,4 +54,8 @@ public class Transaccion {
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
+
+    @ManyToOne
+    @JoinColumn(name = "moneda_id")
+    private Moneda moneda;
 }

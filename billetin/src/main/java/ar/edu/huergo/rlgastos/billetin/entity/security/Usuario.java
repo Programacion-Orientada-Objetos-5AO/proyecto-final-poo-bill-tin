@@ -1,8 +1,12 @@
 package ar.edu.huergo.rlgastos.billetin.entity.security;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import ar.edu.huergo.rlgastos.billetin.entity.Transaccion;
+import ar.edu.huergo.rlgastos.billetin.entity.membresia.Membresia;
+import ar.edu.huergo.rlgastos.billetin.entity.objetivo.Objetivo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +16,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -52,8 +58,9 @@ public class Usuario {
     @Column(nullable = false)
     private String password;
 
-    @NotBlank(message = "La membresía es obligatoria")
-    private String membresia;
+    @ManyToOne
+    @JoinColumn(name = "membresia_id")
+    private Membresia membresia;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -63,9 +70,16 @@ public class Usuario {
     )
     private Set<Rol> roles = new HashSet<>();
 
-        public Usuario(String username, String password) {
-            this.username = username;
-            this.password = password;
-        }
+    @OneToMany(mappedBy = "usuario")
+    private List<Objetivo> objetivos;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Transaccion> transacciones;
+
+    public Usuario(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+    
 }
 

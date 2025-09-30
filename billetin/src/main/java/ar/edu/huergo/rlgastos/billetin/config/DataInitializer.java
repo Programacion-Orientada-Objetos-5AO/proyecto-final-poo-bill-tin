@@ -36,7 +36,6 @@ public class DataInitializer {
                     u.setNombre("Administrador del sistema");
                     u.setUsername("admin@derlgastos.billetin.edu.ar");
                     u.setPassword(encoder.encode(adminPassword));
-                    u.setMembresia("premium");
                     u.setRoles(Set.of(admin));
                     usuarioRepository.save(u);
                 }
@@ -48,7 +47,6 @@ public class DataInitializer {
                     u.setNombre("Cliente de prueba");
                     u.setUsername("cliente@delrgastos.billetin.edu.ar");
                     u.setPassword(encoder.encode(clientePassword));
-                    u.setMembresia("gratuita");
                     u.setRoles(Set.of(cliente));
                     usuarioRepository.save(u);
                 }
