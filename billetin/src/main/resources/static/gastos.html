@@ -6,11 +6,17 @@
   <title>Registrar Gasto - Billetin</title>
   <link rel="stylesheet" href="estilos.css">
 </head>
-<body class="gastos">
+
+<body class="categorias">
+  <header>
+    <h2>Billetin</h2>
+    <p>Controlá tus finanzas, alcanzá tus metas.</p>
+  </header>
+
   <main>
     <h1>Registrar Gasto</h1>
 
-    <form>
+    <form method="post" action="/gastos">
       <label for="monto">Monto:</label>
       <input type="number" id="monto" name="monto" required>
 
@@ -38,5 +44,9 @@
 
     <a href="index.html">← Volver al inicio</a>
   </main>
+
+  <footer>
+    <p>© 2025 Billetin. Todos los derechos reservados.</p>
+  </footer>
 </body>
 </html>
