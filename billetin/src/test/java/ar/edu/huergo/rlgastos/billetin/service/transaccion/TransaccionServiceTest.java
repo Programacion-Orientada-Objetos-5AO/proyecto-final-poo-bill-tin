@@ -25,7 +25,6 @@ import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 
 import ar.edu.huergo.rlgastos.billetin.dto.transaccion.ActualizarTransaccionDTO;
 import ar.edu.huergo.rlgastos.billetin.entity.Transaccion;
-import ar.edu.huergo.rlgastos.billetin.entity.TipoTransaccion;
 import ar.edu.huergo.rlgastos.billetin.repository.transaccion.TransaccionRepository;
 import ar.edu.huergo.rlgastos.billetin.service.TransaccionService;
 
@@ -47,7 +46,6 @@ class TransaccionServiceTest {
         transaccionEjemplo = new Transaccion();
         transaccionEjemplo.setId(1L);
         transaccionEjemplo.setNombreUsuario("Juan Perez");
-        transaccionEjemplo.setTipo(TipoTransaccion.Egreso);
         transaccionEjemplo.setMonto(1500.0);
         transaccionEjemplo.setDescripcion("Compra de supermercado");
         transaccionEjemplo.setFecha(LocalDate.of(2024, 1, 15));
@@ -55,7 +53,7 @@ class TransaccionServiceTest {
         actualizarTransaccionDTO = new ActualizarTransaccionDTO(
             2000.0,
             "Compra actualizada",
-            LocalDate.of(2024, 2, 20), null, null
+            LocalDate.of(2024, 2, 20), null, null, null
         );
     }
 
@@ -95,7 +93,6 @@ class TransaccionServiceTest {
         assertEquals(transaccionEjemplo.getMonto(), resultado.get().getMonto());
         assertEquals(transaccionEjemplo.getDescripcion(), resultado.get().getDescripcion());
         assertEquals(transaccionEjemplo.getNombreUsuario(), resultado.get().getNombreUsuario());
-        assertEquals(transaccionEjemplo.getTipo(), resultado.get().getTipo());
         verify(transaccionRepository, times(1)).findById(id);
     }
 
@@ -198,7 +195,7 @@ class TransaccionServiceTest {
         // Given
         Long id = 1L;
         String nombreOriginal = transaccionEjemplo.getNombreUsuario();
-        TipoTransaccion tipoOriginal = transaccionEjemplo.getTipo();
+
         
         when(transaccionRepository.findById(id)).thenReturn(Optional.of(transaccionEjemplo));
         when(transaccionRepository.save(any(Transaccion.class))).thenReturn(transaccionEjemplo);
@@ -209,7 +206,6 @@ class TransaccionServiceTest {
         // Then
         // Verificar que los campos no incluidos en el DTO no cambiaron
         assertEquals(nombreOriginal, transaccionEjemplo.getNombreUsuario());
-        assertEquals(tipoOriginal, transaccionEjemplo.getTipo());
         
         // Verificar que los campos del DTO se actualizaron
         assertEquals(actualizarTransaccionDTO.monto(), transaccionEjemplo.getMonto());
@@ -222,7 +218,7 @@ class TransaccionServiceTest {
     void deberiaManejarValoresNullEnDTODeActualizacion() throws NotFoundException {
         // Given
         Long id = 1L;
-        ActualizarTransaccionDTO dtoConNulls = new ActualizarTransaccionDTO(null, null, null, id, id);
+        ActualizarTransaccionDTO dtoConNulls = new ActualizarTransaccionDTO(null, null, null, id, id, id);
         
         when(transaccionRepository.findById(id)).thenReturn(Optional.of(transaccionEjemplo));
         when(transaccionRepository.save(any(Transaccion.class))).thenReturn(transaccionEjemplo);
@@ -247,7 +243,6 @@ class TransaccionServiceTest {
         Transaccion transaccionCompleta = new Transaccion();
         transaccionCompleta.setId(2L);
         transaccionCompleta.setNombreUsuario("Maria Garcia");
-        transaccionCompleta.setTipo(TipoTransaccion.Ingreso);
         transaccionCompleta.setMonto(3000.0);
         transaccionCompleta.setDescripcion("Salario mensual");
         transaccionCompleta.setFecha(LocalDate.now());
@@ -269,7 +264,7 @@ class TransaccionServiceTest {
         ActualizarTransaccionDTO dtoMontoMinimo = new ActualizarTransaccionDTO(
             500.0, 
             "Transacción mínima",
-            LocalDate.now(), id, id
+            LocalDate.now(), id, id, id
         );
         
         when(transaccionRepository.findById(id)).thenReturn(Optional.of(transaccionEjemplo));

@@ -14,8 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-
-import ar.edu.huergo.rlgastos.billetin.entity.TipoTransaccion;
 import ar.edu.huergo.rlgastos.billetin.entity.Transaccion;
 import ar.edu.huergo.rlgastos.billetin.repository.transaccion.TransaccionRepository;
 
@@ -35,14 +33,12 @@ class TransaccionRepositoryTest {
     void setUp() {
         transaccionIngreso = new Transaccion();
         transaccionIngreso.setNombreUsuario("Juan Pérez");
-        transaccionIngreso.setTipo(TipoTransaccion.Ingreso);
         transaccionIngreso.setMonto(1500.0);
         transaccionIngreso.setDescripcion("Salario mensual");
         transaccionIngreso.setFecha(LocalDate.of(2024, 6, 15));
 
         transaccionEgreso = new Transaccion();
         transaccionEgreso.setNombreUsuario("María González");
-        transaccionEgreso.setTipo(TipoTransaccion.Egreso);
         transaccionEgreso.setMonto(800.0);
         transaccionEgreso.setDescripcion("Compra supermercado");
         transaccionEgreso.setFecha(LocalDate.of(2024, 6, 10));
@@ -57,7 +53,6 @@ class TransaccionRepositoryTest {
         assertNotNull(transaccionGuardada);
         assertNotNull(transaccionGuardada.getId());
         assertEquals("Juan Pérez", transaccionGuardada.getNombreUsuario());
-        assertEquals(TipoTransaccion.Ingreso, transaccionGuardada.getTipo());
         assertEquals(1500.0, transaccionGuardada.getMonto());
         assertEquals("Salario mensual", transaccionGuardada.getDescripcion());
         assertEquals(LocalDate.of(2024, 6, 15), transaccionGuardada.getFecha());
@@ -203,28 +198,7 @@ class TransaccionRepositoryTest {
         assertEquals(null, transaccionGuardada.getDescripcion());
     }
 
-    @Test
-    void deberiaGuardarTransaccionTipoEgreso() {
-        // When
-        Transaccion transaccionGuardada = transaccionRepository.save(transaccionEgreso);
 
-        // Then
-        assertNotNull(transaccionGuardada);
-        assertNotNull(transaccionGuardada.getId());
-        assertEquals("María González", transaccionGuardada.getNombreUsuario());
-        assertEquals(TipoTransaccion.Egreso, transaccionGuardada.getTipo());
-        assertEquals(800.0, transaccionGuardada.getMonto());
-    }
-
-    @Test
-    void deberiaGuardarTransaccionTipoIngreso() {
-        // When
-        Transaccion transaccionGuardada = transaccionRepository.save(transaccionIngreso);
-
-        // Then
-        assertNotNull(transaccionGuardada);
-        assertEquals(TipoTransaccion.Ingreso, transaccionGuardada.getTipo());
-    }
 
     @Test
     void deberiaGuardarYRecuperarFechasCorrectamente() {
@@ -246,7 +220,6 @@ class TransaccionRepositoryTest {
         // Given
         Transaccion segundaTransaccion = new Transaccion();
         segundaTransaccion.setNombreUsuario("Juan Pérez"); // Mismo usuario
-        segundaTransaccion.setTipo(TipoTransaccion.Egreso);
         segundaTransaccion.setMonto(600.0);
         segundaTransaccion.setDescripcion("Compra ropa");
         segundaTransaccion.setFecha(LocalDate.of(2024, 6, 20));

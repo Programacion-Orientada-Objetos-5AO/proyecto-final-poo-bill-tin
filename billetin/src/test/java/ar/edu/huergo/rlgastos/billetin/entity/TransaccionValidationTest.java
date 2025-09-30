@@ -238,7 +238,6 @@ class TransaccionValidationTest {
 
         Transaccion transaccion2 = new Transaccion();
         transaccion2.setNombreUsuario("María González");
-        transaccion2.setTipo(TipoTransaccion.Egreso);
         transaccion2.setMonto(2000.0);
         transaccion2.setDescripcion("");
         transaccion2.setFecha(LocalDate.now());
@@ -257,7 +256,6 @@ class TransaccionValidationTest {
         // Given
         Transaccion transaccion = new Transaccion();
         transaccion.setNombreUsuario("Juan Pérez");
-        transaccion.setTipo(TipoTransaccion.Ingreso);
         transaccion.setMonto(1500.0);
         transaccion.setDescripcion("Descripción válida");
         transaccion.setFecha(null);
@@ -281,19 +279,16 @@ class TransaccionValidationTest {
 
         Transaccion transaccion1 = new Transaccion();
         transaccion1.setNombreUsuario("Usuario 1");
-        transaccion1.setTipo(TipoTransaccion.Ingreso);
         transaccion1.setMonto(1000.0);
         transaccion1.setFecha(fechaHoy);
 
         Transaccion transaccion2 = new Transaccion();
         transaccion2.setNombreUsuario("Usuario 2");
-        transaccion2.setTipo(TipoTransaccion.Egreso);
         transaccion2.setMonto(1500.0);
         transaccion2.setFecha(fechaAnterior);
 
         Transaccion transaccion3 = new Transaccion();
         transaccion3.setNombreUsuario("Usuario 3");
-        transaccion3.setTipo(TipoTransaccion.Ingreso);
         transaccion3.setMonto(2000.0);
         transaccion3.setFecha(fechaFutura);
 
@@ -313,7 +308,6 @@ class TransaccionValidationTest {
         // Given - Transacción con múltiples errores
         Transaccion transaccionInvalida = new Transaccion();
         transaccionInvalida.setNombreUsuario(""); // Nombre vacío
-        transaccionInvalida.setTipo(null); // Tipo null
         transaccionInvalida.setMonto(100.0); // Monto menor a 500
         transaccionInvalida.setDescripcion("A".repeat(150)); // Descripción muy larga
         transaccionInvalida.setFecha(null); // Fecha null
@@ -340,7 +334,6 @@ class TransaccionValidationTest {
         // Given
         Transaccion ingreso = new Transaccion();
         ingreso.setNombreUsuario("Ana López");
-        ingreso.setTipo(TipoTransaccion.Ingreso);
         ingreso.setMonto(3500.0);
         ingreso.setDescripcion("Salario");
         ingreso.setFecha(LocalDate.now());
@@ -357,7 +350,6 @@ class TransaccionValidationTest {
         // Given
         Transaccion egreso = new Transaccion();
         egreso.setNombreUsuario("Carlos Ruiz");
-        egreso.setTipo(TipoTransaccion.Egreso);
         egreso.setMonto(800.0);
         egreso.setDescripcion("Compra supermercado");
         egreso.setFecha(LocalDate.of(2024, 6, 15));
