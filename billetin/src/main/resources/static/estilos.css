@@ -1,28 +1,65 @@
-/* === PALETA BASE ===
-Verde:     #4CAF50
-Rojo:      #F44336
-Azul:      #2196F3
-Amarillo:  #FFCA28
-Plateado:  #B0BEC5
-Gris claro: #F5F5F5
-Gris oscuro: #212121
+/* === PALETA RECOMENDADA ===
+Verde:        #4CAF50
+Rojo:         #F44336
+Azul:         #2196F3
+Amarillo:     #FFCA28
+Plateado:     #B0BEC5
+Gris claro:   #F5F5F5
+Gris oscuro:  #212121
+Fondo azul:   #0b1a33
 */
 
-/* Fuente y fondo general */
+/* === GENERAL === */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
+  background-color: #0b1a33;
+  color: white;
   padding: 40px;
 }
 
-/* Título principal */
 h1 {
-  color: #2c3e50;
+  color: #ffffff;
   margin-bottom: 10px;
 }
 
-/* Contenedor del formulario */
+/* === HEADER === */
+header {
+  background-color: #152c4d; /* mismo que el fondo general */
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+header:hover {
+  background-color: #1f3f6b; /* un azul marino un poco más claro */
+}
+
+header h2 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+header p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #ecf0f1;
+}
+
+/* === FOOTER === */
+footer {
+  background-color: #1e2a44;
+  color: #B0BEC5;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 14px;
+  margin-top: 40px;
+  border-top: 1px solid #34495e;
+}
+
+/* === CONTENEDOR DE FORMULARIO === */
 .contenedor-formulario {
   width: 300px;
   max-width: 90%;
@@ -35,16 +72,16 @@ h1 {
   padding-top: 10px;
 }
 
-/* Formularios */
+/* === FORMULARIOS === */
 form {
-  background-color: #ffffff;
+  background-color: #162c52;
+  color: #ffffff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
 }
 
-/* Etiquetas y campos */
 label {
   display: block;
   margin-top: 15px;
@@ -58,12 +95,11 @@ select {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #B0BEC5;
   border-radius: 5px;
   box-sizing: border-box;
 }
 
-/* Select específico */
 select {
   cursor: pointer;
   appearance: none;
@@ -74,11 +110,11 @@ select {
   padding-right: 30px;
 }
 
-/* Botón */
+/* === BOTONES === */
 button {
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: #27ae60;
+  background-color: #4CAF50;
   color: white;
   border: none;
   border-radius: 5px;
@@ -86,62 +122,67 @@ button {
 }
 
 button:hover {
-  background-color: #219150;
+  background-color: #388E3C;
 }
 
-/* Enlace de volver */
+/* === BOTÓN PARA GASTOS (si se usa clase) */
+.boton-gasto {
+  background-color: #F44336;
+}
+
+.boton-gasto:hover {
+  background-color: #C62828;
+}
+
+/* === ENLACES === */
 a {
   display: inline-block;
   text-decoration: none;
-  color: #3498db;
+  color: #2196F3;
   margin-top: 20px;
 }
 
 a:hover {
-  text-decoration: underline;
+  color: #FFCA28;
 }
 
-/* === ESTILOS PARA GASTOS === */
-body.gastos {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding-top: 50px;
+/* === EFECTOS DE FOCO === */
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus {
+  outline: none;
+  border-color: #2196F3;
+  box-shadow: 0 0 3px rgba(33, 150, 243, 0.3);
 }
 
-body.gastos main {
-  width: 300px;
-  max-width: 90%;
+/* === TABLAS === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
   background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  color: #212121;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-body.gastos h1 {
-  color: #e74c3c;
-  text-align: center;
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #B0BEC5;
+  text-align: left;
 }
 
-body.gastos form {
-  background: none;
-  box-shadow: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+th {
+  background-color: #f3f3f3;
+  color: #212121;
+  font-weight: bold;
 }
 
-body.gastos button {
-  background-color: #e74c3c;
-}
+/* === PÁGINAS ESPECÍFICAS === */
 
-body.gastos button:hover {
-  background-color: #c0392b;
-}
-
-/* === ESTILOS PARA CATEGORÍAS === */
+/* CATEGORÍAS */
 body.categorias main h1 {
   color: #FFCA28;
   text-align: center;
@@ -161,34 +202,155 @@ body.categorias button:hover {
   background-color: #e0b020;
 }
 
-/* Efectos focus */
-input[type="text"]:focus,
-input[type="number"]:focus,
-input[type="date"]:focus,
-select:focus {
-  outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 3px rgba(52, 152, 219, 0.3);
+/* INGRESOS */
+body.ingresos h1 {
+  color: #4CAF50;
+  text-align: center;
 }
 
-/* Tablas */
-table {
+body.ingresos button {
+  background-color: #4CAF50;
+}
+
+body.ingresos button:hover {
+  background-color: #388E3C;
+}
+
+/* GASTOS */
+body.gastos main {
+  width: 300px;
+  max-width: 90%;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+body.gastos h1 {
+  color: #F44336;
+  text-align: center;
+}
+
+body.gastos form {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+body.gastos button {
+  background-color: #F44336;
+}
+
+body.gastos button:hover {
+  background-color: #C62828;
+}
+
+/* LOGIN */
+body.login h1 {
+  color: #2196F3;
+  text-align: center;
+}
+
+body.login button {
+  background-color: #2196F3;
+}
+
+body.login button:hover {
+  background-color: #1976D2;
+}
+
+/* VER GASTOS */
+body.vergastos h1 {
+  color: #F44336;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+body.vergastos select {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+body.vergastos th {
+  background-color: #fce4ec;
+  color: #c62828;
+}
+
+/* VER INGRESOS */
+body.veringresos h1 {
+  color: #4CAF50;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+body.veringresos select {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+body.veringresos th {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* INICIO */
+body.inicio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #1e2a44, #0b1a33);
+  text-align: center;
+}
+
+body.inicio main {
+  max-width: 400px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+body.inicio h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+body.inicio p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+body.inicio .opciones {
+  list-style: none;
+  padding: 0;
+}
+
+body.inicio .opciones li {
+  margin: 10px 0;
+}
+
+body.inicio .opciones a {
+  display: inline-block;
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
-
-th, td {
   padding: 10px;
-  border-bottom: 1px solid #ccc;
-  text-align: left;
+  background-color: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s;
 }
 
-th {
-  background-color: #f3f3f3;
+body.inicio .opciones a:hover {
+  background-color: #2c80b4;
 }
 
-/* Responsivo */
+/* RESPONSIVE */
 @media (max-width: 480px) {
   body {
     padding: 20px;
@@ -209,89 +371,32 @@ th {
     font-size: 14px;
   }
 }
-/* === ESTILOS PARA INGRESOS === */
-body.ingresos h1 {
-  color: #4CAF50;
-  text-align: center;
+/* FORMULARIO CENTRADO Y COMPACTO */
+body.categorias main {
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  background-color: #0b1a33;
+  border-radius: 12px;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-body.ingresos button {
-  background-color: #4CAF50;
+main {
+  flex: 1;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-body.ingresos button:hover {
-  background-color: #388E3C;
-}
-/* === ESTILOS PARA LOGIN === */
-body.login h1 {
-  color: #2196F3;
-  text-align: center;
-}
-
-body.login button {
-  background-color: #2196F3;
-}
-
-body.login button:hover {
-  background-color: #1976D2;
-}
-/* === ESTILOS PARA VER GASTOS === */
-body.vergastos h1 {
-  color: #F44336;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-body.vergastos select {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-body.vergastos table {
-  background-color: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-body.vergastos th {
-  background-color: #fce4ec;
-  color: #c62828;
-  font-weight: bold;
-}
-
-body.vergastos td {
-  color: #444;
-}
-/* === ESTILOS PARA VER INGRESOS === */
-body.veringresos h1 {
-  color: #4CAF50;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-body.veringresos select {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-body.veringresos table {
-  background-color: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-body.veringresos th {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  font-weight: bold;
-}
-
-body.veringresos td {
-  color: #444;
+main,
+.contenedor-formulario {
+  flex: 1;
 }
 
 

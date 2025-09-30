@@ -6,14 +6,30 @@
   <title>Crear Categoría - Billetin</title>
   <link rel="stylesheet" href="estilos.css">
   <script>
-    function toggleTopeField() {
+    function actualizarTope() {
+      const tipo = document.getElementById("tipo").value;
       const asignarTope = document.getElementById("asignarTope").value;
+      const seccionTope = document.getElementById("seccionTope");
       const campoTope = document.getElementById("campoTope");
-      campoTope.style.display = (asignarTope === "si") ? "block" : "none";
+
+      if (tipo === "gasto") {
+        seccionTope.style.display = "block";
+        campoTope.style.display = (asignarTope === "si") ? "block" : "none";
+      } else {
+        seccionTope.style.display = "none";
+        campoTope.style.display = "none";
+        document.getElementById("asignarTope").value = "no";
+      }
     }
   </script>
 </head>
+
 <body class="categorias">
+  <header>
+    <h2>Billetin</h2>
+    <p>Controlá tus finanzas, alcanzá tus metas.</p>
+  </header>
+
   <main>
     <h1>Crear Nueva Categoría</h1>
 
@@ -22,20 +38,22 @@
       <input type="text" id="nombre" name="nombre" required>
 
       <label for="tipo">Tipo:</label>
-      <select id="tipo" name="tipo" required>
+      <select id="tipo" name="tipo" onchange="actualizarTope()" required>
         <option value="ingreso">Ingreso</option>
         <option value="gasto">Gasto</option>
       </select>
 
-      <label for="asignarTope">¿Asignar tope?</label>
-      <select id="asignarTope" name="asignarTope" onchange="toggleTopeField()" required>
-        <option value="no">No</option>
-        <option value="si">Sí</option>
-      </select>
+      <div id="seccionTope" style="display: none;">
+        <label for="asignarTope">¿Asignar tope?</label>
+        <select id="asignarTope" name="asignarTope" onchange="actualizarTope()" required>
+          <option value="no">No</option>
+          <option value="si">Sí</option>
+        </select>
 
-      <div id="campoTope" style="display: none;">
-        <label for="tope">Tope (en pesos):</label>
-        <input type="number" id="tope" name="tope" min="0" step="0.01">
+        <div id="campoTope" style="display: none;">
+          <label for="tope">Tope (en pesos):</label>
+          <input type="number" id="tope" name="tope" min="0" step="0.01">
+        </div>
       </div>
 
       <button type="submit">Guardar Categoría</button>
@@ -43,5 +61,9 @@
 
     <a href="index.html">← Volver al inicio</a>
   </main>
+
+  <footer>
+    <p>© 2025 Billetin. Todos los derechos reservados.</p>
+  </footer>
 </body>
 </html>
