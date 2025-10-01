@@ -2,6 +2,7 @@ package ar.edu.huergo.rlgastos.billetin.controller;
 
 
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.huergo.rlgastos.billetin.dto.transaccion.ActualizarTransaccionDTO;
@@ -71,5 +73,14 @@ public class TransaccionController {
         this.transaccionService.eliminarTransaccion(id);
         return ResponseEntity.ok("La transaccion ha sido eliminada correctamente");
         
+    }
+
+    @GetMapping("/gasto-entre-fechas")
+    public ResponseEntity<Double> calcularGasto(
+            @RequestParam LocalDate inicio,
+            @RequestParam LocalDate fin) {
+
+        Double total = transaccionService.calcularGastoEntreFechas(inicio, fin);
+        return ResponseEntity.ok(total);
     }
 }

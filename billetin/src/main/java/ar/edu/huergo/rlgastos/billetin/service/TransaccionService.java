@@ -1,5 +1,6 @@
 package ar.edu.huergo.rlgastos.billetin.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,5 +39,12 @@ public class TransaccionService {
 
     public void eliminarTransaccion(Long id) {
         this.transaccionRepository.deleteById(id);
+    }
+
+    public Double calcularGastoEntreFechas(LocalDate inicio, LocalDate fin) {
+        return transaccionRepository.findByFechaBetween(inicio, fin)
+                .stream()
+                .mapToDouble(Transaccion::getMonto)
+                .sum();
     }
 }
