@@ -6,9 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class MembresiaTest {
+    
     @Test
     void testConstructorYGetters() {
-        Membresia membresia = new Membresia(1L, "premium", 20, "acceso a cursos", fecha, null);
+        Date fecha = new Date();
+        Membresia membresia = new Membresia(1L, "Premium", 999.99, "acceso a cursos", fecha, null);
 
         assertEquals(1L, membresia.getIdMembresia());
         assertEquals("Premium", membresia.getNombre());
@@ -19,18 +21,25 @@ public class MembresiaTest {
 
     @Test
     void testSetters() {
-        Categoria categoria = new Categoria();
+        Membresia membresia = new Membresia();
 
-        assertNull(categoria.getIdCategoria());
-        assertNull(categoria.getNombre());
-        assertNull(categoria.getTipo());
+        Date fecha = new Date();
+        membresia.setIdMembresia(2L);
+        membresia.setNombre("Básica");
+        membresia.setPrecio(199.99);
+        membresia.setBeneficios("Acceso limitado");
+        membresia.setDuracion(fecha);
 
-        categoria.setIdCategoria(2L);
-        categoria.setNombre("Sueldo");
-        categoria.setTipo(TipoCategoria.ingreso_fijo);
-
-        assertEquals(2L, categoria.getIdCategoria());
-        assertEquals("Sueldo", categoria.getNombre());
-        assertEquals(TipoCategoria.ingreso_fijo, categoria.getTipo());
+        assertEquals(2L, membresia.getIdMembresia());
+        assertEquals("Básica", membresia.getNombre());
+        assertEquals(199.99, membresia.getPrecio());
+        assertEquals("Acceso limitado", membresia.getBeneficios());
+        assertEquals(fecha, membresia.getDuracion());
+    }
+    @Test
+    public void testListaUsuariosInicialVacia() {
+        Membresia membresia = new Membresia();
+        assertNotNull(membresia.getUsuarios());
+        assertTrue(membresia.getUsuarios().isEmpty());
     }
 }
