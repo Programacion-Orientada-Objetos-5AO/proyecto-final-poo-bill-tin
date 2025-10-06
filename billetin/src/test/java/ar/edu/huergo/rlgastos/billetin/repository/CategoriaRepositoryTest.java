@@ -21,4 +21,6 @@ class CategoriaRepositoryTest {
     categoriaAlimentos = new Categoria();
     categoriaAlimentos.setNombre("Alimentos");
     categoriaAlimentos.setTipo(TipoCategoria.egreso_variable);
+    }
+    
 }
