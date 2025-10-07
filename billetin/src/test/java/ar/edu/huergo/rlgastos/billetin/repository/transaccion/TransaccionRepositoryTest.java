@@ -1,4 +1,4 @@
-package ar.edu.huergo.rlgastos.billetin.repository;
+package ar.edu.huergo.rlgastos.billetin.repository.transaccion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

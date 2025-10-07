@@ -1,4 +1,4 @@
-package ar.edu.huergo.rlgastos.billetin.repository;
+package ar.edu.huergo.rlgastos.billetin.repository.categoria;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
