@@ -4,6 +4,7 @@ package ar.edu.huergo.rlgastos.billetin.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +83,11 @@ public class TransaccionController {
 
         Double total = transaccionService.calcularGastoEntreFechas(inicio, fin);
         return ResponseEntity.ok(total);
+    }
+
+    @GetMapping("/gastos-por-categoria/{usuarioId}")
+    public ResponseEntity<Map<String, Double>> getGastosPorCategoria(@PathVariable Long usuarioId) {
+        Map<String, Double> gastosPorCategoria = transaccionService.calcularGastosPorCategoria(usuarioId);
+        return ResponseEntity.ok(gastosPorCategoria);
     }
 }

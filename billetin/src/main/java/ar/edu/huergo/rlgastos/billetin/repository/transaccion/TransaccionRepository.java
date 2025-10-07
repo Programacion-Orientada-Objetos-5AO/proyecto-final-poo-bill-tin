@@ -14,5 +14,6 @@ import ar.edu.huergo.rlgastos.billetin.entity.Transaccion;
 @Repository
 public interface TransaccionRepository extends JpaRepository<Transaccion, Long>{
     List<Transaccion> findByFechaBetween(LocalDate inicio, LocalDate fin);
+    List<Transaccion> findByUsuarioId(Long usuarioId);
    
 }
