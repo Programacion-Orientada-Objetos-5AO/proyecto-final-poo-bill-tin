@@ -1,8 +1,11 @@
 package ar.edu.huergo.rlgastos.billetin.service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
@@ -47,4 +50,16 @@ public class TransaccionService {
                 .mapToDouble(Transaccion::getMonto)
                 .sum();
     }
+
+    public Map<String, Double> calcularGastosPorCategoria(Long usuarioId) {
+        List<Transaccion> transacciones = transaccionRepository.findByUsuarioId(usuarioId);
+
+        Map<String, Double> resultado = new HashMap<>();
+        for (Transaccion t : transacciones) {
+            String categoria = t.getCategoria().getNombre();
+            resultado.put(categoria, resultado.getOrDefault(categoria, 0.0) + t.getMonto());
+        }
+        return resultado;
+    }
+
 }
