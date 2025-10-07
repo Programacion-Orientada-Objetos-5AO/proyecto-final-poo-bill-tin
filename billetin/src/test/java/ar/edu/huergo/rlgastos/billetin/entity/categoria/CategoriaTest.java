@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CategoriaTest {
     @Test
-    void testConstructorYGetters() {
+    public void testConstructorYGetters() {
         Categoria categoria = new Categoria(1L, "Comida", TipoCategoria.egreso_variable);
 
         assertEquals(1L, categoria.getIdCategoria());
@@ -17,7 +17,7 @@ public class CategoriaTest {
     }
 
     @Test
-    void testSetters() {
+    public void testSetters() {
         Categoria categoria = new Categoria();
 
         assertNull(categoria.getIdCategoria());

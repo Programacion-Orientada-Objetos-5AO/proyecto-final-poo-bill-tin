@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MembresiaTest {
     
     @Test
-    void testConstructorYGetters() {
+    public void testConstructorYGetters() {
         Date fecha = new Date();
         Membresia membresia = new Membresia(1L, "Premium", 999.99, "acceso a cursos", fecha, null);
 
@@ -20,7 +20,7 @@ public class MembresiaTest {
     }
 
     @Test
-    void testSetters() {
+    public void testSetters() {
         Membresia membresia = new Membresia();
 
         Date fecha = new Date();
