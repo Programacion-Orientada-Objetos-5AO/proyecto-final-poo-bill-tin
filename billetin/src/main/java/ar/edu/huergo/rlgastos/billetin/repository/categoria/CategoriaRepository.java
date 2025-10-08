@@ -11,3 +11,5 @@ import ar.edu.huergo.rlgastos.billetin.entity.categoria.Categoria;
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
    
 }
+
+//probar figma make para html poner parrafos para descrbir todo
