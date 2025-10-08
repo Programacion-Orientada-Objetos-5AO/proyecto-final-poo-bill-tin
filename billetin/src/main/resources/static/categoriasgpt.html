@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías | Billetín</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <h1>Billetín</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="objetivos.html">Objetivos</a>
+            <a href="categorias.html" class="active">Categorías</a>
+            <a href="monedas.html">Monedas</a>
+            <a href="membresias.html">Membresías</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>Nueva categoría</h2>
+            <form>
+                <input type="text" placeholder="Nombre de categoría">
+                <select>
+                    <option value="gasto">Gasto</option>
+                    <option value="ingreso">Ingreso</option>
+                </select>
+                <button>Agregar categoría</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3>Categorías existentes</h3>
+            <table>
+                <thead>
+                    <tr><th>Nombre</th><th>Tipo</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Comida</td><td>Gasto</td></tr>
+                    <tr><td>Sueldo</td><td>Ingreso</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>© 2025 Billetín</footer>
+</body>
+</html>
