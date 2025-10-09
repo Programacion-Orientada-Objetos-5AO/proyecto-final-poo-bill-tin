@@ -1,69 +1,149 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Crear Categoría - Billetin</title>
-  <link rel="stylesheet" href="estilos.css">
-  <script>
-    function actualizarTope() {
-      const tipo = document.getElementById("tipo").value;
-      const asignarTope = document.getElementById("asignarTope").value;
-      const seccionTope = document.getElementById("seccionTope");
-      const campoTope = document.getElementById("campoTope");
-
-      if (tipo === "gasto") {
-        seccionTope.style.display = "block";
-        campoTope.style.display = (asignarTope === "si") ? "block" : "none";
-      } else {
-        seccionTope.style.display = "none";
-        campoTope.style.display = "none";
-        document.getElementById("asignarTope").value = "no";
-      }
-    }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billetin | Categorias</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
+<body>
+    <header class="navbar">
+        <h1>Billetin</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="objetivos.html">Objetivos</a>
+            <a href="membresias.html">Membresias</a>
+            <a href="monedas.html">Monedas</a>
+            <a class="active" href="categorias.html">Categorias</a>
+            <a href="transacciones.html">Transacciones</a>
+        </nav>
+        <a class="cta" href="login.html">Iniciar sesion</a>
+    </header>
 
-<body class="categorias">
-  <header>
-    <h2>Billetin</h2>
-    <p>Controlá tus finanzas, alcanzá tus metas.</p>
-  </header>
+    <main class="container">
+        <section class="content-header">
+            <span class="tagline">Segmenta cada flujo</span>
+            <h1>Administra las categorias que definen tu estrategia financiera</h1>
+            <p>Crea categorias consistentes para clasificar ingresos y egresos, asignar responsables y medir con precision el impacto de cada decision.</p>
+        </section>
 
-  <main>
-    <h1>Crear Nueva Categoría</h1>
+        <section class="section-block">
+            <h2>Crear nueva categoria</h2>
+            <p>Completa el formulario y alinealo con la estructura de reportes de tu empresa. Puedes diferenciar categorias por tipo para acelerar los analisis posteriores.</p>
+            <div class="segment-grid">
+                <div class="info-card">
+                    <form method="post" action="/api/categorias">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Marketing digital" required>
 
-    <form method="post" action="/categorias">
-      <label for="nombre">Nombre de la categoría:</label>
-      <input type="text" id="nombre" name="nombre" required>
+                        <label for="tipo">Tipo</label>
+                        <select id="tipo" name="tipo" required>
+                            <option value="">Selecciona una opcion</option>
+                            <option value="ingreso_fijo">Ingreso fijo</option>
+                            <option value="ingreso_variable">Ingreso variable</option>
+                            <option value="egreso_fijo">Egreso fijo</option>
+                            <option value="egreso_variable">Egreso variable</option>
+                        </select>
 
-      <label for="tipo">Tipo:</label>
-      <select id="tipo" name="tipo" onchange="actualizarTope()" required>
-        <option value="ingreso">Ingreso</option>
-        <option value="gasto">Gasto</option>
-      </select>
+                        <button class="btn" type="submit">Guardar categoria</button>
+                    </form>
+                </div>
+                <div class="info-card">
+                    <h3>Buenas practicas</h3>
+                    <p>Un esquema de categorias claro facilita el seguimiento de presupuestos y evita duplicados.</p>
+                    <div class="feature-list">
+                        <div class="feature">
+                            <div class="feature-icon">A</div>
+                            <div>
+                                <h4>Homologa con contabilidad</h4>
+                                <p>Usa el mismo nombre que en los libros o ERP para consolidar los reportes.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">B</div>
+                            <div>
+                                <h4>Define responsables</h4>
+                                <p>Relaciona cada categoria con un equipo para acelerar aprobaciones.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">C</div>
+                            <div>
+                                <h4>Evalua limites</h4>
+                                <p>Considera topes y alertas en tu analisis para evitar desviaciones.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <div id="seccionTope" style="display: none;">
-        <label for="asignarTope">¿Asignar tope?</label>
-        <select id="asignarTope" name="asignarTope" onchange="actualizarTope()" required>
-          <option value="no">No</option>
-          <option value="si">Sí</option>
-        </select>
+        <section class="section-block">
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h3>Categorias activas</h3>
+                </div>
+                <div class="filter-bar">
+                    <input type="search" placeholder="Buscar por nombre">
+                    <select>
+                        <option value="">Filtrar por tipo</option>
+                        <option value="ingreso_fijo">Ingreso fijo</option>
+                        <option value="ingreso_variable">Ingreso variable</option>
+                        <option value="egreso_fijo">Egreso fijo</option>
+                        <option value="egreso_variable">Egreso variable</option>
+                    </select>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12</td>
+                            <td>Marketing digital</td>
+                            <td><span class="status-pill">Egreso variable</span></td>
+                            <td>
+                                <div class="inline-actions">
+                                    <a class="btn secondary" href="#">Editar</a>
+                                    <a class="btn secondary" href="#">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>07</td>
+                            <td>Suscripciones SaaS</td>
+                            <td><span class="status-pill">Egreso fijo</span></td>
+                            <td>
+                                <div class="inline-actions">
+                                    <a class="btn secondary" href="#">Editar</a>
+                                    <a class="btn secondary" href="#">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>03</td>
+                            <td>Ventas mayoristas</td>
+                            <td><span class="status-pill">Ingreso variable</span></td>
+                            <td>
+                                <div class="inline-actions">
+                                    <a class="btn secondary" href="#">Editar</a>
+                                    <a class="btn secondary" href="#">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 
-        <div id="campoTope" style="display: none;">
-          <label for="tope">Tope (en pesos):</label>
-          <input type="number" id="tope" name="tope" min="0" step="0.01">
-        </div>
-      </div>
-
-      <button type="submit">Guardar Categoría</button>
-    </form>
-
-    <a href="index.html">← Volver al inicio</a>
-  </main>
-
-  <footer>
-    <p>© 2025 Billetin. Todos los derechos reservados.</p>
-  </footer>
+    <footer>
+        <small>&copy; 2025 Billetin. Plataforma integral de gestion financiera.</small>
+    </footer>
 </body>
 </html>

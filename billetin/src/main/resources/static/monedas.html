@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billetin | Monedas</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <h1>Billetin</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="objetivos.html">Objetivos</a>
+            <a href="membresias.html">Membresias</a>
+            <a class="active" href="monedas.html">Monedas</a>
+            <a href="categorias.html">Categorias</a>
+            <a href="transacciones.html">Transacciones</a>
+        </nav>
+        <a class="cta" href="login.html">Iniciar sesion</a>
+    </header>
+
+    <main class="container">
+        <section class="content-header">
+            <span class="tagline">Conversion sin friccion</span>
+            <h1>Centraliza la gestion de monedas y tasas de tu operacion</h1>
+            <p>Configura cada moneda habilitada en Billetin para controlar conversiones, reportes multinacionales y conciliaciones en tiempo real.</p>
+        </section>
+
+        <section class="section-block">
+            <h2>Registrar moneda</h2>
+            <p>Completa el formulario para agregar un nuevo codigo ISO y compartirlo con los equipos contables y operativos.</p>
+            <div class="segment-grid">
+                <div class="info-card">
+                    <form method="post" action="/api/monedas">
+                        <label for="codigo">Codigo ISO</label>
+                        <input type="text" id="codigo" name="codigo" maxlength="3" placeholder="ARS" required>
+
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Peso argentino" required>
+
+                        <button class="btn" type="submit">Guardar moneda</button>
+                    </form>
+                </div>
+                <div class="info-card">
+                    <h3>Lineamientos de referencia</h3>
+                    <div class="feature-list">
+                        <div class="feature">
+                            <div class="feature-icon">1</div>
+                            <div>
+                                <h4>Usa codigos oficiales</h4>
+                                <p>Adopta el estandar ISO 4217 para facilitar integraciones bancarias.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">2</div>
+                            <div>
+                                <h4>Sincroniza cotizaciones</h4>
+                                <p>Actualiza los valores a diario para reportes de resultados y cash flow.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">3</div>
+                            <div>
+                                <h4>Define moneda base</h4>
+                                <p>Selecciona una moneda principal para comparar objetivos y transacciones.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-block">
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h3>Monedas configuradas</h3>
+                </div>
+                <div class="filter-bar">
+                    <input type="search" placeholder="Buscar por codigo o nombre">
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Ultima actualizacion</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ARS</td>
+                            <td>Peso argentino</td>
+                            <td>10/07/2025</td>
+                            <td>
+                                <div class="inline-actions">
+                                    <a class="btn secondary" href="#">Editar</a>
+                                    <a class="btn secondary" href="#">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>USD</td>
+                            <td>Dolar estadounidense</td>
+                            <td>09/07/2025</td>
+                            <td>
+                                <div class="inline-actions">
+                                    <a class="btn secondary" href="#">Editar</a>
+                                    <a class="btn secondary" href="#">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EUR</td>
+                            <td>Euro</td>
+                            <td>08/07/2025</td>
+                            <td>
+                                <div class="inline-actions">
+                                    <a class="btn secondary" href="#">Editar</a>
+                                    <a class="btn secondary" href="#">Eliminar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <small>&copy; 2025 Billetin. Plataforma integral de gestion financiera.</small>
+    </footer>
+</body>
+</html>

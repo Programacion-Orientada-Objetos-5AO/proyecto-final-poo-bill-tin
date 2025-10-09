@@ -3,37 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Membresías | Billetín</title>
+    <title>Billetin | Membresias</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header class="navbar">
-        <h1>Billetín</h1>
+        <h1>Billetin</h1>
         <nav>
             <a href="index.html">Inicio</a>
             <a href="objetivos.html">Objetivos</a>
-            <a href="categorias.html">Categorías</a>
+            <a class="active" href="membresias.html">Membresias</a>
             <a href="monedas.html">Monedas</a>
-            <a href="membresias.html" class="active">Membresías</a>
+            <a href="categorias.html">Categorias</a>
+            <a href="transacciones.html">Transacciones</a>
         </nav>
+        <a class="cta" href="login.html">Iniciar sesion</a>
     </header>
 
-    <div class="container">
-        <div class="card">
-            <h2>Planes de membresía</h2>
-            <p>Accedé a funciones avanzadas de Billetín con una membresía.</p>
-            <table>
-                <thead>
-                    <tr><th>Nombre</th><th>Precio</th><th>Beneficios</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Básica</td><td>Gratis</td><td>Control de gastos y objetivos</td></tr>
-                    <tr><td>Premium</td><td>$2.000/mes</td><td>Reportes, estadísticas y más monedas</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <main class="container">
+        <section class="content-header">
+            <span class="tagline">Planes para cada etapa</span>
+            <h1>Escala tu gestion financiera con membresias pensadas para equipos modernos</h1>
+            <p>Selecciona la membresia adecuada para tu organizacion y desbloquea modulos avanzados, soporte dedicado y automatizaciones que optimizan el control de gastos.</p>
+        </section>
 
-    <footer>© 2025 Billetín</footer>
+        <section class="section-block">
+            <h2>Planes disponibles</h2>
+            <p>Comparte junto a tu equipo los beneficios de cada plan, agrega notas internas y registra solicitudes de upgrade directamente desde Billetin.</p>
+            <div class="segment-grid">
+                <article class="info-card">
+                    <h3>Basica</h3>
+                    <p>Ideal para emprendimientos que comienzan a ordenar sus movimientos y objetivos.</p>
+                    <ul>
+                        <li>Panel de ingresos y egresos</li>
+                        <li>Hasta 3 usuarios colaboradores</li>
+                        <li>Alertas de objetivos mensuales</li>
+                    </ul>
+                    <p style="margin-top:1rem;"><strong>$0 / mes</strong></p>
+                    <a class="btn" href="#">Solicitar plan</a>
+                </article>
+                <article class="info-card">
+                    <h3>Profesional</h3>
+                    <p>Para empresas que necesitan seguimiento detallado, multiples monedas y flujos de aprobacion.</p>
+                    <ul>
+                        <li>Reportes descargables</li>
+                        <li>Membresias y objetivos ilimitados</li>
+                        <li>Integracion con ERP y BI</li>
+                    </ul>
+                    <p style="margin-top:1rem;"><strong>$18.900 / mes</strong></p>
+                    <a class="btn" href="#">Solicitar plan</a>
+                </article>
+                <article class="info-card">
+                    <h3>Empresarial</h3>
+                    <p>Suites avanzadas para grupos regionales con soporte personalizado y acuerdos de SLA.</p>
+                    <ul>
+                        <li>Single Sign-On y roles avanzados</li>
+                        <li>Integraciones dedicadas</li>
+                        <li>Gerente de exito asignado</li>
+                    </ul>
+                    <p style="margin-top:1rem;"><strong>Consultar</strong></p>
+                    <a class="btn" href="#">Contactar ventas</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="section-block">
+            <h2>Registrar nueva membresia</h2>
+            <p>Administra los planes disponibles desde este modulo. El formulario se integra con el endpoint de membresias del backend.</p>
+            <div class="segment-grid">
+                <div class="info-card">
+                    <form method="post" action="/api/membresias">
+                        <label for="nombre">Nombre de la membresia</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Premium Global" required>
+
+                        <label for="precio">Precio mensual (ARS)</label>
+                        <input type="number" id="precio" name="precio" min="500" step="0.01" placeholder="25000" required>
+
+                        <label for="beneficios">Beneficios destacados</label>
+                        <textarea id="beneficios" name="beneficios" placeholder="Reportes avanzados, API abierta" required></textarea>
+
+                        <label for="duracion">Fecha de renovacion</label>
+                        <input type="date" id="duracion" name="duracion" required>
+
+                        <button class="btn" type="submit">Guardar membresia</button>
+                    </form>
+                </div>
+                <div class="info-card">
+                    <h3>Consejos para definir planes</h3>
+                    <div class="feature-list">
+                        <div class="feature">
+                            <div class="feature-icon">+</div>
+                            <div>
+                                <h4>Pon en valor tu servicio</h4>
+                                <p>Alinea precios con los beneficios diferenciales que ofreces.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">%</div>
+                            <div>
+                                <h4>Evalua promociones</h4>
+                                <p>Define periodos y descuentos con control de retorno de inversion.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">S</div>
+                            <div>
+                                <h4>Coordina soporte</h4>
+                                <p>Asigna niveles de SLA segun la demanda de cada segmento.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <small>&copy; 2025 Billetin. Plataforma integral de gestion financiera.</small>
+    </footer>
 </body>
 </html>
