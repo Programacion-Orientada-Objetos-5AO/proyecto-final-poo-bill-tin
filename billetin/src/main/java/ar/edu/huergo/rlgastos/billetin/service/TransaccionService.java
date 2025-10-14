@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import ar.edu.huergo.rlgastos.billetin.dto.transaccion.ActualizarTransaccionDTO;
 import ar.edu.huergo.rlgastos.billetin.entity.Transaccion;
@@ -62,4 +63,19 @@ public class TransaccionService {
         return resultado;
     }
 
+    public Map<String, Object> calcularGastoConvertido(LocalDate inicio, LocalDate fin, String monedaDestino) {
+        Double total = calcularGastoEntreFechas(inicio, fin);
+
+        String url = "https://api.exchangerate.host/convert?from=ARS&to=" + monedaDestino + "&amount=" + total;
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+
+    
+        Double convertido = ((Number) response.getBody().get("result")).doubleValue();
+        return Map.of(
+            "montoTotalARS", total,
+            "monedaDestino", monedaDestino,
+            "convertido", convertido
+        );
+    }
 }

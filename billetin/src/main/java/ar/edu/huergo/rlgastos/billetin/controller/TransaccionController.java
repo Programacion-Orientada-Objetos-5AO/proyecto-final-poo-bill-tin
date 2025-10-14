@@ -90,4 +90,14 @@ public class TransaccionController {
         Map<String, Double> gastosPorCategoria = transaccionService.calcularGastosPorCategoria(usuarioId);
         return ResponseEntity.ok(gastosPorCategoria);
     }
+
+    @GetMapping("/gasto-convertido")
+    public ResponseEntity<Map<String, Object>> calcularGastoConvertido(
+        @RequestParam LocalDate inicio,
+        @RequestParam LocalDate fin,
+        @RequestParam String monedaDestino) {
+
+    Map<String, Object> resultado = transaccionService.calcularGastoConvertido(inicio, fin, monedaDestino);
+    return ResponseEntity.ok(resultado);
+}
 }
