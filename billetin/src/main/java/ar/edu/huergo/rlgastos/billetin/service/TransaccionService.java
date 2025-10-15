@@ -64,18 +64,46 @@ public class TransaccionService {
     }
 
     public Map<String, Object> calcularGastoConvertido(LocalDate inicio, LocalDate fin, String monedaDestino) {
+        monedaDestino = monedaDestino.toUpperCase().trim();
+        
         Double total = calcularGastoEntreFechas(inicio, fin);
 
-        String url = "https://api.exchangerate.host/convert?from=ARS&to=" + monedaDestino + "&amount=" + total;
+        if (total == null || total == 0) {
+            return Map.of(
+                "montoTotalARS", 0,
+                "monedaDestino", monedaDestino,
+                "convertido", 0.0
+            );
+        }
+
+        String apiKey = "69be1542f0fa2d318d610dd1";
+        String url = "https://v6.exchangerate-api.com/v6/" + apiKey + "/latest/ARS";
+        
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
+        Map<String, Object> body = response.getBody();
 
-    
-        Double convertido = ((Number) response.getBody().get("result")).doubleValue();
+        if (body == null || !body.containsKey("conversion_rates")) {
+            throw new RuntimeException("No se pudo obtener el tipo de cambio");
+        }
+
+        Map<String, Number> rates = (Map<String, Number>) body.get("conversion_rates");
+        
+        if (!rates.containsKey(monedaDestino)) {
+            throw new RuntimeException("Moneda no soportada: " + monedaDestino);
+        }
+        
+        Double rate = rates.get(monedaDestino).doubleValue();
+        Double convertido = total * rate;
+
         return Map.of(
             "montoTotalARS", total,
             "monedaDestino", monedaDestino,
+            "tipoCambio", rate,
             "convertido", convertido
         );
     }
 }
+    
+
+

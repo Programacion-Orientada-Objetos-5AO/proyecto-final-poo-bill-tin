@@ -99,5 +99,5 @@ public class TransaccionController {
 
     Map<String, Object> resultado = transaccionService.calcularGastoConvertido(inicio, fin, monedaDestino);
     return ResponseEntity.ok(resultado);
-}
+    }
 }
