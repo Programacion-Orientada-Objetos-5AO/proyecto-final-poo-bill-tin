@@ -36,8 +36,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
             .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar").permitAll()
             // Permitir acceso a HTML y recursos estáticos
-            .requestMatchers("/", "/*.html", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()            // Permitir acceso al nuevo API controller
-            .requestMatchers("/api/saludo/**", "/api/gastos", "/api/gasto", "/api/estado").permitAll()
+            .requestMatchers("/", "/*.html", "/css/**", "/js/**", "/images/**", "/favicon.ico", "/error").permitAll()            .requestMatchers("/api/saludo/**", "/api/gastos", "/api/gasto", "/api/estado").permitAll()
             .requestMatchers(HttpMethod.GET, "/api/transacciones/**").hasAnyRole("ADMIN", "CLIENTE")
             .requestMatchers("/api/transacciones").hasRole("ADMIN")
             .requestMatchers(HttpMethod.POST, "/api/transacciones/**").hasRole("ADMIN")
