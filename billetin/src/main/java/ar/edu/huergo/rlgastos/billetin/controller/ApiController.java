@@ -1,5 +1,8 @@
 package ar.edu.huergo.rlgastos.billetin.controller;
 
+import ar.edu.huergo.rlgastos.billetin.entity.Transaccion;
+import ar.edu.huergo.rlgastos.billetin.repository.transaccion.TransaccionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
@@ -7,6 +10,9 @@ import java.util.*;
 @RequestMapping("/api")
 @CrossOrigin(origins = "*")
 public class ApiController {
+    
+    @Autowired
+    private TransaccionRepository transaccionRepository;
     
     @GetMapping("/saludo")
     public Map<String, String> getSaludo() {
@@ -18,23 +24,15 @@ public class ApiController {
     }
     
     @GetMapping("/gastos")
-    public List<Map<String, Object>> getGastos() {
-        // Datos de ejemplo - luego conectarás con tu base de datos
-        return List.of(
-            Map.of("id", 1, "descripcion", "Supermercado", "monto", 5000.0),
-            Map.of("id", 2, "descripcion", "Transporte", "monto", 1500.0),
-            Map.of("id", 3, "descripcion", "Servicios", "monto", 8000.0)
-        );
+    public List<Transaccion> getGastos() {
+        // Devuelve TODAS las transacciones de la base de datos
+        return transaccionRepository.findAll();
     }
     
     @PostMapping("/gasto")
-    public Map<String, Object> crearGasto(@RequestBody Map<String, Object> gasto) {
-        // Aquí procesarías y guardarías el gasto
-        return Map.of(
-            "mensaje", "Gasto creado exitosamente",
-            "gasto", gasto,
-            "id", new Random().nextInt(1000)
-        );
+    public Transaccion crearGasto(@RequestBody Transaccion transaccion) {
+        // Guarda la transacción en la base de datos
+        return transaccionRepository.save(transaccion);
     }
     
     @GetMapping("/estado")
@@ -43,7 +41,8 @@ public class ApiController {
             "servidor", "activo",
             "version", "1.0",
             "database", "H2",
-            "security", "enabled"
+            "security", "enabled",
+            "totalTransacciones", transaccionRepository.count()
         );
     }
 }
