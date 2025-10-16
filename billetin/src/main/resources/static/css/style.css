@@ -495,6 +495,78 @@ input[type="submit"] {
     margin-top: 0.3rem;
 }
 
+.success-layout {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.success-icon {
+    align-items: center;
+    background: rgba(27, 216, 150, 0.18);
+    border: 1px solid rgba(27, 216, 150, 0.4);
+    border-radius: 50%;
+    display: inline-flex;
+    height: 88px;
+    justify-content: center;
+    width: 88px;
+}
+
+.success-icon svg {
+    fill: var(--primary);
+    height: 44px;
+    width: 44px;
+}
+
+.success-info {
+    background: rgba(9, 45, 34, 0.72);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.8rem;
+    text-align: left;
+    width: 100%;
+}
+
+.success-info h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.success-info ul {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-left: 1.2rem;
+}
+
+.success-info ul li + li {
+    margin-top: 0.5rem;
+}
+
+.success-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.success-actions .btn {
+    min-width: 200px;
+    justify-content: center;
+}
+
+.success-footer {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-top: 0.5rem;
+}
+
+.success-footer a {
+    font-weight: 600;
+}
+
 /* Footer */
 footer {
     padding: 1.5rem 0;
