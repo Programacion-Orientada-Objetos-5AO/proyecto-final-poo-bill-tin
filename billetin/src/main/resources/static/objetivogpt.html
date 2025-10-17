@@ -3,42 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Objetivos | Billetín</title>
+    <title>Billetin | Objetivos</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header class="navbar">
-        <h1>Billetín</h1>
+        <h1>Billetin</h1>
         <nav>
             <a href="index.html">Inicio</a>
-            <a href="objetivos.html" class="active">Objetivos</a>
-            <a href="categorias.html">Categorías</a>
+            <a class="active" href="objetivogpt.html">Objetivos</a>
+            <a href="membresias.html">Membresias</a>
             <a href="monedas.html">Monedas</a>
-            <a href="membresias.html">Membresías</a>
+            <a href="categorias.html">Categorias</a>
+            <a href="transacciones.html">Transacciones</a>
         </nav>
+        <a class="cta" href="login.html" data-auth-link data-action="logout">Iniciar sesion</a>
     </header>
 
-    <div class="container">
-        <div class="card">
-            <h2>Crear nuevo objetivo</h2>
-            <form method="post" action="/api/objetivos">
-                <input type="text" placeholder="Nombre del objetivo" required>
-                <input type="number" placeholder="Monto deseado" required>
-                <input type="date" required>
-                <button class="btn" type="submit" formaction="objetivo-creado.html" formmethod="get">Guardar objetivo</button>
-            </form>
-        </div>
+    <main class="container">
+        <section class="section-block">
+            <h1>Crear nuevo objetivo</h1>
+            <p>Define metas claras para seguir el progreso de tu equipo y mantener los resultados alineados al plan financiero.</p>
+            <div class="segment-grid">
+                <div class="info-card">
+                    <form method="post" action="/api/objetivos">
+                        <label for="nombre">Nombre del objetivo</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Expandir operaciones en 2026" required>
 
-        <div class="card">
-            <h3>Tus objetivos</h3>
-            <table>
-                <thead>
-                    <tr><th>Nombre</th><th>Monto</th><th>Fecha límite</th></tr>
-                </thead>
-            </table>
-        </div>
-    </div>
+                        <label for="monto">Monto deseado (ARS)</label>
+                        <input type="number" id="monto" name="monto" min="1000" step="0.01" placeholder="500000" required>
 
-    <footer>© 2025 Billetín</footer>
+                        <label for="fechaLimite">Fecha limite</label>
+                        <input type="date" id="fechaLimite" name="fechaLimite" required>
+
+                        <button class="btn" type="submit" formaction="objetivo-creado.html" formmethod="get">Guardar objetivo</button>
+                    </form>
+                </div>
+
+                <div class="info-card">
+                    <h3>Buenas practicas</h3>
+                    <div class="feature-list">
+                        <div class="feature">
+                            <div class="feature-icon">01</div>
+                            <div>
+                                <h4>Metas especificas</h4>
+                                <p>Define objetivos con detalle y un responsable claro para medir avances.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">02</div>
+                            <div>
+                                <h4>Monitoreo constante</h4>
+                                <p>Revisa los resultados cada semana y ajusta el plan si aparecen desviasiones.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">03</div>
+                            <div>
+                                <h4>Conecta con transacciones</h4>
+                                <p>Etiqueta ingresos y egresos relacionados para saber si estas financiando la meta correctamente.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-block">
+            <h2>Tus objetivos activos</h2>
+            <p>Manten el tablero actualizado para compartir el estado con tu equipo.</p>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Monto</th>
+                            <th>Fecha limite</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <small>&copy; 2025 Billetin. Plataforma integral de gestion financiera.</small>
+    </footer>
+    <script src="js/app.js"></script>
 </body>
 </html>

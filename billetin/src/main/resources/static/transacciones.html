@@ -6,164 +6,198 @@
     <title>Billetin | Transacciones</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<!-- ... head sin cambios ... -->
-
 <body>
-  <header class="navbar">
-    <h1>Billetin</h1>
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="objetivos.html">Objetivos</a>
-      <a href="membresias.html">Membresías</a>
-      <a href="monedas.html">Monedas</a>
-      <a href="categorias.html">Categorías</a>
-      <a class="active" href="transacciones.html">Transacciones</a>
-    </nav>
-    <a class="cta" href="login.html">Iniciar sesión</a>
-  </header>
+    <header class="navbar">
+        <h1>Billetin</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="objetivogpt.html">Objetivos</a>
+            <a href="membresias.html">Membresias</a>
+            <a href="monedas.html">Monedas</a>
+            <a href="categorias.html">Categorias</a>
+            <a class="active" href="transacciones.html">Transacciones</a>
+        </nav>
+        <a class="cta" href="login.html" data-auth-link data-action="logout">Iniciar sesion</a>
+    </header>
 
-  <main class="container">
-    <!-- INTRO -->
-    <section class="content-header">
-      <span class="tagline">Seguimiento claro</span>
-      <h1>Registrá tus movimientos diarios</h1>
-      <p>Llevá el control de lo que ganás y gastás. Billetin te ayuda a ordenar tu plata y tomar mejores decisiones todos los días.</p>
-    </section>
+    <main class="container">
+        <section class="content-header">
+            <span class="tagline">Seguimiento claro</span>
+            <h1>Registra tus movimientos diarios</h1>
+            <p>Carga cada transaccion con toda la informacion necesaria: usuario, categoria y moneda. Asi mantenemos trazabilidad completa.</p>
+        </section>
 
-    <!-- FORMULARIO PRINCIPAL -->
-    <section class="section-block">
-      <h2>Agregar movimiento</h2>
-      <p>Cargá una transacción con sus detalles. Podés usarla para ingresos o gastos, y asignarla a una categoría.</p>
-      <div class="segment-grid">
-        <div class="info-card">
-          <form method="post" action="/api/transacciones">
-            <label for="gasto">Nombre del gasto</label>
-            <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="ej. Obra social" required>
+        <section class="section-block">
+            <h2>Agregar movimiento</h2>
+            <p>El formulario requiere todos los datos. Si falta la moneda, la categoria o el usuario, la API no va a aceptar la transaccion.</p>
+            <div class="segment-grid">
+                <div class="info-card">
+                    <form method="post" action="/api/transacciones">
+                        <label for="nombreUsuario">Nombre del usuario</label>
+                        <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="ej. Lucas Martinez" required>
 
-            <label for="monto">Monto</label>
-            <input type="number" id="monto" name="monto" step="0.01" placeholder="ej. 2000" required>
+                        <label for="monto">Monto</label>
+                        <input type="number" id="monto" name="monto" step="0.01" min="0" placeholder="ej. 2000" required>
 
-            <label for="descripcion">Descripción</label>
-            <textarea id="descripcion" name="descripcion" placeholder="ej. Pago del gimnasio o cobro de venta" required></textarea>
+                        <label for="descripcion">Descripcion</label>
+                        <textarea id="descripcion" name="descripcion" placeholder="ej. Pago del gimnasio o cobro de venta" required></textarea>
 
-            <label for="fecha">Fecha</label>
-            <input type="date" id="fecha" name="fecha" required>
+                        <label for="fecha">Fecha</label>
+                        <input type="date" id="fecha" name="fecha" required>
 
-            <label for="idCategoria">Categoría</label>
-            <input type="number" id="idCategoria" name="idCategoria" placeholder="AGREGAR BARRA DEPLEGABLE" required>
+                        <label for="idUsuario">ID de usuario</label>
+                        <input type="number" id="idUsuario" name="idUsuario" placeholder="ID numerico del usuario" required>
 
-            <label for="idMoneda">Moneda</label>
-            <input type="number" id="idMoneda" name="idMoneda" placeholder="AGREGAR BARRA DEPLEGABLE" required>
+                        <label for="idCategoria">ID de categoria</label>
+                        <input type="number" id="idCategoria" name="idCategoria" placeholder="ID numerico de la categoria" required>
 
-            <button class="btn" type="submit" formaction="transaccion-registrada.html" formmethod="get">Guardar</button>
-          </form>
-        </div>
-        <div class="info-card">
-          <h3>Tips para cargar mejor tus datos</h3>
-          <div class="feature-list">
-            <div class="feature">
-              <div class="feature-icon">✍️</div>
-              <div>
-                <h4>Usá descripciones claras</h4>
-                <p>Ejemplo: “Alquiler julio” o “Pago a Juan por diseño”.</p>
-              </div>
-            </div>
-            <div class="feature">
-              <div class="feature-icon">💸</div>
-              <div>
-                <h4>Chequeá el tipo de moneda</h4>
-                <p>Así vas a evitar confusiones si llevás cuentas en pesos y dólares.</p>
-              </div>
-            </div>
-            <div class="feature">
-              <div class="feature-icon">📊</div>
-              <div>
-                <h4>Elegí bien la categoría</h4>
-                <p>Es clave para analizar tus gastos después.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+                        <label for="idMoneda">ID de moneda</label>
+                        <input type="number" id="idMoneda" name="idMoneda" placeholder="ID numerico de la moneda" required>
 
-    <!-- ANÁLISIS -->
-    <section class="section-block">
-      <h2>Consultas rápidas</h2>
-      <p>Obtené datos útiles para entender cómo usás tu plata.</p>
-      <div class="segment-grid">
-        <div class="info-card">
-          <form method="get" action="/api/transacciones/gasto-entre-fechas">
-            <h3>Total gastado entre fechas</h3>
-            <label for="inicio">Desde</label>
-            <input type="date" id="inicio" name="inicio" required>
-
-            <label for="fin">Hasta</label>
-            <input type="date" id="fin" name="fin" required>
-
-            <button class="btn" type="submit" formaction="consulta-gasto-fechas.html" formmethod="get">Calcular</button>
-        </form>
-      </div>
-      <div class="info-card">
-          <form method="get" action="/api/transacciones/gastos-por-categoria/1">
-            <h3>Gastos por categoría</h3>
-            <label for="usuarioId">ID de usuario</label>
-            <input type="number" id="usuarioId" name="usuarioId" min="1" required>
-            <button class="btn" type="submit" formaction="reporte-gastos-categoria.html" formmethod="get">Ver resumen</button>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <!-- TABLA -->
-    <section class="section-block">
-      <div class="table-wrapper">
-        <div class="table-header">
-          <h3>Movimientos recientes</h3>
-        </div>
-        <div class="filter-bar">
-          <input type="search" placeholder="Buscar descripción o usuario">
-          <select>
-            <option value="">Filtrar por categoría</option>
-            <option value="sueldo">Sueldo</option>
-            <option value="alquiler">Alquiler</option>
-            <option value="comida">Comida</option>
-          </select>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Usuario</th>
-              <th>Categoría</th>
-              <th>Moneda</th>
-              <th>Monto</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>10/07/2025</td>
-              <td>lucas@billetin.com</td>
-              <td><span class="status-pill">Comida</span></td>
-              <td>ARS</td>
-              <td>$ 4.800</td>
-              <td>
-                <div class="inline-actions">
-                  <a class="btn secondary" href="#">Ver</a>
-                  <a class="btn secondary" href="#">Editar</a>
+                        <button class="btn" type="submit">Guardar</button>
+                    </form>
                 </div>
-              </td>
-            </tr>
-            <!-- Más filas acá -->
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </main>
+                <div class="info-card">
+                    <h3>Tips para cargar mejor tus datos</h3>
+                    <div class="feature-list">
+                        <div class="feature">
+                            <div class="feature-icon">01</div>
+                            <div>
+                                <h4>Usa descripciones claras</h4>
+                                <p>Ejemplo: "Alquiler julio" o "Pago a Juan por diseno".</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">02</div>
+                            <div>
+                                <h4>Chequea la moneda</h4>
+                                <p>Asi evitas confusiones si llevas cuentas en pesos y dolares.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">03</div>
+                            <div>
+                        <div class="feature">
+                            <div class="feature-icon">03</div>
+                            <div>
+                                <h4>Elegi la categoria correcta</h4>
+                                <p>Esto es clave para analizar tus gastos despues.</p>
+                            </div>
+                        </div>
+        </section>
 
-  <footer>
-    <small>&copy; 2025 Billetin. Tu app para entender tu plata.</small>
-  </footer>
+        <section class="section-block">
+            <h2>Consultas rapidas</h2>
+            <p>Obten datos utiles para entender como usas tu plata.</p>
+            <div class="segment-grid">
+                <div class="info-card">
+                    <form method="get" action="/api/transacciones/gasto-entre-fechas">
+                        <h3>Total gastado entre fechas</h3>
+                        <label for="inicio">Desde</label>
+                        <input type="date" id="inicio" name="inicio" required>
+
+                        <label for="fin">Hasta</label>
+                        <input type="date" id="fin" name="fin" required>
+
+                        <button class="btn" type="submit">Calcular</button>
+                    </form>
+                </div>
+                <div class="info-card">
+                    <form method="get" action="/api/transacciones/gastos-por-categoria/1" onsubmit="this.action='/api/transacciones/gastos-por-categoria/' + this.usuarioId.value;">
+                        <h3>Gastos por categoria</h3>
+                        <label for="usuarioId">ID de usuario</label>
+                        <input type="number" id="usuarioId" name="usuarioId" min="1" required>
+                        <button class="btn" type="submit">Ver resumen</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-block">
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h3>Movimientos recientes</h3>
+                </div>
+                <div class="filter-bar">
+                    <input type="search" placeholder="Buscar descripcion o usuario">
+                    <select>
+                        <option value="">Filtrar por categoria</option>
+                        <option value="sueldo">Sueldo</option>
+                        <option value="alquiler">Alquiler</option>
+                        <option value="comida">Comida</option>
+                    </select>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Usuario</th>
+                            <th>Categoria</th>
+                            <th>Moneda</th>
+                            <th>Monto</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10/07/2025</td>
+                            <td>lucas@billetin.com</td>
+                            <td><span class="status-pill">Comida</span></td>
+                            <td>ARS</td>
+                            <td>$ 4.800</td>
+                            <td>
+                                <div class="inline-actions">
+                                    <a class="btn secondary" href="#">Ver</a>
+                                    <a class="btn secondary" href="#">Editar</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>08/07/2025</td>
+                            <td>carla@billetin.com</td>
+                            <td><span class="status-pill warning">Servicios</span></td>
+                            <td>USD</td>
+                            <td>USD 250</td>
+                            <td>
+                                <div class="inline-actions">
+                                    <a class="btn secondary" href="#">Ver</a>
+                                    <a class="btn secondary" href="#">Editar</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>07/07/2025</td>
+                            <td>maria@billetin.com</td>
+                            <td><span class="status-pill">Ventas</span></td>
+                            <td>EUR</td>
+                            <td>EUR 1.200</td>
+                            <td>
+                                <div class="inline-actions">
+                                    <a class="btn secondary" href="#">Ver</a>
+                                    <a class="btn secondary" href="#">Editar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <small>&copy; 2025 Billetin. Tu app para entender tu plata.</small>
+    </footer>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.Billetin) {
+                try {
+                    Billetin.requireAuth({ role: "ADMIN" });
+                } catch (error) {
+                    console.error(error.message);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

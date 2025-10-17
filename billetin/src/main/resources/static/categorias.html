@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Billetin | Categorías</title>
+  <title>Billetin | Categorias</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,25 +11,25 @@
     <h1>Billetin</h1>
     <nav>
       <a href="index.html">Inicio</a>
-      <a href="objetivos.html">Objetivos</a>
-      <a href="membresias.html">Membresías</a>
+      <a href="objetivogpt.html">Objetivos</a>
+      <a href="membresias.html">Membresias</a>
       <a href="monedas.html">Monedas</a>
-      <a class="active" href="categorias.html">Categorías</a>
+      <a class="active" href="categorias.html">Categorias</a>
       <a href="transacciones.html">Transacciones</a>
     </nav>
-    <a class="cta" href="login.html">Iniciar sesión</a>
+    <a class="cta" href="login.html" data-auth-link data-action="logout">Iniciar sesion</a>
   </header>
 
   <main class="container">
     <section class="content-header">
-      <span class="tagline">Organizá tus ingresos y gastos</span>
-      <h1>Categorías financieras</h1>
-      <p>Las categorías te permiten agrupar tus movimientos (como “sueldo”, “alquiler” o “comida”) para tener un mejor control de tu dinero.</p>
+      <span class="tagline">Organiza tus ingresos y gastos</span>
+      <h1>Categorias financieras</h1>
+      <p>Las categorias te permiten agrupar tus movimientos (como "sueldo", "alquiler" o "comida") para tener un mejor control de tu dinero.</p>
     </section>
 
     <section class="section-block">
-      <h2>Crear nueva categoría</h2>
-      <p>Completá el formulario para agregar una nueva categoría. Elegí el tipo correcto según si es un ingreso o un gasto.</p>
+      <h2>Crear nueva categoria</h2>
+      <p>Completa el formulario para agregar una nueva categoria. Elegi el tipo correcto segun si es un ingreso o un gasto.</p>
 
       <div class="segment-grid">
         <div class="info-card">
@@ -39,48 +39,51 @@
 
             <label for="tipo">Tipo</label>
             <select id="tipo" name="tipo" required>
-              <option value="">Seleccioná un tipo</option>
+              <option value="">Selecciona un tipo</option>
               <option value="ingreso_fijo">Ingreso fijo</option>
               <option value="ingreso_variable">Ingreso variable</option>
               <option value="egreso_fijo">Gasto fijo</option>
               <option value="egreso_variable">Gasto variable</option>
             </select>
 
-            <button class="btn" type="submit" formaction="categoria-creada.html" formmethod="get">Guardar categoría</button>
+            <button class="btn" type="submit" formaction="categoria-creada.html" formmethod="get">Guardar categoria</button>
           </form>
         </div>
 
         <div class="info-card">
-          <h3>Consejos útiles</h3>
-          <p>Una buena organización te ayuda a tomar mejores decisiones con tu plata.</p>
+          <h3>Consejos utiles</h3>
+          <p>Una buena organizacion te ayuda a tomar mejores decisiones con tu plata.</p>
           <div class="feature-list">
             <div class="feature">
-              <div class="feature-icon">✓</div>
+              <div class="feature-icon">01</div>
               <div>
-                <h4>Usá nombres claros</h4>
-                <p>Ejemplo: “Supermercado” o “Netflix”. Evitá términos confusos o generales como “varios”.</p>
+                <h4>Usa nombres claros</h4>
+                <p>Ejemplo: "Supermercado" o "Netflix". Evita terminos confusos o generales como "varios".</p>
               </div>
             </div>
             <div class="feature">
-              <div class="feature-icon">💡</div>
+              <div class="feature-icon">02</div>
               <div>
-                <h4>Separá lo fijo de lo variable</h4>
-                <p>Así sabés qué gastos podés reducir y cuáles son siempre iguales.</p>
+                <h4>Separa lo fijo de lo variable</h4>
+                <p>Asi sabes que gastos podes reducir y cuales son siempre iguales.</p>
               </div>
             </div>
             <div class="feature">
-              <div class="feature-icon">🚨</div>
+              <div class="feature-icon">03</div>
               <div>
-                <h4>Podés agregar alertas</h4>
-                <p>Billetin permite agregar topes a categorías si querés tener un límite mensual.</p>
+                <h4>Podes agregar alertas</h4>
+                <p>Billetin permite agregar topes a categorias si queres tener un limite mensual.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+  </main>
+
   <footer>
     <small>&copy; 2025 Billetin. Tu aliado para manejar mejor tu plata.</small>
   </footer>
+  <script src="js/app.js"></script>
 </body>
 </html>
