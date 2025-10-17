@@ -21,11 +21,11 @@
     <div class="container">
         <div class="card">
             <h2>Crear nuevo objetivo</h2>
-            <form>
-                <input type="text" placeholder="Nombre del objetivo">
-                <input type="number" placeholder="Monto deseado">
-                <input type="date">
-                <button>Guardar objetivo</button>
+            <form method="post" action="/api/objetivos">
+                <input type="text" placeholder="Nombre del objetivo" required>
+                <input type="number" placeholder="Monto deseado" required>
+                <input type="date" required>
+                <button class="btn" type="submit" formaction="objetivo-creado.html" formmethod="get">Guardar objetivo</button>
             </form>
         </div>
 

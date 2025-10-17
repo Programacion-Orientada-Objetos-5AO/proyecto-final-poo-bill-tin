@@ -11,10 +11,10 @@
         <div class="card" style="max-width: 400px; text-align: center;">
             <h1>Billetín 💰</h1>
             <h2>Iniciar Sesión</h2>
-            <form>
+            <form method="post" action="/api/auth/login">
                 <input type="text" placeholder="Usuario" required>
                 <input type="password" placeholder="Contraseña" required>
-                <button type="submit">Ingresar</button>
+                <button class="btn" type="submit" formaction="sesion-exitosa.html" formmethod="get">Ingresar</button>
             </form>
             <p style="margin-top: 1rem;">¿No tenés cuenta? <a href="#">Registrate</a></p>
         </div>

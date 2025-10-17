@@ -21,10 +21,10 @@
     <div class="container">
         <div class="card">
             <h2>Agregar nueva moneda</h2>
-            <form>
-                <input type="text" placeholder="Nombre de la moneda">
-                <input type="text" placeholder="Símbolo ($, USD, €...)">
-                <button>Agregar moneda</button>
+            <form method="post" action="/api/monedas">
+                <input type="text" placeholder="Nombre de la moneda" required>
+                <input type="text" placeholder="Símbolo ($, USD, €...)" required>
+                <button class="btn" type="submit" formaction="moneda-registrada.html" formmethod="get">Agregar moneda</button>
             </form>
         </div>
 

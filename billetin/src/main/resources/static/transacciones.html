@@ -55,7 +55,7 @@
             <label for="idMoneda">Moneda</label>
             <input type="number" id="idMoneda" name="idMoneda" placeholder="AGREGAR BARRA DEPLEGABLE" required>
 
-            <button class="btn" type="submit">Guardar</button>
+            <button class="btn" type="submit" formaction="transaccion-registrada.html" formmethod="get">Guardar</button>
           </form>
         </div>
         <div class="info-card">
@@ -101,15 +101,15 @@
             <label for="fin">Hasta</label>
             <input type="date" id="fin" name="fin" required>
 
-            <button class="btn" type="submit">Calcular</button>
-          </form>
-        </div>
-        <div class="info-card">
-          <form method="get" action="/api/transacciones/gastos-por-categoria/1" onsubmit="this.action='/api/transacciones/gastos-por-categoria/' + this.usuarioId.value;">
+            <button class="btn" type="submit" formaction="consulta-gasto-fechas.html" formmethod="get">Calcular</button>
+        </form>
+      </div>
+      <div class="info-card">
+          <form method="get" action="/api/transacciones/gastos-por-categoria/1">
             <h3>Gastos por categoría</h3>
             <label for="usuarioId">ID de usuario</label>
             <input type="number" id="usuarioId" name="usuarioId" min="1" required>
-            <button class="btn" type="submit">Ver resumen</button>
+            <button class="btn" type="submit" formaction="reporte-gastos-categoria.html" formmethod="get">Ver resumen</button>
           </form>
         </div>
       </div>

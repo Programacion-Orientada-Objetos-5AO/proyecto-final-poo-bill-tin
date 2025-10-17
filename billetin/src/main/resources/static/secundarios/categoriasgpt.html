@@ -21,13 +21,14 @@
     <div class="container">
         <div class="card">
             <h2>Nueva categoría</h2>
-            <form>
-                <input type="text" placeholder="Nombre de categoría">
-                <select>
+            <form method="post" action="/api/categorias">
+                <input type="text" placeholder="Nombre de categoría" required>
+                <select required>
+                    <option value="">Seleccioná un tipo</option>
                     <option value="gasto">Gasto</option>
                     <option value="ingreso">Ingreso</option>
                 </select>
-                <button>Agregar categoría</button>
+                <button class="btn" type="submit" formaction="categoria-creada.html" formmethod="get">Agregar categoría</button>
             </form>
         </div>
 
