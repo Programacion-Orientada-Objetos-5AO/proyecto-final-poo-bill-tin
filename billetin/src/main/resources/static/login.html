@@ -27,7 +27,8 @@
                 <h1>Iniciar sesion</h1>
                 <p>Accede a tu panel para registrar transacciones y seguir tus objetivos.</p>
             </header>
-            <form method="post" action="/api/auth/login">
+            
+            <form id="loginForm">
                 <label for="username">Correo electronico</label>
                 <input type="email" id="username" name="username" placeholder="usuario@billetin.com" autocomplete="username" required>
 
@@ -35,8 +36,11 @@
                 <input type="password" id="password" name="password" placeholder="Tu contrasena" autocomplete="current-password" required minlength="16">
                 <small style="display:block;color:var(--text-muted);margin-top:-0.4rem;margin-bottom:1rem;">Debe contener 16 caracteres, mayuscula, minuscula, numero y simbolo.</small>
 
-                <button class="btn" type="submit" formaction="sesion-exitosa.html" formmethod="get">Ingresar</button>
+                <div id="errorMessage" style="display:none; color:#d32f2f; margin-bottom:1rem; padding:0.75rem; background:#ffebee; border-radius:4px; font-size:0.9rem;"></div>
+
+                <button class="btn" type="submit" id="submitBtn">Ingresar</button>
             </form>
+            
             <div class="form-footer">
                 <p>&iquest;Olvidaste tu contrasena? <a href="#">Recuperarla</a></p>
                 <p>&iquest;No tienes cuenta? <a href="registro.html">Registrate ahora</a></p>
@@ -47,5 +51,61 @@
     <footer>
         <small>&copy; 2025 Billetin. Plataforma integral de gestion financiera.</small>
     </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Ingresando...';
+            errorMessage.style.display = 'none';
+            
+            try {
+                const formData = {
+                    username: document.getElementById('username').value,
+                    password: document.getElementById('password').value
+                };
+                
+                console.log('Enviando login a:', '/api/auth/login');
+                console.log('Usuario:', formData.username);
+                
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                console.log('Status:', response.status);
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.message || errorData.detail || 'Credenciales incorrectas');
+                }
+                
+                const data = await response.json();
+                console.log('Login exitoso, token recibido');
+                
+                if (data.token) {
+                    window.Billetin.setToken(data.token);
+                    window.location.href = 'sesion-exitosa.html';
+                } else {
+                    throw new Error('No se recibió el token de autenticación');
+                }
+                
+            } catch (error) {
+                console.error('Error completo:', error);
+                errorMessage.textContent = error.message || 'Error al iniciar sesión. Verifica tus credenciales.';
+                errorMessage.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Ingresar';
+            }
+        });
+    </script>
 </body>
 </html>
