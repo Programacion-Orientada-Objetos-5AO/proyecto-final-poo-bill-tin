@@ -24,8 +24,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import ar.edu.huergo.rlgastos.billetin.entity.membresia.Membresia;
 import ar.edu.huergo.rlgastos.billetin.entity.security.Rol;
 import ar.edu.huergo.rlgastos.billetin.entity.security.Usuario;
+import ar.edu.huergo.rlgastos.billetin.repository.membresia.MembresiaRepository;
 import ar.edu.huergo.rlgastos.billetin.repository.security.RolRepository;
 import ar.edu.huergo.rlgastos.billetin.repository.security.UsuarioRepository;
 
@@ -42,11 +44,15 @@ class UsuarioServiceTest {
     @Mock
     private RolRepository rolRepository;
 
+    @Mock
+    private MembresiaRepository membresiaRepository;
+
     @InjectMocks
     private UsuarioService usuarioService;
 
     private Usuario usuarioEjemplo;
     private Rol rolCliente;
+    private Membresia membresiaEjemplo;
 
     @BeforeEach
     void setUp() {
@@ -58,6 +64,10 @@ class UsuarioServiceTest {
         rolCliente = new Rol();
         rolCliente.setId(1L);
         rolCliente.setNombre("CLIENTE");
+
+        membresiaEjemplo = new Membresia();
+        membresiaEjemplo.setIdMembresia(1L);
+        membresiaEjemplo.setNombre("Premium");
     }
 
     @Test
@@ -91,7 +101,9 @@ class UsuarioServiceTest {
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioEjemplo);
 
         // When
-        Usuario resultado = usuarioService.registrar(usuarioEjemplo, password, verificacionPassword);
+        when(membresiaRepository.findByNombreIgnoreCase("Premium")).thenReturn(Optional.of(membresiaEjemplo));
+
+        Usuario resultado = usuarioService.registrar(usuarioEjemplo, password, verificacionPassword, "Premium");
 
         // Then
         assertNotNull(resultado);
@@ -116,7 +128,7 @@ class UsuarioServiceTest {
 
         // When & Then
         IllegalArgumentException excepcion = assertThrows(IllegalArgumentException.class,
-                () -> usuarioService.registrar(usuarioEjemplo, password, verificacionPassword));
+                () -> usuarioService.registrar(usuarioEjemplo, password, verificacionPassword, "Premium"));
 
         assertEquals("Las contraseñas no coinciden", excepcion.getMessage());
 
@@ -138,7 +150,7 @@ class UsuarioServiceTest {
 
         // When & Then
         IllegalArgumentException excepcion = assertThrows(IllegalArgumentException.class,
-                () -> usuarioService.registrar(usuarioEjemplo, password, verificacionPassword));
+                () -> usuarioService.registrar(usuarioEjemplo, password, verificacionPassword, "Premium"));
 
         assertEquals("El nombre de usuario ya está en uso", excepcion.getMessage());
 
@@ -161,8 +173,10 @@ class UsuarioServiceTest {
         when(rolRepository.findByNombre("CLIENTE")).thenReturn(Optional.empty());
 
         // When & Then
+        when(membresiaRepository.findByNombreIgnoreCase("Premium")).thenReturn(Optional.of(membresiaEjemplo));
+
         IllegalArgumentException excepcion = assertThrows(IllegalArgumentException.class,
-                () -> usuarioService.registrar(usuarioEjemplo, password, verificacionPassword));
+                () -> usuarioService.registrar(usuarioEjemplo, password, verificacionPassword, "Premium"));
 
         assertEquals("Rol 'CLIENTE' no encontrado", excepcion.getMessage());
 
@@ -182,7 +196,7 @@ class UsuarioServiceTest {
 
         // When & Then
         IllegalArgumentException excepcion = assertThrows(IllegalArgumentException.class,
-                () -> usuarioService.registrar(usuarioEjemplo, passwordVacio, verificacionPasswordDiferente));
+                () -> usuarioService.registrar(usuarioEjemplo, passwordVacio, verificacionPasswordDiferente, "Premium"));
 
         assertEquals("Las contraseñas no coinciden", excepcion.getMessage());
 
@@ -202,7 +216,7 @@ class UsuarioServiceTest {
 
         // When & Then
         assertThrows(NullPointerException.class,
-                () -> usuarioService.registrar(usuarioEjemplo, passwordNull, verificacionPassword));
+                () -> usuarioService.registrar(usuarioEjemplo, passwordNull, verificacionPassword, "Premium"));
 
         // Verificar que no se realizaron operaciones adicionales
         verify(usuarioRepository, never()).existsByUsername(any());
@@ -222,10 +236,11 @@ class UsuarioServiceTest {
         when(usuarioRepository.existsByUsername(usuarioEjemplo.getUsername())).thenReturn(false);
         when(passwordEncoder.encode(passwordVacio)).thenReturn(passwordEncriptado);
         when(rolRepository.findByNombre("CLIENTE")).thenReturn(Optional.of(rolCliente));
+        when(membresiaRepository.findByNombreIgnoreCase("Premium")).thenReturn(Optional.of(membresiaEjemplo));
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioEjemplo);
 
         // When
-        Usuario resultado = usuarioService.registrar(usuarioEjemplo, passwordVacio, verificacionPasswordVacio);
+        Usuario resultado = usuarioService.registrar(usuarioEjemplo, passwordVacio, verificacionPasswordVacio, "Premium");
 
         // Then
         assertNotNull(resultado);
@@ -249,7 +264,9 @@ class UsuarioServiceTest {
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioEjemplo);
 
         // When
-        usuarioService.registrar(usuarioEjemplo, password, verificacionPassword);
+        when(membresiaRepository.findByNombreIgnoreCase("Premium")).thenReturn(Optional.of(membresiaEjemplo));
+
+        usuarioService.registrar(usuarioEjemplo, password, verificacionPassword, "Premium");
 
         // Then
         Set<Rol> roles = usuarioEjemplo.getRoles();
@@ -257,5 +274,44 @@ class UsuarioServiceTest {
         assertEquals(1, roles.size());
         assertTrue(roles.contains(rolCliente));
         assertEquals("CLIENTE", roles.iterator().next().getNombre());
+    }
+
+    @Test
+    @DisplayName("Debería lanzar excepción cuando la membresía no existe")
+    void deberiaLanzarExcepcionCuandoMembresiaNoExiste() {
+        String password = "password123";
+        String verificacionPassword = "password123";
+
+        when(usuarioRepository.existsByUsername(usuarioEjemplo.getUsername())).thenReturn(false);
+        when(passwordEncoder.encode(password)).thenReturn("encrypted_password");
+        when(rolRepository.findByNombre("CLIENTE")).thenReturn(Optional.of(rolCliente));
+        when(membresiaRepository.findByNombreIgnoreCase("Premium")).thenReturn(Optional.empty());
+
+        IllegalArgumentException excepcion = assertThrows(IllegalArgumentException.class,
+                () -> usuarioService.registrar(usuarioEjemplo, password, verificacionPassword, "Premium"));
+
+        assertEquals("Membresía 'Premium' no encontrada", excepcion.getMessage());
+        verify(usuarioRepository, times(1)).existsByUsername(usuarioEjemplo.getUsername());
+        verify(passwordEncoder, times(1)).encode(password);
+        verify(rolRepository, times(1)).findByNombre("CLIENTE");
+        verify(membresiaRepository, times(1)).findByNombreIgnoreCase("Premium");
+        verify(usuarioRepository, never()).save(any());
+    }
+
+    @Test
+    @DisplayName("Debería lanzar excepción cuando la membresía está vacía")
+    void deberiaLanzarExcepcionCuandoMembresiaEstaVacia() {
+        String password = "password123";
+        String verificacionPassword = "password123";
+
+        IllegalArgumentException excepcion = assertThrows(IllegalArgumentException.class,
+                () -> usuarioService.registrar(usuarioEjemplo, password, verificacionPassword, " "));
+
+        assertEquals("La membresía es requerida", excepcion.getMessage());
+        verify(usuarioRepository, never()).existsByUsername(any());
+        verify(passwordEncoder, never()).encode(any());
+        verify(rolRepository, never()).findByNombre(any());
+        verify(membresiaRepository, never()).findByNombreIgnoreCase(any());
+        verify(usuarioRepository, never()).save(any());
     }
 }

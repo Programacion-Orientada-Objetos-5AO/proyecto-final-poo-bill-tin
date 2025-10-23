@@ -35,6 +35,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
             .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar").permitAll()
+            .requestMatchers(HttpMethod.POST, "/api/registro").permitAll()
             // Permitir acceso a HTML y recursos estáticos
             .requestMatchers("/", "/*.html", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()            // Permitir acceso al nuevo API controller
             .requestMatchers("/api/saludo/**", "/api/gastos", "/api/gasto", "/api/estado").permitAll()
