@@ -187,16 +187,7 @@
         <small>&copy; 2025 Billetin. Tu app para entender tu plata.</small>
     </footer>
     <script src="js/app.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            if (window.Billetin) {
-                try {
-                    Billetin.requireAuth({ role: "ADMIN" });
-                } catch (error) {
-                    console.error(error.message);
-                }
-            }
-        });
+    <script src="js/navbar-auth.js"></script>
     </script>
 </body>
 </html>

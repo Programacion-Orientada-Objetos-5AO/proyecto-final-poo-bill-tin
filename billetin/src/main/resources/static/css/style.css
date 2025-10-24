@@ -82,6 +82,15 @@ a:hover {
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: var(--bg-dark);
     font-weight: 600;
+        display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+[data-auth-link][data-state="authenticated"]::before {
+    content: "👤";
+    font-size: 1.05rem;
+    line-height: 1;
 }
 
 /* Layout helpers */
