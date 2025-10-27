@@ -16,7 +16,8 @@ public class UsuarioMapper {
         return new UsuarioDTO(
             usuario.getNombre(),
             usuario.getUsername(),
-            usuario.getRoles().stream().map(Rol::getNombre).toList()
+            usuario.getRoles().stream().map(Rol::getNombre).toList(),
+            usuario.getMembresia() != null ? usuario.getMembresia().getNombre() : null
         );
     }
 
