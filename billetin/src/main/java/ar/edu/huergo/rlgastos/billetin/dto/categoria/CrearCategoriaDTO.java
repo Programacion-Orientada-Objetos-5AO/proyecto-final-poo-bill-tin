@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+//El campo ID  de este DTO no se usa nunca
 public record CrearCategoriaDTO(
         Long id,
 

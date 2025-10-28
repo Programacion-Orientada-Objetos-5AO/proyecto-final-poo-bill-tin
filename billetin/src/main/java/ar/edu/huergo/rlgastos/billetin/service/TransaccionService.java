@@ -63,6 +63,8 @@ public class TransaccionService {
         return resultado;
     }
 
+    //La conversion y llamada a otra API deberian estar haciendose en otro service
+    //Hubiera estado bueno usar un DTO para parsear la respuesta de la API en vez de hacer un body.get
     public Map<String, Object> calcularGastoConvertido(LocalDate inicio, LocalDate fin, String monedaDestino) {
         monedaDestino = monedaDestino.toUpperCase().trim();
         
@@ -92,7 +94,7 @@ public class TransaccionService {
         if (!rates.containsKey(monedaDestino)) {
             throw new RuntimeException("Moneda no soportada: " + monedaDestino);
         }
-        
+        //Las variables deberian estar en espanol
         Double rate = rates.get(monedaDestino).doubleValue();
         Double convertido = total * rate;
 

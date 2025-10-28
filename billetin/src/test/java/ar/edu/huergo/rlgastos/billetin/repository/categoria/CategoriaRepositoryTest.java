@@ -9,6 +9,8 @@ import ar.edu.huergo.rlgastos.billetin.entity.categoria.Categoria;
 import ar.edu.huergo.rlgastos.billetin.entity.categoria.TipoCategoria;
 import ar.edu.huergo.rlgastos.billetin.repository.categoria.CategoriaRepository;
 
+
+//Algunos test faltantes
 @DataJpaTest
 class CategoriaRepositoryTest {
 

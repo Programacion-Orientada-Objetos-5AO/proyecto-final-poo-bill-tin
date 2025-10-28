@@ -20,7 +20,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+//La estructura de packages podria ser mas prolija
+//Donde dentro del package transaccion (que es la entidad principal de esta app) estan transaccion, categoria y tipo categoria
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
