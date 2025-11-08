@@ -117,13 +117,11 @@
                 <div class="table-header">
                     <h3>Movimientos recientes</h3>
                 </div>
+                <div id="transaccionesFeedback" class="notice" role="status" aria-live="polite" hidden></div>
                 <div class="filter-bar">
-                    <input type="search" placeholder="Buscar descripcion o usuario">
-                    <select>
+                    <input type="search" placeholder="Buscar descripcion o usuario" disabled>
+                    <select disabled>
                         <option value="">Filtrar por categoria</option>
-                        <option value="sueldo">Sueldo</option>
-                        <option value="alquiler">Alquiler</option>
-                        <option value="comida">Comida</option>
                     </select>
                 </div>
                 <table>
@@ -137,44 +135,10 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="transaccionesTableBody">
                         <tr>
-                            <td>10/07/2025</td>
-                            <td>lucas@billetin.com</td>
-                            <td><span class="status-pill">Comida</span></td>
-                            <td>ARS</td>
-                            <td>$ 4.800</td>
-                            <td>
-                                <div class="inline-actions">
-                                    <a class="btn secondary" href="#">Ver</a>
-                                    <a class="btn secondary" href="#">Editar</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>08/07/2025</td>
-                            <td>carla@billetin.com</td>
-                            <td><span class="status-pill warning">Servicios</span></td>
-                            <td>USD</td>
-                            <td>USD 250</td>
-                            <td>
-                                <div class="inline-actions">
-                                    <a class="btn secondary" href="#">Ver</a>
-                                    <a class="btn secondary" href="#">Editar</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>07/07/2025</td>
-                            <td>maria@billetin.com</td>
-                            <td><span class="status-pill">Ventas</span></td>
-                            <td>EUR</td>
-                            <td>EUR 1.200</td>
-                            <td>
-                                <div class="inline-actions">
-                                    <a class="btn secondary" href="#">Ver</a>
-                                    <a class="btn secondary" href="#">Editar</a>
-                                </div>
+                            <td colspan="6" style="text-align:center;color:var(--text-muted);padding:1.5rem;">
+                                Cargando transacciones...
                             </td>
                         </tr>
                     </tbody>
@@ -187,7 +151,6 @@
         <small>&copy; 2025 Billetin. Tu app para entender tu plata.</small>
     </footer>
     <script src="js/app.js"></script>
-    <script src="js/navbar-auth.js"></script>
-    </script>
+    <script src="js/transacciones.js"></script>
 </body>
 </html>
