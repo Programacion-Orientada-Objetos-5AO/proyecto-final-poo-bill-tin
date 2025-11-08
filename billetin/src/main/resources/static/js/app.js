@@ -1,12 +1,15 @@
+console.log("✅ app.js cargado correctamente");
+
+
 (() => {
-    const STORAGE_KEY = "billetin.token";
+    const STORAGE_KEY = "token";
     const isBrowser = typeof window !== "undefined";
 
     const base64UrlDecode = (value) => {
         const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
         const padded = normalized.padEnd(normalized.length + (4 - (normalized.length % 4)) % 4, "=");
         const decoded = atob(padded);
-        try {
+        try {       
             return decodeURIComponent(
                 decoded
                     .split("")
@@ -53,13 +56,14 @@
 
     const getSession = () => ensureTokenIsValid(getToken());
 
+    // 🔧 Modo desarrollo: desactivar redirecciones
     const redirectToLogin = () => {
-        if (!isBrowser) return;
-        const current = window.location.pathname.split("/").pop();
-        if (current !== "login.html") {
-            window.location.href = "login.html";
-        }
+    console.warn("⚠️ Redirección a login DESACTIVADA (modo desarrollo)");
+    // Evitamos cualquier redirección
+    // window.location.href = 'login.html'; // <- no tocar hasta producción
     };
+
+
 
     const logout = () => {
         clearToken();
@@ -213,4 +217,8 @@
         formatDate,
         readForm,
     };
+    console.log("✅ Billetin cargado:", window.Billetin);
+    console.log("🔑 Token actual:", localStorage.getItem("token"));
+    console.log("👤 Usuario actual:", localStorage.getItem("username"));
+
 })();

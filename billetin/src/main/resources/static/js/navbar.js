@@ -1,11 +1,17 @@
-// Script para mostrar icono de usuario cuando hay sesión activa
+// navbar.js — versión segura sin redirección automática
 document.addEventListener('DOMContentLoaded', function() {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
     const ctaButton = document.querySelector('.cta');
-    
-    if (token && username && ctaButton) {
-        // Reemplazar el botón de login con el icono de usuario
+
+    // ✅ Si no hay token, simplemente mostramos el botón normal
+    if (!token || !username) {
+        console.log("⚠️ No hay sesión activa. Mostrando botón de inicio de sesión.");
+        return;
+    }
+
+    // Si existe sesión, reemplazamos el botón por el icono de usuario
+    if (ctaButton) {
         ctaButton.href = '#';
         ctaButton.innerHTML = '👤';
         ctaButton.style.cssText = `
@@ -21,19 +27,19 @@ document.addEventListener('DOMContentLoaded', function() {
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         `;
-        
-        // Efecto hover
-        ctaButton.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.1)';
-            this.style.boxShadow = '0 6px 20px rgba(11, 129, 50, 0.5)';
+
+        // Hover
+        ctaButton.addEventListener('mouseenter', () => {
+            ctaButton.style.transform = 'scale(1.1)';
+            ctaButton.style.boxShadow = '0 6px 20px rgba(11, 129, 50, 0.5)';
         });
-        
-        ctaButton.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1)';
-            this.style.boxShadow = '0 4px 15px rgba(33, 136, 33, 0.3)';
+
+        ctaButton.addEventListener('mouseleave', () => {
+            ctaButton.style.transform = 'scale(1)';
+            ctaButton.style.boxShadow = '0 4px 15px rgba(33, 136, 33, 0.3)';
         });
-        
-        // Crear menú desplegable
+
+        // Menú desplegable
         const menu = document.createElement('div');
         menu.id = 'userMenu';
         menu.style.cssText = `
@@ -49,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: 1000;
             animation: slideDown 0.3s ease;
         `;
-        
+
         menu.innerHTML = `
             <div style="padding: 0.75rem; border-bottom: 2px solid #f0f0f0; margin-bottom: 0.75rem;">
                 <div style="font-size: 0.85rem; color: #888; margin-bottom: 0.25rem;">Sesión activa</div>
@@ -71,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             " onmouseover="this.style.background='#e0e0e0'" onmouseout="this.style.background='#f5f5f5'">
                 🏠 Ir al inicio
             </button>
-            <button onclick="cerrarSesionNavbar()" style="
+            <button id="logoutButton" style="
                 width: 100%;
                 padding: 0.75rem;
                 background: #fee;
@@ -87,46 +93,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 🚪 Cerrar sesión
             </button>
         `;
-        
-        // Agregar animación
+
+        document.body.appendChild(menu);
+
+        // Animación
         const style = document.createElement('style');
         style.textContent = `
             @keyframes slideDown {
-                from {
-                    opacity: 0;
-                    transform: translateY(-10px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
             }
         `;
         document.head.appendChild(style);
-        
-        document.body.appendChild(menu);
-        
-        // Toggle menú al hacer clic
-        ctaButton.addEventListener('click', function(e) {
+
+        // Toggle menú
+        ctaButton.addEventListener('click', (e) => {
             e.preventDefault();
             menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
         });
-        
-        // Cerrar menú al hacer clic fuera
-        document.addEventListener('click', function(e) {
+
+        // Cerrar al hacer clic fuera
+        document.addEventListener('click', (e) => {
             if (!ctaButton.contains(e.target) && !menu.contains(e.target)) {
                 menu.style.display = 'none';
             }
         });
+
+        // Cerrar sesión
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+        
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
+                alert('Sesión cerrada exitosamente');
+                window.location.href = 'login.html';
+            }
+        });
     }
 });
-
-// Función global para cerrar sesión desde el navbar
-function cerrarSesionNavbar() {
-    if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-        alert('Sesión cerrada exitosamente');
-        window.location.href = 'login.html';
-    }
-}
