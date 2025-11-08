@@ -27,7 +27,11 @@ public class UsuarioController {
     @PostMapping("/registrar")
     public ResponseEntity<UsuarioDTO> registrarCliente(@Valid @RequestBody RegistrarDTO registrarDTO) {
         Usuario usuario = usuarioMapper.toEntity(registrarDTO);
-        Usuario nuevoUsuario = usuarioService.registrar(usuario, registrarDTO.password(), registrarDTO.verificacionPassword());
+        Usuario nuevoUsuario = usuarioService.registrar(
+                usuario,
+                registrarDTO.password(),
+                registrarDTO.verificacionPassword(),
+                registrarDTO.membresia());
         UsuarioDTO nuevoUsuarioDTO = usuarioMapper.toDTO(nuevoUsuario);
         return ResponseEntity.ok(nuevoUsuarioDTO);
     }
