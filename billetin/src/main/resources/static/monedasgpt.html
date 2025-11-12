@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECOWISE | Billetín</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <h1>ECOWISE</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="objetivos.html">Objetivos</a>
+            <a href="categorias.html">Categorías</a>
+            <a href="monedas.html" class="active">Monedas</a>
+            <a href="membresias.html">Membresías</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>Agregar nueva moneda</h2>
+            <form method="post" action="/api/monedas">
+                <input type="text" placeholder="Nombre de la moneda" required>
+                <input type="text" placeholder="Símbolo ($, USD, €...)" required>
+                <button class="btn" type="submit" formaction="moneda-registrada.html" formmethod="get">Agregar moneda</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3>Monedas registradas</h3>
+            <table>
+                <thead>
+                    <tr><th>Nombre</th><th>Símbolo</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Peso Argentino</td><td>$</td></tr>
+                    <tr><td>Dólar Estadounidense</td><td>USD</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>© 2025 Billetín</footer>
+</body>
+</html>

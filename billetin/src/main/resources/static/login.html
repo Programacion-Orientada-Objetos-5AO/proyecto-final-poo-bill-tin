@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billetin | Iniciar sesion</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <h1>ECOWISE</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="objetivogpt.html">Objetivos</a>
+            <a href="membresias.html">Membresias</a>
+            <a href="monedas.html">Monedas</a>
+            <a href="categorias.html">Categorias</a>
+            <a href="transacciones.html">Transacciones</a>
+        </nav>
+        <a class="cta" href="registro.html">Crear cuenta</a>
+    </header>
+
+    <main class="container">
+        <section class="form-layout">
+            <header>
+                <span class="tagline">Bienvenido de nuevo</span>
+                <h1>Iniciar sesion</h1>
+                <p>Accede a tu panel para registrar transacciones y seguir tus objetivos.</p>
+            </header>
+            
+            <form id="loginForm">
+                <label for="username">Correo electronico</label>
+                <input type="email" id="username" name="username" placeholder="usuario@billetin.com" autocomplete="username" required>
+
+                <label for="password">Contrasena</label>
+                <input type="password" id="password" name="password" placeholder="Tu contrasena" autocomplete="current-password" required minlength="16">
+                <small style="display:block;color:var(--text-muted);margin-top:-0.4rem;margin-bottom:1rem;">Debe contener 16 caracteres, mayuscula, minuscula, numero y simbolo.</small>
+
+                <div id="errorMessage" style="display:none; color:#d32f2f; margin-bottom:1rem; padding:0.75rem; background:#ffebee; border-radius:4px; font-size:0.9rem;"></div>
+
+                <button class="btn" type="submit" id="submitBtn">Ingresar</button>
+            </form>
+            
+            <div class="form-footer">
+                <p>&iquest;Olvidaste tu contrasena? <a href="#">Recuperarla</a></p>
+                <p>&iquest;No tienes cuenta? <a href="registro.html">Registrate ahora</a></p>
+            </div>
+
+            <div class="info-card" style="margin-top:2rem;">
+                <h2>Credenciales de prueba</h2>
+                <p>Estas cuentas se cargan automaticamente desde el DataInitializer de la aplicacion:</p>
+                <ul style="margin:0;padding-left:1.25rem;line-height:1.6;">
+                    <li><strong>Administrador:</strong> admin@derlgastos.billetin.edu.ar / Adminsdeproyectobilletin@2026</li>
+                    <li><strong>Cliente:</strong> cliente@delrgastos.billetin.edu.ar / Quieromicontrasenasegura@2026</li>
+                </ul>
+                <small style="display:block;color:var(--text-muted);margin-top:0.75rem;">Inicia sesion con cualquiera para generar un token y acceder a los modulos protegidos.</small>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <small>&copy; 2025 Billetin. Plataforma integral de gestion financiera.</small>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/login.js"></script>
+
+</body>
+</html>

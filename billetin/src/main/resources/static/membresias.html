@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECOWISE | Membresias</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <h1>ECOWISE</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="objetivogpt.html">Objetivos</a>
+            <a class="active" href="membresias.html">Membresias</a>
+            <a href="monedas.html">Monedas</a>
+            <a href="categorias.html">Categorias</a>
+            <a href="transacciones.html">Transacciones</a>
+        </nav>
+        <a class="cta" href="login.html" data-auth-link data-action="logout">Iniciar sesion</a>
+    </header>
+
+    <main class="container">
+        <section class="content-header">
+            <span class="tagline">Planes para cada etapa</span>
+            <h1>Escala tu gestion financiera con membresias pensadas para equipos modernos</h1>
+            <p>Selecciona la membresia adecuada para tu organizacion y desbloquea modulos avanzados, soporte dedicado y automatizaciones que optimizan el control de gastos.</p>
+        </section>
+
+
+        <section class="section-block">
+            <h2>Registrar nueva membresia</h2>
+            <p>Administra los planes disponibles desde este modulo. El formulario se integra con el endpoint de membresias del backend.</p>
+            <div class="segment-grid">
+                <div class="info-card">
+                    <form method="post" action="/api/membresias">
+                        <label for="nombre">Nombre de la membresia</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Premium Global" required>
+
+                        <label for="precio">Precio mensual (ARS)</label>
+                        <input type="number" id="precio" name="precio" min="500" step="0.01" placeholder="25000" required>
+
+                        <label for="beneficios">Beneficios destacados</label>
+                        <textarea id="beneficios" name="beneficios" placeholder="Reportes avanzados, API abierta" required></textarea>
+
+                        <label for="duracion">Fecha de renovacion</label>
+                        <input type="date" id="duracion" name="duracion" required>
+
+                        <button class="btn" type="submit" formaction="membresia-registrada.html" formmethod="get">Guardar membresia</button>
+                    </form>
+                </div>
+                <div class="info-card">
+                    <h3>Consejos para definir planes</h3>
+                    <div class="feature-list">
+                        <div class="feature">
+                            <div class="feature-icon">+</div>
+                            <div>
+                                <h4>Pon en valor tu servicio</h4>
+                                <p>Alinea precios con los beneficios diferenciales que ofreces.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">%</div>
+                            <div>
+                                <h4>Evalua promociones</h4>
+                                <p>Define periodos y descuentos con control de retorno de inversion.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">S</div>
+                            <div>
+                                <h4>Coordina soporte</h4>
+                                <p>Asigna niveles de SLA segun la demanda de cada segmento.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section-block">
+            <h2>Todas las membresías</h2>
+            <p>Listado de membresías registradas en el sistema.</p>
+            <div class="table-wrapper">
+                <table class="data-table">
+                <thead>
+                    <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Beneficios</th>
+                    <th>Renovación</th>
+                    </tr>
+                </thead>
+                <tbody id="membresias-table-body">
+                    <tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:1.5rem;">Cargando...</td></tr>
+                </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <small>&copy; 2025 Billetin. Plataforma integral de gestion financiera.</small>
+    </footer>
+    <script src="js/app.js"></script>
+    <script src="js/navbar.js"></script>
+    <script type="module" src="js/membresias.js"></script>
+
+</body>
+</html>

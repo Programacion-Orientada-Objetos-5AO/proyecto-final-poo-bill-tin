@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billetin | Objetivos</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <h1>Billetin</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a class="active" href="objetivos.html">Objetivos</a>
+            <a href="membresias.html">Membresias</a>
+            <a href="monedas.html">Monedas</a>
+            <a href="categorias.html">Categorias</a>
+            <a href="transacciones.html">Transacciones</a>
+        </nav>
+        <a class="cta" href="login.html">Iniciar sesion</a>
+    </header>
+
+    <main class="container">
+        <section class="content-header">
+            <span class="tagline">Metas accionables</span>
+            <h1>Disena, monitorea y celebra los objetivos financieros de tu organizacion</h1>
+            <p>Registra metas medibles, coordina responsables y haz seguimiento del avance real frente al esperado en todo momento.</p>
+        </section>
+
+        <section class="section-block">
+            <h2>Nuevo objetivo</h2>
+            <p>Define un objetivo especifico con fecha de inicio y cierre, monto meta y estado actual para alinear a tu equipo.</p>
+            <div class="segment-grid">
+                <div class="info-card">
+                    <form method="post" action="/api/objetivos">
+                        <label for="nombre">Nombre del objetivo</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Fondo de expansion regional" required>
+
+                        <label for="montoMeta">Monto meta (ARS)</label>
+                        <input type="number" id="montoMeta" name="montoMeta" min="1000" step="0.01" placeholder="500000" required>
+
+                        <label for="fechaInicio">Fecha de inicio</label>
+                        <input type="date" id="fechaInicio" name="fechaInicio" required>
+
+                        <label for="fechaFin">Fecha de fin</label>
+                        <input type="date" id="fechaFin" name="fechaFin" required>
+
+                        <label for="estado">Estado</label>
+                        <select id="estado" name="estado" required>
+                            <option value="">Selecciona una opcion</option>
+                            <option value="en_proceso">En proceso</option>
+                            <option value="cumplido">Cumplido</option>
+                            <option value="no_cumplido">No cumplido</option>
+                        </select>
+
+                        <button class="btn" type="submit" formaction="objetivo-creado.html" formmethod="get">Guardar objetivo</button>
+                    </form>
+                </div>
+                <div class="info-card">
+                    <h3>Recomendaciones para objetivos efectivos</h3>
+                    <div class="feature-list">
+                        <div class="feature">
+                            <div class="feature-icon">OKR</div>
+                            <div>
+                                <h4>Enuncia con claridad</h4>
+                                <p>Asegurate de que todos entiendan que se busca lograr y en que plazo.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">KPIs</div>
+                            <div>
+                                <h4>Mide el impacto</h4>
+                                <p>Relaciona el objetivo con indicadores concretos y asigna responsables.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">#</div>
+                            <div>
+                                <h4>Actualiza estados</h4>
+                                <p>Revisa el progreso de forma periodica y ajusta si surgen nuevas prioridades.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-block">
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h3>Objetivos activos</h3>
+                </div>
+                <div class="filter-bar">
+                    <input type="search" placeholder="Buscar por nombre">
+                    <select>
+                        <option value="">Filtrar por estado</option>
+                        <option value="en_proceso">En proceso</option>
+                        <option value="cumplido">Cumplido</option>
+                        <option value="no_cumplido">No cumplido</option>
+                    </select>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Monto meta</th>
+                            <th>Periodo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fondo de expansion regional</td>
+                            <td>$ 500.000</td>
+                            <td>01/02/2025 - 30/07/2025</td>
+                            <td><span class="status-pill">En proceso</span></td>
+                            <td>
+                                <div class="inline-actions">
+                                    <a class="btn secondary" href="#">Actualizar</a>
+                                    <a class="btn secondary" href="#">Cerrar</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Reserva impuestos Q4</td>
+                            <td>$ 320.000</td>
+                            <td>01/06/2025 - 15/09/2025</td>
+                            <td><span class="status-pill warning">En proceso</span></td>
+                            <td>
+                                <div class="inline-actions">
+                                    <a class="btn secondary" href="#">Actualizar</a>
+                                    <a class="btn secondary" href="#">Cerrar</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Liquidez minima</td>
+                            <td>$ 800.000</td>
+                            <td>01/01/2025 - 30/03/2025</td>
+                            <td><span class="status-pill">Cumplido</span></td>
+                            <td>
+                                <div class="inline-actions">
+                                    <a class="btn secondary" href="#">Ver detalle</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <small>&copy; 2025 Billetin. Plataforma integral de gestion financiera.</small>
+    </footer>
+</body>
+</html>

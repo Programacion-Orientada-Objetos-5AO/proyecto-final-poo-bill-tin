@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECOWISE | Transacciones</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <h1>ECOWISE</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="objetivogpt.html">Objetivos</a>
+            <a href="membresias.html">Membresias</a>
+            <a href="monedas.html">Monedas</a>
+            <a href="categorias.html">Categorias</a>
+            <a class="active" href="transacciones.html">Transacciones</a>
+        </nav>
+        <!-- 🔹 Botón de login o usuario -->
+        <a class="cta" href="login.html" data-auth-link data-action="logout">Iniciar sesión</a>
+    </header>
+
+    <main class="container">
+        <section class="content-header">
+            <span class="tagline">Seguimiento claro</span>
+            <h1>Registra tus movimientos diarios</h1>
+            <p>Carga cada transacción con toda la información necesaria: usuario, categoría y moneda. Así mantenemos trazabilidad completa.</p>
+        </section>
+
+        <section class="section-block">
+            <h2>Agregar movimiento</h2>
+            <p>El formulario requiere todos los datos. Si falta la moneda, la categoría o el usuario, la API no va a aceptar la transacción.</p>
+            <div class="segment-grid">
+                <div class="info-card">
+                    <form id="formTransaccion" method="post" action="/api/transacciones">
+                        <label for="nombreUsuario">Nombre del usuario</label>
+                        <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="ej. Lucas Martínez" required>
+
+                        <label for="monto">Monto</label>    
+                        <input type="number" id="monto" name="monto" step="0.01" min="0" placeholder="ej. 2000" required>
+
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" placeholder="ej. Pago del gimnasio o cobro de venta" required></textarea>
+
+                        <label for="fecha">Fecha</label>
+                        <input type="date" id="fecha" name="fecha" required>
+
+                        <label for="idUsuario">ID de usuario</label>
+                        <input type="number" id="idUsuario" name="idUsuario" placeholder="ID numérico del usuario" required>
+
+                        <label for="idCategoria">ID de categoría</label>
+                        <input type="number" id="idCategoria" name="idCategoria" placeholder="ID numérico de la categoría" required>
+
+                        <label for="idMoneda">ID de moneda</label>
+                        <input type="number" id="idMoneda" name="idMoneda" placeholder="ID numérico de la moneda" required>
+
+                        <button class="btn" type="submit">Guardar</button>
+                    </form>
+                </div>
+                <div class="info-card">
+                    <h3>Tips para cargar mejor tus datos</h3>
+                    <div class="feature-list">
+                        <div class="feature">
+                            <div class="feature-icon">01</div>
+                            <div>
+                                <h4>Usa descripciones claras</h4>
+                                <p>Ejemplo: "Alquiler julio" o "Pago a Juan por diseño".</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">02</div>
+                            <div>
+                                <h4>Chequea la moneda</h4>
+                                <p>Así evitás confusiones si llevás cuentas en pesos y dólares.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">03</div>
+                            <div>
+                                <h4>Elegí la categoría correcta</h4>
+                                <p>Esto es clave para analizar tus gastos después.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-block">
+            <h2>Consultas rápidas</h2>
+            <p>Obtené datos útiles para entender cómo usás tu plata.</p>
+            <div class="segment-grid">
+                <div class="info-card">
+                    <form method="get" action="/api/transacciones/gasto-entre-fechas">
+                        <h3>Total gastado entre fechas</h3>
+                        <label for="inicio">Desde</label>
+                        <input type="date" id="inicio" name="inicio" required>
+
+                        <label for="fin">Hasta</label>
+                        <input type="date" id="fin" name="fin" required>
+
+                        <button class="btn" type="submit">Calcular</button>
+                    </form>
+                </div>
+                <div class="info-card">
+                    <form method="get" action="/api/transacciones/gastos-por-categoria/1" onsubmit="this.action='/api/transacciones/gastos-por-categoria/' + this.usuarioId.value;">
+                        <h3>Gastos por categoría</h3>
+                        <label for="usuarioId">ID de usuario</label>
+                        <input type="number" id="usuarioId" name="usuarioId" min="1" required>
+                        <button class="btn" type="submit">Ver resumen</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-block">
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <h3>Movimientos recientes</h3>
+                </div>  
+                <table>
+                    <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Monto</th>
+                        <th>Descripción</th>
+                        <th>Fecha</th>
+                        <th>Nombre Usuario</th>
+                        <th>Categoría</th>
+                        <th>Moneda</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transaccionesTableBody"></tbody>
+                </table>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <small>&copy; 2025 Billetin. Tu app para entender tu plata.</small>
+    </footer>
+
+    <!-- 🔹 Scripts en el orden correcto -->
+    <script src="js/app.js"></script>
+    <script src="js/transacciones.js"></script>
+    <script src="js/navbar.js"></script>
+</body>
+</html>
