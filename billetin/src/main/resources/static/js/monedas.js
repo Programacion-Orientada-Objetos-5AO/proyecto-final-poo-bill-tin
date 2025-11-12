@@ -1,51 +1,79 @@
-    document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("form");
-    const codigoInput = document.getElementById("codigo");
-    const nombreInput = document.getElementById("nombre");
+document.addEventListener("DOMContentLoaded", async () => {
+    console.log("✅ monedas.js cargado correctamente");
 
-    if (!form) return; // seguridad
+    const { apiFetch, readForm, getToken } = window.Billetin || {};
+    const API_BASE_URL = "http://localhost:8080/api";
 
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+    const tablaBody = document.querySelector("#monedas-table-body");
+    const form = document.querySelector("form[action='/api/monedas']");
 
-        const codigo = codigoInput.value.trim();
-        const nombre = nombreInput.value.trim();
+    if (!apiFetch || !getToken) {
+        console.error("❌ Billetin no está inicializado. Verifica que app.js se cargue antes de monedas.js");
+        return;
+    }
 
-        if (!codigo || !nombre) {
-            alert("Por favor, completá todos los campos.");
-            return;
-        }
+    const token = getToken();
+    if (!token) {
+        console.warn("⚠️ No hay token. Redirigiendo a login...");
+        window.location.href = "login.html";
+        return;
+    }
 
-        const monedaData = {
-            codigo: codigo.toUpperCase(),
-            nombre: nombre
-        };
+    // 🔁 Cargar monedas desde el backend
+    const cargarMonedas = async () => {
+        tablaBody.innerHTML = "<tr><td colspan='3' style='text-align:center;'>Cargando...</td></tr>";
 
         try {
-            const response = await fetch("/api/monedas", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": localStorage.getItem("token") 
-                        ? `Bearer ${localStorage.getItem("token")}` 
-                        : ""
-                },
-                body: JSON.stringify(monedaData)
-            });
+            const monedas = await apiFetch(`${API_BASE_URL}/monedas`);
+            console.log("💰 Monedas cargadas:", monedas);
 
-            if (!response.ok) {
-                const text = await response.text();
-                console.error("Error del servidor:", text);
-                alert("Error al guardar la moneda. Verificá los datos o tu sesión.");
+            tablaBody.innerHTML = "";
+
+            if (!monedas || monedas.length === 0) {
+                tablaBody.innerHTML = "<tr><td colspan='3' style='text-align:center;'>No hay monedas registradas.</td></tr>";
                 return;
             }
 
-            console.log("Moneda creada correctamente.");
-            window.location.href = "moneda-registrada.html";
-
+            monedas.forEach((moneda) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${moneda.id}</td>
+                    <td>${moneda.codigo}</td>
+                    <td>${moneda.nombre}</td>
+                `;
+                tablaBody.appendChild(row);
+            });
         } catch (error) {
-            console.error("Error de red o backend:", error);
-            alert("No se pudo conectar con el servidor.");
+            console.error("❌ Error cargando monedas:", error);
+            tablaBody.innerHTML = "<tr><td colspan='3' style='text-align:center;'>Error al cargar monedas.</td></tr>";
         }
-    });
+    };
+
+    // 📝 Crear moneda
+    if (form) {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const data = readForm(form);
+            console.log("📤 Enviando moneda:", data);
+
+            try {
+                const response = await apiFetch(`${API_BASE_URL}/monedas`, {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                });
+
+                console.log("✅ Moneda creada correctamente:", response);
+                alert("✅ Moneda creada correctamente");
+
+                form.reset();
+                await cargarMonedas(); // recarga desde el backend
+            } catch (error) {
+                console.error("❌ Error creando moneda:", error);
+                alert("❌ Error al crear moneda");
+            }   
+        });
+    }
+
+    // 🚀 Cargar monedas existentes al entrar
+    cargarMonedas();
 });

@@ -1,127 +1,95 @@
-// Configuración de la API
-const API_URL = 'http://localhost:8080';
 
-document.addEventListener('DOMContentLoaded', function() {
-    cargarCategorias();
-    
-    const categoriaForm = document.getElementById('categoriaForm');
-    const submitBtn = document.getElementById('categoriaSubmit');
-    const feedback = document.getElementById('categoriaFeedback');
-    
-    categoriaForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        // Deshabilitar botón
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Guardando...';
-        feedback.style.display = 'none';
-        
-        // Obtener datos del formulario
-        const nombre = document.getElementById('nombre').value.trim();
-        const tipoSelect = document.getElementById('tipo').value;
-        
-        // Convertir el valor del select al enum de Java
-        const tipoMap = {
-            'ingreso_fijo': 'INGRESO_FIJO',
-            'ingreso_variable': 'INGRESO_VARIABLE',
-            'egreso_fijo': 'EGRESO_FIJO',
-            'egreso_variable': 'EGRESO_VARIABLE'
-        };
-        
-        const tipo = tipoMap[tipoSelect];
-        
-        try {
-            const response = await fetch(`${API_URL}/api/categorias`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    nombre: nombre,
-                    tipo: tipo
-                })
-            });
-            
-            if (response.ok) {
-                mostrarFeedback('✅ Categoría creada exitosamente', 'success');
-                categoriaForm.reset();
-                cargarCategorias(); // Recargar la tabla
-            } else {
-                const error = await response.json();
-                mostrarFeedback('❌ Error: ' + (error.message || 'No se pudo crear la categoría'), 'error');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            mostrarFeedback('❌ Error de conexión con el servidor', 'error');
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Guardar categoria';
-        }
-    });
-});
+// categorias.js - compatible con window.Billetin (sin imports)
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("✅ categorias.js cargado correctamente");
 
-async function cargarCategorias() {
-    const tbody = document.getElementById('categoriasTableBody');
-    
+  const { apiFetch, readForm, getToken } = window.Billetin || {};
+  const API_BASE_URL = "http://localhost:8080/api";
+
+  const tableBody = document.getElementById("categoriasTableBody");
+  const form = document.getElementById("categoriaForm");
+  const feedback = document.getElementById("categoriaFeedback");
+
+  if (!apiFetch || !getToken) {
+    console.error("❌ Billetin no está inicializado. Asegurate de cargar app.js antes de categorias.js");
+    if (tableBody) tableBody.innerHTML = "<tr><td colspan='3' style='text-align:center;color:red;'>Error inicializando cliente</td></tr>";
+    return;
+  }
+
+  // Helper para mostrar mensajes
+  const showFeedback = (msg = "", isError = false, timeout = 4000) => {
+    if (!feedback) return;
+    feedback.style.display = msg ? "block" : "none";
+    feedback.style.color = isError ? "#b71c1c" : "#0b6623";
+    feedback.style.background = isError ? "#ffebee" : "#eef7ee";
+    feedback.textContent = msg;
+    if (timeout && msg) setTimeout(() => { feedback.style.display = "none"; }, timeout);
+  };
+
+  // Cargar categorias y pintar tabla
+  const cargarCategorias = async () => {
+    if (!tableBody) return;
+    tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center;">Cargando categorías...</td></tr>`;
+
     try {
-        const response = await fetch(`${API_URL}/api/categorias`);
-        const categorias = await response.json();
-        
-        if (categorias.length === 0) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="3" style="text-align:center;color:var(--text-muted);padding:1.5rem;">
-                        No hay categorías registradas. Crea la primera usando el formulario.
-                    </td>
-                </tr>
-            `;
-            return;
-        }
-        
-        // Mapear los tipos de vuelta al español
-        const tipoTexto = {
-            'INGRESO_FIJO': 'Ingreso fijo',
-            'INGRESO_VARIABLE': 'Ingreso variable',
-            'EGRESO_FIJO': 'Gasto fijo',
-            'EGRESO_VARIABLE': 'Gasto variable'
-        };
-        
-        tbody.innerHTML = categorias.map(cat => `
-            <tr>
-                <td>${cat.idCategoria}</td>
-                <td><strong>${cat.nombre}</strong></td>
-                <td>${tipoTexto[cat.tipo] || cat.tipo}</td>
-            </tr>
-        `).join('');
-        
-    } catch (error) {
-        console.error('Error al cargar categorías:', error);
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="3" style="text-align:center;color:#d32f2f;padding:1.5rem;">
-                    ❌ Error al cargar las categorías. Verifica que el servidor esté corriendo.
-                </td>
-            </tr>
-        `;
-    }
-}
+      const categorias = await apiFetch(`${API_BASE_URL}/categorias`);
+      console.log("📥 Categorías:", categorias);
 
-function mostrarFeedback(mensaje, tipo) {
-    const feedback = document.getElementById('categoriaFeedback');
-    feedback.style.display = 'block';
-    feedback.textContent = mensaje;
-    
-    if (tipo === 'success') {
-        feedback.style.background = '#d4edda';
-        feedback.style.color = '#155724';
-        feedback.style.border = '1px solid #c3e6cb';
-    } else {
-        feedback.style.background = '#f8d7da';
-        feedback.style.color = '#721c24';
-        feedback.style.border = '1px solid #f5c6cb';
+      if (!Array.isArray(categorias) || categorias.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center;">No hay categorías</td></tr>`;
+        return;
+      }
+
+      tableBody.innerHTML = categorias.map(c => `
+        <tr>
+          <td>${c.id ?? c.idCategoria ?? "-"}</td>
+          <td>${c.nombre ?? "-"}</td>
+          <td>${c.tipo ?? "-"}</td>
+        </tr>
+      `).join("");
+    } catch (err) {
+      console.error("❌ Error cargando categorías:", err);
+      tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center;color:red;">Error al cargar categorías</td></tr>`;
+      showFeedback("Error al cargar categorías. Revisa la consola.", true, 6000);
     }
-    
-    setTimeout(() => {
-        feedback.style.display = 'none';
-    }, 5000);
-}
+  };
+
+  // Crear nueva categoria
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      showFeedback(""); // limpiar
+
+      const data = readForm(form);
+      // Normalizar payload según DTO backend
+      const payload = {
+        nombre: data.nombre?.trim(),
+        tipo: data.tipo
+      };
+
+      if (!payload.nombre || !payload.tipo) {
+        showFeedback("Completa nombre y tipo antes de guardar.", true);
+        return;
+      }
+
+      try {
+        // POST
+        await apiFetch(`${API_BASE_URL}/categorias`, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+
+        showFeedback("✅ Categoría creada correctamente");
+        form.reset();
+        await cargarCategorias();
+      } catch (err) {
+        console.error("❌ Error creando categoría:", err);
+        const msg = (err && (err.message || (err.body && (err.body.detail || err.body.message)))) || "Error creando categoría";
+        showFeedback(`❌ ${msg}`, true, 6000);
+      }
+    });
+  }
+
+  // Inicial
+  cargarCategorias();
+});

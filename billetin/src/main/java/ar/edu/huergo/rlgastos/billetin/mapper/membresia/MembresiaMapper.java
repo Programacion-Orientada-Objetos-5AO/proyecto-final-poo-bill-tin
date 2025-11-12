@@ -22,6 +22,7 @@ public class MembresiaMapper {
 
     public MostrarMembresiaDTO toMostrarDTO(Membresia membresia) {
         return new MostrarMembresiaDTO(
+            membresia.getIdMembresia(),
             membresia.getNombre(),
             membresia.getPrecio(),
             membresia.getBeneficios(),

@@ -12,7 +12,7 @@
         <nav>
             <a href="index.html">Inicio</a>
             <a href="objetivogpt.html">Objetivos</a>
-            <a href="membresias.html">Membresias</a>
+            <a href="membresias.html">Membresias</a>    
             <a class="active" href="monedas.html">Monedas</a>
             <a href="categorias.html">Categorias</a>
             <a href="transacciones.html">Transacciones</a>
@@ -32,16 +32,16 @@
             <p>Completa el formulario para agregar un nuevo codigo ISO y compartirlo con los equipos contables y operativos.</p>
             <div class="segment-grid">
                 <div class="info-card">
-                    <form method="post" action="/api/monedas">
-                        <label for="codigo">Codigo ISO (ARS, USD, EUR)</label>
+                    <form id="formMoneda" method="post" action="/api/monedas">
+                        <label for="codigo">Código ISO (ARS, USD, EUR)</label>
                         <input type="text" id="codigo" name="codigo" maxlength="3" placeholder="ARS" required>
 
                         <label for="nombre">Nombre</label>
                         <input type="text" id="nombre" name="nombre" placeholder="Peso argentino" required>
 
-                        <button class="btn" type="submit" formaction="moneda-registrada.html" formmethod="get">Guardar moneda</button>
+                        <button class="btn" type="submit">Guardar moneda</button>
                     </form>
-                </div>
+                </div>      
                 <div class="info-card">
                     <h3>Lineamientos de referencia</h3>
                     <div class="feature-list">
@@ -70,14 +70,34 @@
                 </div>
             </div>
         </section>
+        <section class="section-block">
+            <h2>Todas las monedas registradas</h2>
+            <p>Listado de monedas configuradas en el sistema.</p>
+            <div class="table-wrapper">
+                <table class="data-table">
+                <thead>
+                    <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody id="monedas-table-body">
+                    <tr><td colspan="3" style="text-align:center;">Cargando...</td></tr>
+                </tbody>
+                </table>
+            </div>
+        </section>
+
     </main>
 
     <footer>
         <small>&copy; 2025 Billetin. Plataforma integral de gestion financiera.</small>
     </footer>
     <script src="js/app.js"></script>
-    <script src="js/navbar-auth.js"></script>
+    <script src="js/navbar.js"></script>
     <script src="js/monedas.js"></script>
+
 </body>
 </html>
     

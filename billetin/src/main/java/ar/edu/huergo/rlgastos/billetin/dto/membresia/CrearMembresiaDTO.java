@@ -1,5 +1,6 @@
 package ar.edu.huergo.rlgastos.billetin.dto.membresia;
 import java.util.Date;
+
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,6 +17,6 @@ public record CrearMembresiaDTO(
     @NotBlank(message = "Los beneficios son obligatorios")
     String beneficios,
 
-    @NotBlank(message = "La duración es obligatoria")
+    @NotNull(message = "La duración es obligatoria")
     Date duracion
-) {}
+) {}    

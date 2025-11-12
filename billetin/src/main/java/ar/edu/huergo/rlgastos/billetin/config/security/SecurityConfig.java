@@ -38,42 +38,50 @@ public class SecurityConfig {
                 config.addAllowedOriginPattern("*");
                 config.addAllowedHeader("*");
                 config.addAllowedMethod("*");
-                return config;
+                return config;  
             }))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
             .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
             .requestMatchers(HttpMethod.POST, "/api/usuarios/registrar").permitAll()
-            // Permitir acceso a HTML y recursos estáticos
-            .requestMatchers("/", "/*.html", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()            // Permitir acceso al nuevo API controller
+            // Recursos estáticos y frontend
+            .requestMatchers("/", "/*.html", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+            // Endpoints públicos
             .requestMatchers("/api/saludo/**", "/api/gastos", "/api/gasto", "/api/estado").permitAll()
+
+            // 🔹 Transacciones (requieren token JWT)
             .requestMatchers(HttpMethod.GET, "/api/transacciones/**").hasAnyRole("ADMIN", "CLIENTE")
-            .requestMatchers("/api/transacciones").hasRole("ADMIN")
             .requestMatchers(HttpMethod.POST, "/api/transacciones/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.PUT, "/api/transacciones/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.DELETE, "/api/transacciones/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.GET,"/api/objetivos/**").hasAnyRole("ADMIN","CLIENTE")
-            .requestMatchers("/api/objetivos").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.POST,"api/objetivos/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.PUT,"api/objetivos/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.DELETE,"api/objetivos/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.GET,"api/membresias/**").hasAnyRole("ADMIN","CLIENTE")
-            .requestMatchers("api/membresias/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.POST,"api/membresias/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.PUT,"api/membresias/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.DELETE,"api/membresias/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.GET,"api/monedas/**").hasAnyRole("ADMIN","CLIENTE")
-            .requestMatchers("api/monedas/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.POST,"api/monedas/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.PUT,"api/monedas/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.DELETE,"api/monedas/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.GET,"api/categorias/**").hasAnyRole("ADMIN","CLIENTE")
-            .requestMatchers("api/categorias/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.POST,"api/categorias/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.PUT,"api/categorias/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.DELETE,"api/categorias/**").hasRole("ADMIN")
+
+            // 🔹 Objetivos
+            .requestMatchers(HttpMethod.GET, "/api/objetivos/**").hasAnyRole("ADMIN", "CLIENTE")
+            .requestMatchers(HttpMethod.POST, "/api/objetivos/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/api/objetivos/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/api/objetivos/**").hasRole("ADMIN")
+
+            // 🔹 Membresías
+            .requestMatchers(HttpMethod.GET, "/api/membresias/**").hasAnyRole("ADMIN", "CLIENTE")
+            .requestMatchers(HttpMethod.POST, "/api/membresias/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/api/membresias/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/api/membresias/**").hasRole("ADMIN")
+
+            // 🔹 Monedas
+            .requestMatchers(HttpMethod.GET, "/api/monedas/**").hasAnyRole("ADMIN", "CLIENTE")
+            .requestMatchers(HttpMethod.POST, "/api/monedas/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/api/monedas/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/api/monedas/**").hasRole("ADMIN")
+
+            // 🔹 Categorías
+            .requestMatchers(HttpMethod.GET, "/api/categorias/**").hasAnyRole("ADMIN", "CLIENTE")
+            .requestMatchers(HttpMethod.POST, "/api/categorias/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/api/categorias/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/api/categorias/**").hasRole("ADMIN")
+
             .anyRequest().authenticated()
         )
+
         .exceptionHandling(exceptions -> exceptions
             .accessDeniedHandler(accessDeniedHandler())
             .authenticationEntryPoint(authenticationEntryPoint())

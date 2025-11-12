@@ -86,16 +86,18 @@ public class TransaccionController {
     }
 
     @GetMapping("/gastos-por-categoria/{usuarioId}")
-    public ResponseEntity<Map<String, Double>> getGastosPorCategoria(@PathVariable Long usuarioId) {
-        Map<String, Double> gastosPorCategoria = transaccionService.calcularGastosPorCategoria(usuarioId);
-        return ResponseEntity.ok(gastosPorCategoria);
+    public ResponseEntity<Map<String, Double>> getGastosPorCategoria(@PathVariable("usuarioId") Long usuarioId) {
+    Map<String, Double> gastosPorCategoria = transaccionService.calcularGastosPorCategoria(usuarioId);
+    return ResponseEntity.ok(gastosPorCategoria);
     }
+
 
     @GetMapping("/gasto-convertido")
     public ResponseEntity<Map<String, Object>> calcularGastoConvertido(
-        @RequestParam LocalDate inicio,
-        @RequestParam LocalDate fin,
-        @RequestParam String monedaDestino) {
+        @RequestParam("inicio") LocalDate inicio,
+        @RequestParam("fin") LocalDate fin,
+        @RequestParam("monedaDestino") String monedaDestino) {
+ 
 
     Map<String, Object> resultado = transaccionService.calcularGastoConvertido(inicio, fin, monedaDestino);
     return ResponseEntity.ok(resultado);
