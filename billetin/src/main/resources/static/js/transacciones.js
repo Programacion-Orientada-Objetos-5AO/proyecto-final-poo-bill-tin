@@ -232,7 +232,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const pretty = formatCurrency(total);
       if (cont) {
-        cont.innerHTML = `<div style="background:#eef7ff;padding:10px;border-radius:8px;margin-top:8px;">
+        cont.innerHTML = `<div style="background:#000;padding:10px;border-radius:8px;margin-top:8px;">
+
           <strong>💸 Total gastado:</strong> <span style="font-weight:700">${pretty}</span>
         </div>`;
       } else {
@@ -279,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>`;
       }).join("");
 
-      if (cont) cont.innerHTML = `<div style="background:#fff7ea;padding:10px;border-radius:8px;margin-top:8px;">${rows}</div>`;
+      if (cont) cont.innerHTML = `<div style="background:#000;padding:10px;border-radius:8px;margin-top:8px;">${rows}</div>`;
       else alert("Consulta completada. Revisá la consola.");
 
     } catch (err) {
