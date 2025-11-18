@@ -97,9 +97,11 @@ public class TransaccionController {
         @RequestParam("inicio") LocalDate inicio,
         @RequestParam("fin") LocalDate fin,
         @RequestParam("monedaDestino") String monedaDestino) {
- 
+
 
     Map<String, Object> resultado = transaccionService.calcularGastoConvertido(inicio, fin, monedaDestino);
     return ResponseEntity.ok(resultado);
     }
+
+
 }
