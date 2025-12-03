@@ -51,7 +51,7 @@ public class TransaccionService {
                 .mapToDouble(Transaccion::getMonto)
                 .sum();
     }
-
+//es como el nomral pero finbbytipo
     public Map<String, Double> calcularGastosPorCategoria(Long usuarioId) {
         List<Transaccion> transacciones = transaccionRepository.findByUsuarioId(usuarioId);
 
