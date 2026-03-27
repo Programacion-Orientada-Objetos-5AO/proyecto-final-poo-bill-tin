@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión | Billetín</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card" style="max-width: 400px; text-align: center;">
+            <h1>Billetín 💰</h1>
+            <h2>Iniciar Sesión</h2>
+            <form method="post" action="/api/auth/login">
+                <input type="text" placeholder="Usuario" required>
+                <input type="password" placeholder="Contraseña" required>
+                <button class="btn" type="submit" formaction="sesion-exitosa.html" formmethod="get">Ingresar</button>
+            </form>
+            <p style="margin-top: 1rem;">¿No tenés cuenta? <a href="#">Registrate</a></p>
+        </div>
+    </div>
+    <footer>
+        © 2025 Billetín - Finanzas Personales
+    </footer>
+  <script src="../js/navbar.js"></script>
+
+</body>
+</html>
